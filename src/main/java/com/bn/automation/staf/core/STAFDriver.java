@@ -15,16 +15,17 @@ import org.openqa.selenium.ie.InternetExplorerDriver;
 
 import com.bn.automation.staf.helpers.STAFConstant;
 
-public class STAFDriver extends IScript implements STAFiDriver{
+public class STAFDriver extends IScript implements STAFiDriver {
 
 	public static WebDriver iDriver;
-	private static String browser;
 	private String testCaseID;
 	private String dataFileLocation;
 	private String URL;
 	private static final Logger logger = LogManager.getLogger();
-	
+	private volatile static STAFDriver stafDriver = null;
+
 	public STAFDriver(String browser) {
+
 		switch (browser) {
 		case STAFConstant.FIREFOX:
 			setBrowser(STAFConstant.FIREFOX);
@@ -52,6 +53,7 @@ public class STAFDriver extends IScript implements STAFiDriver{
 			throw new IllegalArgumentException("Invalid browser type : "
 					+ browser);
 		}
+
 	}
 
 	public STAFDriver(String browser, String dataFileLocation) {
@@ -76,15 +78,22 @@ public class STAFDriver extends IScript implements STAFiDriver{
 					+ browser);
 		}
 	}
-	
-	public static WebDriver getInstance(){
-		
-		if(iDriver == null){
-			STAFiDriver iDriver = new STAFDriver(STAFConstant.HTML_UNIT);
-			logger.debug("STAF Driver is null and creating a new browser driver");
-			System.out.println("instance is:" + iDriver);
+
+	public static STAFDriver getInstance(String browser) {
+		if (stafDriver == null) {
+			stafDriver = new STAFDriver(browser);
 		}
-		return iDriver;
+		return stafDriver;
+	}
+
+	public static STAFDriver getInstance() {
+
+		if (stafDriver == null) {
+			stafDriver = new STAFDriver(STAFConstant.FIREFOX);
+			logger.debug("Firefox browser will be used if no browser name is passed to getInstance");
+		}
+		logger.debug("Browser selected is : " + getBrowser());
+		return stafDriver;
 	}
 
 	@Override
@@ -183,19 +192,21 @@ public class STAFDriver extends IScript implements STAFiDriver{
 	@Override
 	public void setURL(String value) {
 		logger.entry(value);
-		this.URL = value;	
-	}
-
-	@SuppressWarnings("static-access")
-	@Override
-	public String getBrowser() {
-		return logger.exit(this.browser);
+		this.URL = value;
 	}
 
 	@Override
-	public void setBrowser(String value) {
-		logger.entry(value);
-		this.dataFileLocation = value;		
+	public Object getDriver() {
+		return null;
+
 	}
+
+	@Override
+	public void setDriver() {
+		// TODO Auto-generated method stub
+
+	}
+	
+	
 
 }

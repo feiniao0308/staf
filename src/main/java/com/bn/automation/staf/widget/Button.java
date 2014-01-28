@@ -7,7 +7,6 @@ import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.Point;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 import com.bn.automation.staf.core.STAFDriver;
@@ -16,15 +15,15 @@ import com.bn.automation.staf.core.STAFDriver;
 public class Button extends ScreenObject implements IButton {
 
 	private static WebElement element;
-	private static WebDriver driver;
-	@SuppressWarnings("unused")
+	private static STAFDriver stafDriver;
 	private static final Logger logger = LogManager.getLogger();
 
 	@SuppressWarnings("static-access")
 	public Button(String locator) {
 
-		driver = STAFDriver.getInstance();
-		setElement(locator, driver);
+		stafDriver = STAFDriver.getInstance();
+		logger.debug("Finding element with locator : " + locator + " in the instance of : " + stafDriver);
+		setElement(locator, stafDriver);
 		this.element = super.element;
 
 	}

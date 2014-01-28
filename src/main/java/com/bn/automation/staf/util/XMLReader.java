@@ -2,6 +2,7 @@ package com.bn.automation.staf.util;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
@@ -217,5 +218,47 @@ public class XMLReader {
 			System.out.println(jdomex.getMessage());
 		}
 		return null;
+	}
+	
+	public void getContainer() throws Throwable{
+		
+		String dataFileLocation = "/src/main/resources/new/xmlDataFormat.xml";
+		@SuppressWarnings("unused")
+		HashMap<String,String> Container = new HashMap<String,String>();
+		String currentDirectory = System.getProperty("user.dir");
+		SAXBuilder builder = new SAXBuilder();
+		File xmlFile = new File(currentDirectory
+				+ dataFileLocation);
+		try {
+			Document document = (Document) builder.build(xmlFile);
+			Element rootNode = document.getRootElement();
+			List<Element> containersNode = rootNode.getChildren();
+			
+			for(Element containerNode:containersNode){
+				System.out.println(containerNode.getAttributeValue(nameAttribute));
+				if(containerNode.getAttributeValue(nameAttribute).equals("hello")){
+					List<Element> dataContainersNode = containerNode.getChildren("field");
+					for(Element dataContainerNode:dataContainersNode){
+						System.out.println(dataContainerNode.getAttributeValue("name"));
+						System.out.println(dataContainerNode.getAttributeValue("value"));
+					}
+				}
+			}
+						/*List<Element> datasNode = dataContainerNode.getChildren(infoElementName);
+						for(Element dataNode:datasNode){
+							System.out.println(dataNode.getAttributeValue(nameAttribute));
+							if(dataNode.getAttributeValue(nameAttribute).equals(infoName)){
+								System.out.println(dataNode.getAttributeValue(valueAttribute));
+								return dataNode.getAttributeValue(valueAttribute);*/
+								
+							
+
+		} catch (IOException io) {
+			System.out.println(io.getMessage());
+		} catch (JDOMException jdomex) {
+			System.out.println(jdomex.getMessage());
+		}
+		
+		
 	}
 }

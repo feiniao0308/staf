@@ -18,6 +18,7 @@ public abstract class IScript {
 
 	public WebDriver iDriver;
 	public IWidget widget;
+	private static String browser;
 	private String testCaseID;
 	private String dataFileLocation;
 	protected static Logger logger = LogManager.getLogger();
@@ -84,5 +85,18 @@ public abstract class IScript {
 		logger.entry(value);
 		this.dataFileLocation = value;
 	}
+	
+	public static String getBrowser() {
+		return logger.exit(browser);
+	}
+
+	
+	public static void setBrowser(String value) {
+		logger.entry(value);
+		browser = value;		
+	}
+
+
+	
 
 }

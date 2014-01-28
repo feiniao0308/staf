@@ -9,8 +9,11 @@ public interface STAFiDriver extends WebDriver{
 	void setDataFileLocation(String value);
 	String getURL();
 	void setURL(String value);
-	String getBrowser();
-	void setBrowser(String value);
+	//String getBrowser();
+	//void setBrowser(String value);
+	
+	Object getDriver();
+	void setDriver(); 
 	
 
 }

@@ -28,23 +28,23 @@ public abstract class ScreenObject {
 		switch (byType) {
 		case STAFConstant.BY_ID:
 			element = driver.findElement(By.id(byValue));
-			logger.debug("Button element is identified with type :" + byType + " and value :" + byValue);
+			logger.debug("Element is identified with type :" + byType + " and value :" + byValue);
 			break;
 		case STAFConstant.BY_NAME:
 			element = driver.findElement(By.name(byValue));
-			logger.debug("Button element is identified with type :" + byType + " and value :" + byValue);
+			logger.debug("Element is identified with type :" + byType + " and value :" + byValue);
 			break;
 		case STAFConstant.BY_XPATH:
 			element = driver.findElement(By.xpath(byValue));
-			logger.debug("Button element is identified with type :" + byType + " and value :" + byValue);
+			logger.debug("Element is identified with type :" + byType + " and value :" + byValue);
 			break;
 		case STAFConstant.BY_CLASS_NAME:
 			element = driver.findElement(By.className(byValue));
-			logger.debug("Button element is identified with type :" + byType + " and value :" + byValue);
+			logger.debug("Element is identified with type :" + byType + " and value :" + byValue);
 			break;
 		case STAFConstant.BY_TAG_NAME:
 			element = driver.findElement(By.tagName(byValue));
-			logger.debug("Button element is identified with type :" + byType + " and value :" + byValue);
+			logger.debug("Element is identified with type :" + byType + " and value :" + byValue);
 		case "other2":
 		default:
 			throw new IllegalArgumentException("Invalid by type : "
