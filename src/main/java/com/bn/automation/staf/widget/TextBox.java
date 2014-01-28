@@ -12,7 +12,7 @@ import org.openqa.selenium.WebElement;
 
 import com.bn.automation.staf.core.STAFDriver;
 
-public class TextBox extends ScreenObject implements ITextBox {
+public class TextBox extends ScreenObject implements IScreenObject {
 	
 	private static WebElement element;
 	private static STAFDriver stafDriver;
