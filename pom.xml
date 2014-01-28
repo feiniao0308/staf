@@ -9,7 +9,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.bn.automation</groupId>
 	<artifactId>STAF</artifactId>
-	<version>1.0.0</version>
+	<version>1.0.1-SNAPSHOT</version>
 	<name>STAF</name>
 	<description>Selenium Test Automation Framework</description>
 
@@ -22,7 +22,7 @@
 
 	<scm>
 		<developerConnection>scm:git:http://stash.hq.bn-corp.com/scm/qa/staf.git</developerConnection>
-		<tag>1.0.0</tag>
+		<tag>HEAD</tag>
 	</scm>
 
 
