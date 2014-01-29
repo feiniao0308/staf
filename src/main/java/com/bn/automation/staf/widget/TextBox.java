@@ -12,7 +12,7 @@ import org.openqa.selenium.WebElement;
 
 import com.bn.automation.staf.core.STAFDriver;
 
-public class TextBox extends ScreenObject implements IScreenObject {
+public class TextBox extends ScreenObject implements ITextBox {
 	
 	private static WebElement element;
 	private static STAFDriver stafDriver;
@@ -24,6 +24,7 @@ public class TextBox extends ScreenObject implements IScreenObject {
 		logger.debug("Finding element with locator : " + locator + " in the instance of : " + stafDriver);
 		setElement(locator, stafDriver);
 		this.element = super.element;
+		System.out.println(element.getClass());
 	}
 	
 	public void populate(WebDriver driver,String fileLocation, String testCaseID){

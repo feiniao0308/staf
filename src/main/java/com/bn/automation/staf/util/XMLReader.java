@@ -220,7 +220,7 @@ public class XMLReader {
 		return null;
 	}
 	
-	public void getContainer() throws Throwable{
+	public HashMap<String,String> getContainer() throws Throwable{
 		
 		String dataFileLocation = "/src/main/resources/new/xmlDataFormat.xml";
 		@SuppressWarnings("unused")
@@ -239,6 +239,7 @@ public class XMLReader {
 				if(containerNode.getAttributeValue(nameAttribute).equals("hello")){
 					List<Element> dataContainersNode = containerNode.getChildren("field");
 					for(Element dataContainerNode:dataContainersNode){
+						Container.put(dataContainerNode.getAttributeValue("name"), dataContainerNode.getAttributeValue("value"));
 						System.out.println(dataContainerNode.getAttributeValue("name"));
 						System.out.println(dataContainerNode.getAttributeValue("value"));
 					}
@@ -258,6 +259,7 @@ public class XMLReader {
 		} catch (JDOMException jdomex) {
 			System.out.println(jdomex.getMessage());
 		}
+		return Container;
 		
 		
 	}

@@ -16,6 +16,11 @@ public abstract class ScreenObject {
 	private static String byType;
 	private static String byValue;
 	private static final Logger logger = LogManager.getLogger();
+	
+	public ScreenObject(){
+		
+	}
+	
 	protected void setElement(String locator, WebDriver driver){
 		if (locator != null) {
 			by = new StringOperation().splitWithEqual(locator);
