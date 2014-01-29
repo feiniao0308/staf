@@ -13,7 +13,7 @@ public class SimpleTest {
 
 	@BeforeMethod
 	public void setup() {
-		driver = STAFDriver.getInstance(STAFConstant.FIREFOX);
+		driver = STAFDriver.getInstance(STAFConstant.HTML_UNIT);
 		driver.get("http://google.com");
 	}
 
