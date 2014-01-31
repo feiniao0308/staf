@@ -13,7 +13,9 @@ public interface STAFiDriver extends WebDriver{
 	//void setBrowser(String value);
 	
 	Object getDriver();
-	void setDriver(); 
+	void setDriver();
+	void autopopulate(Object containerName, Class<?> className)
+			throws Throwable;
 	
 
 }

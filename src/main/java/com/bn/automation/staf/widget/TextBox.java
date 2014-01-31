@@ -1,30 +1,35 @@
 package com.bn.automation.staf.widget;
 
-import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Dimension;
-import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-import com.bn.automation.staf.core.STAFDriver;
 
-public class TextBox extends ScreenObject implements IScreenObject {
+public class TextBox extends STAFElement implements ITextBox {
 	
-	private static WebElement element;
-	private static STAFDriver stafDriver;
 	private static final Logger logger = LogManager.getLogger();
-	
-	@SuppressWarnings("static-access")
+	/*@SuppressWarnings("static-access")
 	public TextBox(String locator){
 		stafDriver = STAFDriver.getInstance();
 		logger.debug("Finding element with locator : " + locator + " in the instance of : " + stafDriver);
 		setElement(locator, stafDriver);
 		this.element = super.element;
-		System.out.println(element.getClass());
+	}*/
+	
+	public TextBox(String widgetProperty){
+		
+		super(widgetProperty);
+		logger.debug("Widget string passed : " + widgetProperty);
+		
+		
+	}
+	
+	public WebElement getTextBox(){
+		return getStafElement();
+		
+		
 	}
 	
 	public void populate(WebDriver driver,String fileLocation, String testCaseID){
@@ -40,15 +45,16 @@ public class TextBox extends ScreenObject implements IScreenObject {
 	}
 	
 
-	public void populate() {
+	public void populate(String value) {
+		getTextBox().sendKeys(value);
 		// TODO Auto-generated method stub
 		
 	}
 
-	public void autoPopulate() {
+	/*public void autoPopulate() {
 		System.out.println("inside autopopulate of textbox");
-		
-	}
+		getTextBox().
+	}*/
 
 	public void verify() {
 		// TODO Auto-generated method stub
@@ -60,66 +66,7 @@ public class TextBox extends ScreenObject implements IScreenObject {
 		
 	}
 
-	public void click() {
-		element.click();
-	}
-
-	public void submit() {
-		element.submit();
-	}
 	
-	public void sendKeys(CharSequence... keysToSend) {
-		element.sendKeys(keysToSend);
-	}
-
-	public void clear() {
-		element.clear();
-
-	}
-
-	public String getTagName() {
-		return element.getTagName();
-	}
-
-	public String getAttribute(String name) {
-		return element.getAttribute(name);
-	}
-
-	public boolean isSelected() {
-		return element.isSelected();
-	}
-
-	public boolean isEnabled() {
-		return element.isEnabled();
-	}
-
-	public String getText() {
-		return element.getText();
-	}
-
-	public List<WebElement> findElements(By by) {
-		return element.findElements(by);
-	}
-
-	public WebElement findElement(By by) {
-		return element.findElement(by);
-	}
-
-	public boolean isDisplayed() {
-		return element.isDisplayed();
-	}
-
-	public Point getLocation() {
-		return element.getLocation();
-	}
-
-	public Dimension getSize() {
-		return element.getSize();
-	}
-
-	public String getCssValue(String propertyName) {
-		return element.getCssValue(propertyName);
-	}
 
 
 }

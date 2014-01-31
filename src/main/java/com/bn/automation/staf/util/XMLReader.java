@@ -15,6 +15,8 @@ import org.jdom2.input.SAXBuilder;
 import org.jdom2.xpath.XPathExpression;
 import org.jdom2.xpath.XPathFactory;
 
+import com.bn.automation.staf.core.STAFDriver;
+
 public class XMLReader {
 	
 	private String dataContainerElementName = "datacontainer";
@@ -220,10 +222,10 @@ public class XMLReader {
 		return null;
 	}
 	
-	public HashMap<String,String> getContainer() throws Throwable{
+	public HashMap<String,String> getContainer(String containerName) throws Throwable{
 		
-		String dataFileLocation = "/src/main/resources/new/xmlDataFormat.xml";
-		@SuppressWarnings("unused")
+		STAFDriver driver = STAFDriver.getInstance();
+		String dataFileLocation = driver.getDataFileLocation();
 		HashMap<String,String> Container = new HashMap<String,String>();
 		String currentDirectory = System.getProperty("user.dir");
 		SAXBuilder builder = new SAXBuilder();
@@ -236,7 +238,7 @@ public class XMLReader {
 			
 			for(Element containerNode:containersNode){
 				System.out.println(containerNode.getAttributeValue(nameAttribute));
-				if(containerNode.getAttributeValue(nameAttribute).equals("hello")){
+				if(containerNode.getAttributeValue(nameAttribute).equals(containerName)){
 					List<Element> dataContainersNode = containerNode.getChildren("field");
 					for(Element dataContainerNode:dataContainersNode){
 						Container.put(dataContainerNode.getAttributeValue("name"), dataContainerNode.getAttributeValue("value"));
@@ -245,12 +247,6 @@ public class XMLReader {
 					}
 				}
 			}
-						/*List<Element> datasNode = dataContainerNode.getChildren(infoElementName);
-						for(Element dataNode:datasNode){
-							System.out.println(dataNode.getAttributeValue(nameAttribute));
-							if(dataNode.getAttributeValue(nameAttribute).equals(infoName)){
-								System.out.println(dataNode.getAttributeValue(valueAttribute));
-								return dataNode.getAttributeValue(valueAttribute);*/
 								
 							
 

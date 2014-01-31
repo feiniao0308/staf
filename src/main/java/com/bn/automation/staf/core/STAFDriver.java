@@ -1,6 +1,9 @@
 package com.bn.automation.staf.core;
 
+import java.lang.reflect.Field;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.apache.logging.log4j.LogManager;
@@ -14,6 +17,9 @@ import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 
 import com.bn.automation.staf.helpers.STAFConstant;
+import com.bn.automation.staf.util.XMLReader;
+import com.bn.automation.staf.widget.TextBox;
+import com.bn.automation.staf.widget.Widgets;
 
 public class STAFDriver extends IScript implements STAFiDriver {
 
@@ -206,6 +212,86 @@ public class STAFDriver extends IScript implements STAFiDriver {
 		// TODO Auto-generated method stub
 
 	}
+
+	@SuppressWarnings({ "rawtypes", "unused" })
+	@Override
+	public void autopopulate(Object containerName, Class<?> className) throws Throwable {
+		
+		HashMap<String, String> populateData = new XMLReader().getContainer(containerName.toString());
+		System.out.println(" maps is " + populateData);
+		int i = 1;
+		//((TextBox) className.getDeclaredField("fname").get(null)).sendKeys("karthik");
+		Class cname = className;
+		Field fname = className.getField("lname");
+		//Class xclass = cname.class;
+		System.out.println(className);
+		Class innrClass = Class.forName("com.bn.automation.scripts.SO$SOinner");
+		innrClass.getDeclaredField("lname").get(null);
+		System.out.println("---------------");
+		System.out.println(innrClass.getDeclaredField("lname").get(null));
+		for(Map.Entry<String, String> entry:populateData.entrySet()){
+			System.out.println(i);
+			String s1 = entry.getKey();
+			String s2 = entry.getValue();
+			System.out.println(s1);
+			System.out.println(s2);
+			logger.debug("Field's Name : " +  s1 + " & Value : " + s2);
+			//((TextBox) className.getDeclaredField(entry.getKey()).get(null)).sendKeys(entry.getValue());
+			//Class cname = className;
+			Field[] farray = cname.getFields();
+			//Field[] farray = cname.get
+			for(Field f:farray){
+				System.out.println("field name is : " + f.getName());
+				if(f.getName().equals(entry.getKey())){
+					System.out.println("yes it is present");
+					f.setAccessible(true);
+					//f.get(f);
+					System.out.println("param is  : " + f.get(null));
+				}
+			}
+			//System.out.println(farray);
+			
+			//Field t1 = className.getDeclaredField(s1);
+			//System.out.println(t1);
+			//t1.get(null);
+			//send(t1, s2);
+			i++;
+		}
+		
+		/*Iterator<Map.Entry<String, String>> entries = populateData.entrySet().iterator();
+		while(entries.hasNext()){
+			Map.Entry<String, String> entry = entries.next();
+			((TextBox) className.getDeclaredField(entry.getKey()).get(null)).sendKeys(entry.getValue());
+			i++;
+		}*/
+		
+	}
+	
+	public void send(TextBox t1,String value){
+		logger.entry(t1,value);
+		System.out.println("inside send");
+		t1.sendKeys(value);
+		System.out.println("end of send");
+	}
+	
+	public void autopopulate(Object containerName, Object SO) throws Throwable{
+		Map<String, String> populateData = new XMLReader().getContainer(containerName.toString());
+		
+		Class<?> ScreenObject = SO.getClass();
+		if(ScreenObject.getAnnotation( Widgets.class) != null){
+			for(Map.Entry<String, String> entry:populateData.entrySet()){
+				String s1 = entry.getKey();
+				String s2 = entry.getValue();
+				System.out.println(s1);
+				System.out.println(s2);
+				TextBox t = (TextBox) ScreenObject.getDeclaredField(s1).get(null);
+				t.populate(s2);
+			}
+		}
+		
+		
+	}
+
 	
 	
 

@@ -13,20 +13,24 @@ public class SimpleTest {
 
 	@BeforeMethod
 	public void setup() {
-		driver = STAFDriver.getInstance(STAFConstant.HTML_UNIT);
-		driver.get("http://google.com");
+		/*driver = STAFDriver.getInstance(STAFConstant.FIREFOX);
+		driver.get("http://www.w3schools.com/html/html_forms.asp");*/
 	}
 
 	@AfterMethod
 	public void tearDown() {
 		
-		driver.quit();
+		//driver.quit();
 	}
 
 	@Test
 	public void test() throws Throwable {
 
-		
+		//driver.autopopulate("hello", this.getClass());
+		//driver.setDataFileLocation("\\src\\test\\resources\\data\\xmlDataFormat.xml");
+		/*driver.autopopulate("inputform", SO.class);*/
+		//System.out.println(Class.forName(""));
+		//System.out.println("SO"+getField("searchbar"));
 		/*SO so = new SO();
 		so.searchbar.autoPopulate();
 		SO.searchbar.autoPopulate();
