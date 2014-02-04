@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+	<datacontainer name="hello" value="124">
+		<field name="element1" value="This is element1" />
+		<field name="element2" value="This is element2" />
+		<field name="element3" value="This is element3" />
+		<field name="element4" value="This is element4" />
+		<field name="element5" value="This is element5" />
+		<field name="element6" value="This is element6" />
+		<field name="element7" value="This is element7" />
+	</datacontainer>
+	
+	<datacontainer name="inputsearch" value="124">
+		<field name="searchbar" value="Hello World" />
+	</datacontainer>
+	
+	<datacontainer name="inputform" value="124">
+		<field name="name" value="Karthik" />
+		<field name="email" value="Vishwanath" />
+		<field name="phone" value="7164359808" />
+		<field name="add" value="hello street" />
+	</datacontainer>
+	
+</root>
