@@ -7,7 +7,7 @@ import org.testng.annotations.Test;
 import com.bn.automation.staf.core.STAFDriver;
 import com.bn.automation.staf.helpers.STAFConstant;
 
-public class SimpleTest {
+public class Script2 {
 
 	private static STAFDriver driver;
 
