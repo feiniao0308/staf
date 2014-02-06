@@ -21,9 +21,10 @@ import com.bn.automation.staf.util.XMLReader;
 import com.bn.automation.staf.widget.TextBox;
 import com.bn.automation.staf.widget.Widgets;
 
-public class STAFDriver extends IScript implements STAFiDriver {
+public class STAFDriver implements STAFiDriver {
 
 	public static WebDriver iDriver;
+	private static String browser;
 	private String testCaseID;
 	private String dataFileLocation;
 	private String URL;
@@ -212,6 +213,17 @@ public class STAFDriver extends IScript implements STAFiDriver {
 		// TODO Auto-generated method stub
 
 	}
+	
+	public static String getBrowser() {
+		return logger.exit(browser);
+	}
+
+	
+	public static void setBrowser(String value) {
+		logger.entry(value);
+		browser = value;		
+	}
+
 
 	@SuppressWarnings({ "rawtypes", "unused" })
 	@Override

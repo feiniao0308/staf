@@ -1,6 +1,8 @@
 package com.bn.automation.scripts;
 
-public class Script extends BaseScript4{
+import com.bn.automation.staf.core.BaseScript;
+
+public class Script extends BaseScript{
 
 	
 
