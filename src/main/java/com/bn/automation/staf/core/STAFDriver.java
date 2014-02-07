@@ -210,45 +210,54 @@ public class STAFDriver implements STAFiDriver {
 	public void setDriver() {
 
 	}
-	
+
 	public static String getBrowser() {
 		return logger.exit(browser);
 	}
 
-	
 	public static void setBrowser(String value) {
 		logger.entry(value);
-		browser = value;		
+		browser = value;
 	}
-
 
 	@Override
-	public void autopopulate(Object containerName, Class<?> className) throws Throwable {
-		
-		
-		
-	}
-	
-	
-	public void autopopulate(Object containerName, Object SO) throws Throwable{
-		Map<String, String> populateData = new XMLReader().getContainer(containerName.toString());
-		
-		Class<?> ScreenObject = SO.getClass();
-		if(ScreenObject.getAnnotation( Widgets.class) != null){
-			for(Map.Entry<String, String> entry:populateData.entrySet()){
-				String s1 = entry.getKey();
-				String s2 = entry.getValue();
-				System.out.println(s1);
-				System.out.println(s2);
-				TextBox t = (TextBox) ScreenObject.getDeclaredField(s1).get(null);
-				t.populate(s2);
-			}
-		}
-		
-		
+	public void autopopulate(Object containerName, Class<?> className)
+			throws Throwable {
+
 	}
 
-	
-	
+	public void autopopulate(Object containerName, Object SO) throws Throwable {
+		Map<String, String> populateData = new XMLReader()
+				.getContainer(containerName.toString());
+
+		Class<?> ScreenObject = SO.getClass();
+		if (ScreenObject.getAnnotation(Widgets.class) != null) {
+			Class<?>[] ScreenObjectInners = ScreenObject.getDeclaredClasses();
+			for (Class<?> ScreenObjectInner : ScreenObjectInners) {
+				if (ScreenObjectInner.getAnnotation(Widgets.class) != null) {
+					for (Map.Entry<String, String> entry : populateData
+							.entrySet()) {
+						String s1 = entry.getKey();
+						String s2 = entry.getValue();
+						System.out.println(s1);
+						System.out.println(s2);
+						TextBox t = (TextBox) ScreenObjectInner.getDeclaredField(s1)
+								.get(null);
+						t.populate(s2);
+					}
+				}
+			}
+
+			/*
+			 * if(ScreenObject.getAnnotation( Widgets.class) != null){
+			 * for(Map.Entry<String, String> entry:populateData.entrySet()){
+			 * String s1 = entry.getKey(); String s2 = entry.getValue();
+			 * System.out.println(s1); System.out.println(s2); TextBox t =
+			 * (TextBox) ScreenObject.getDeclaredField(s1).get(null);
+			 * t.populate(s2); }
+			 */
+		}
+
+	}
 
 }

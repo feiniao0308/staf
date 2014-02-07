@@ -15,7 +15,7 @@ import com.bn.automation.staf.helpers.STAFConstant;
 public abstract class IScript {
 
 	public static WebDriver driver; // change to stafdriver
-	public static String browser = String
+	public static String browser_name = String
 			.valueOf(System.getProperty("browser"));
 	public static String url = String.valueOf(System.getProperty("url"));
 	public static String config = String.valueOf(System.getProperty("config"));
@@ -39,7 +39,7 @@ public abstract class IScript {
 	public static void main(String[] args) throws MalformedURLException,
 			InterruptedException {
 
-		logger.info("Script to be executed in : " + browser);
+		logger.info("Script to be executed in : " + browser_name);
 		logger.info("URL passed is : " + url);
 		logger.info("Config xml path is : " + config);
 		logger.info("XML data path is : " + xmldata);
@@ -52,7 +52,7 @@ public abstract class IScript {
 		logger.info("Take screen shot has set to : " + screenshot);
 
 		if (grid) {
-			if (browser.toLowerCase()
+			if (browser_name.toLowerCase()
 					.equals(STAFConstant.FIREFOX.toLowerCase())) {
 				DesiredCapabilities capability = DesiredCapabilities.firefox();
 				driver = new RemoteWebDriver(new URL(
@@ -68,6 +68,107 @@ public abstract class IScript {
 		System.out.println(driver.getTitle());
 		Thread.sleep(5000L);
 		driver.quit();
+	}
+
+	public static WebDriver getDriver() {
+		return driver;
+	}
+
+	public static void setDriver(WebDriver driver) {
+		IScript.driver = driver;
+	}
+
+
+	public static String getBrowser_name() {
+		return browser_name;
+	}
+
+	public static void setBrowser_name(String browser_name) {
+		IScript.browser_name = browser_name;
+	}
+
+	public static String getUrl() {
+		return url;
+	}
+
+	public static void setUrl(String url) {
+		IScript.url = url;
+	}
+
+	public static String getConfig() {
+		return config;
+	}
+
+	public static void setConfig(String config) {
+		IScript.config = config;
+	}
+
+	public static String getXmldata() {
+		return xmldata;
+	}
+
+	public static void setXmldata(String xmldata) {
+		IScript.xmldata = xmldata;
+	}
+
+	public static String getLog_path() {
+		return log_path;
+	}
+
+	public static void setLog_path(String log_path) {
+		IScript.log_path = log_path;
+	}
+
+	public static boolean isGrid() {
+		return grid;
+	}
+
+	public static void setGrid(boolean grid) {
+		IScript.grid = grid;
+	}
+
+	public static String getHub_url() {
+		return hub_url;
+	}
+
+	public static void setHub_url(String hub_url) {
+		IScript.hub_url = hub_url;
+	}
+
+	public static String getBrowser_version() {
+		return browser_version;
+	}
+
+	public static void setBrowser_version(String browser_version) {
+		IScript.browser_version = browser_version;
+	}
+
+	public static String getPlatform() {
+		return platform;
+	}
+
+	public static void setPlatform(String platform) {
+		IScript.platform = platform;
+	}
+
+	public static String getMachine_name() {
+		return machine_name;
+	}
+
+	public static void setMachine_name(String machine_name) {
+		IScript.machine_name = machine_name;
+	}
+
+	public static boolean isScreenshot() {
+		return screenshot;
+	}
+
+	public static void setScreenshot(boolean screenshot) {
+		IScript.screenshot = screenshot;
+	}
+
+	public static Logger getLogger() {
+		return logger;
 	}
 
 }
