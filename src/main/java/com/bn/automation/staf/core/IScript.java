@@ -35,6 +35,12 @@ public abstract class IScript {
 	public static boolean screenshot = Boolean.valueOf(System
 			.getProperty("screenshot"));
 	private static final Logger logger = LogManager.getLogger(IScript.class);
+	
+	public IScript(){
+		/*logger.info("Script to be executed in : " + browser_name);
+		logger.info("URL passed is : " + url);
+		logger.info("Config xml path is : " + config);*/
+	}
 
 	public static void main(String[] args) throws MalformedURLException,
 			InterruptedException {

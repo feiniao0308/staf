@@ -1,5 +1,5 @@
 package com.bn.automation.staf.widget;
 
-public interface IButton extends IScreenObject{
+public interface IButton{
 
 }

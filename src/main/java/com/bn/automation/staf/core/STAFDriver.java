@@ -223,6 +223,8 @@ public class STAFDriver implements STAFiDriver {
 	@Override
 	public void autopopulate(Object containerName, Class<?> className)
 			throws Throwable {
+		
+		System.out.println("Pass object of screenobject instead of class");
 
 	}
 
@@ -248,14 +250,6 @@ public class STAFDriver implements STAFiDriver {
 				}
 			}
 
-			/*
-			 * if(ScreenObject.getAnnotation( Widgets.class) != null){
-			 * for(Map.Entry<String, String> entry:populateData.entrySet()){
-			 * String s1 = entry.getKey(); String s2 = entry.getValue();
-			 * System.out.println(s1); System.out.println(s2); TextBox t =
-			 * (TextBox) ScreenObject.getDeclaredField(s1).get(null);
-			 * t.populate(s2); }
-			 */
 		}
 
 	}
