@@ -4,12 +4,9 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import com.bn.automation.staf.core.STAFDriver;
-import com.bn.automation.staf.helpers.STAFConstant;
-
 public class Script2 {
 
-	private static STAFDriver driver;
+	//private static STAFDriver driver;
 
 	@BeforeMethod
 	public void setup() {

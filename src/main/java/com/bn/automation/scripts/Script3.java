@@ -1,6 +1,5 @@
 package com.bn.automation.scripts;
 
-import com.bn.automation.staf.core.STAFDriver;
 
 public class Script3 extends BaseScript{
 
