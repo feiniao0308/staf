@@ -22,6 +22,14 @@ import com.bn.automation.staf.widget.Widgets;
 public class STAFDriver implements STAFiDriver {
 
 	public static WebDriver iDriver;
+	public WebDriver getiDriver() {
+		return iDriver;
+	}
+
+	public static void setiDriver(WebDriver iDriver) {
+		STAFDriver.iDriver = STAFDriver.getInstance();
+	}
+
 	private static String browser;
 	private String testCaseID;
 	private String dataFileLocation;
@@ -87,6 +95,7 @@ public class STAFDriver implements STAFiDriver {
 	public static STAFDriver getInstance(String browser) {
 		if (stafDriver == null) {
 			stafDriver = new STAFDriver(browser);
+			
 		}
 		return stafDriver;
 	}
@@ -95,6 +104,7 @@ public class STAFDriver implements STAFiDriver {
 
 		if (stafDriver == null) {
 			stafDriver = new STAFDriver(STAFConstant.FIREFOX);
+			setiDriver(stafDriver);
 			logger.debug("Firefox browser will be used if no browser name is passed to getInstance");
 		}
 		logger.debug("Browser selected is : " + getBrowser());
