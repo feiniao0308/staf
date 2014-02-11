@@ -17,14 +17,11 @@ public class Reflect {
 		  STAFDriver driver = STAFDriver.getInstance();
 		  SO so = new SO();
 		  driver.get("http://www.iupui.edu/~webtrain/tutorials/forms_sample.html");
+		  driver.setTestCaseID("123");
 		  driver.setDataFileLocation("\\src\\test\\resources\\data\\xmlDataFormat.xml");
 		  Thread.sleep(5000L);
 		  driver.autopopulate("inputform", so);
-		  WebDriver driver2 = new FirefoxDriver();
-		  driver.getDataFileLocation();
 		  
-		  int num1=Integer.valueOf(System.getProperty("num1"));
-		  System.out.println("Number passed is : " + num1);
 	  }
 	  
 	  public static void main(String[] args) throws Exception {
