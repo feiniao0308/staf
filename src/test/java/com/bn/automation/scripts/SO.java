@@ -1,6 +1,7 @@
 package com.bn.automation.scripts;
 
 
+import com.bn.automation.staf.widget.Label;
 import com.bn.automation.staf.widget.ScreenObject;
 import com.bn.automation.staf.widget.TextBox;
 import com.bn.automation.staf.widget.Widgets;
@@ -18,6 +19,12 @@ public class SO extends ScreenObject{
 		public static TextBox email = new TextBox("name=email");
 		public static TextBox phone = new TextBox("name=phone");
 		public static TextBox add = new TextBox("name=address");
+		
+		public static Label nameLabel = new Label("xpath=html/body/form/div/table/tbody/tr[2]/td[2]");
+		public static Label emailLabel = new Label("xpath=html/body/form/div/table/tbody/tr[3]/td[2]");
+		public static Label phoneLabel = new Label("xpath=html/body/form/div/table/tbody/tr[4]/td[2]");
+		public static Label addLabel = new Label("xpath=html/body/form/div/table/tbody/tr[5]/td[2]");
+		
 	}
 
 }

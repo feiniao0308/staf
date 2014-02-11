@@ -1,10 +1,12 @@
 package com.bn.automation.scripts;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.annotations.Test;
 
 import com.bn.automation.staf.core.STAFDriver;
+import com.bn.automation.staf.helpers.STAFConstant;
 
 
 public class Reflect {
@@ -14,13 +16,14 @@ public class Reflect {
 
 	  @Test
 	  public void test() throws Throwable{
-		  STAFDriver driver = STAFDriver.getInstance();
+		  STAFDriver driver = STAFDriver.getInstance(STAFConstant.FIREFOX);
 		  SO so = new SO();
 		  driver.get("http://www.iupui.edu/~webtrain/tutorials/forms_sample.html");
-		  driver.setTestCaseID("123");
+		  driver.setTestCaseID("124");
 		  driver.setDataFileLocation("\\src\\test\\resources\\data\\xmlDataFormat.xml");
 		  Thread.sleep(5000L);
 		  driver.autopopulate("inputform", so);
+		  driver.findElement(By.name("name"));
 		  
 	  }
 	  
