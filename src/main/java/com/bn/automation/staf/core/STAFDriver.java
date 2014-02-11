@@ -28,6 +28,7 @@ public class STAFDriver implements STAFiDriver {
 
 	public static void setiDriver(WebDriver iDriver) {
 		STAFDriver.iDriver = STAFDriver.getInstance();
+		System.out.println("Hello");
 	}
 
 	private static String browser;
