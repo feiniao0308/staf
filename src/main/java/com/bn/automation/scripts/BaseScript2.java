@@ -6,7 +6,7 @@ import com.bn.automation.staf.helpers.STAFConstant;
 public class BaseScript2 {
 
 	public static void main(String[] args) {
-		System.out.println("hello from basescript");
+		System.out.println("hello from basescript2");
 		STAFDriver driver = STAFDriver.getInstance(STAFConstant.HTML_UNIT);
 
 		try {
