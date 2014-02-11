@@ -114,6 +114,8 @@ public class STAFDriver implements STAFiDriver {
 
 	@Override
 	public void get(String url) {
+		System.out.println("inside get");
+		
 		iDriver.get(url);
 
 	}
