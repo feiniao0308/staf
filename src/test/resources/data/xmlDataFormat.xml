@@ -30,7 +30,7 @@
 
 	<datacontainer name="login" value="111">
 		<field name="bnfname" value="kviswanat@bn.com" />
-		<field name="bnlname" value="test123" />
+		<field name="bnpass" value="test123" />
 		<field name="bnsecurity" value="kviswanat@bn.com" />
 		<field name="bnemail" value="kviswanat@bn.com" />
 	</datacontainer>
