@@ -22,7 +22,9 @@ public class Reflect {
 		  driver.setTestCaseID("124");
 		  driver.setDataFileLocation("\\src\\test\\resources\\data\\xmlDataFormat.xml");
 		  Thread.sleep(5000L);
-		  driver.autopopulate("inputform", so);
+		  //SO.SOinner.name.populate("karth");
+		  SO.SOinner.name.sendKeys("karthj");
+		  //driver.autopopulate("inputform", so);
 		  driver.findElement(By.name("name"));
 		  
 	  }

@@ -25,6 +25,15 @@ public class SO extends ScreenObject{
 		public static Label phoneLabel = new Label("xpath=html/body/form/div/table/tbody/tr[4]/td[2]");
 		public static Label addLabel = new Label("xpath=html/body/form/div/table/tbody/tr[5]/td[2]");
 		
+		public static TextBox bnemail = new TextBox("xpath=html/body/div[2]/div/div/div/section/form/fieldset[1]/input[3]");
+		public static TextBox bnpass = new TextBox("id=password");
+		public static TextBox bnfname = new TextBox("id=fName");
+		public static TextBox bnlname = new TextBox("id=lName");
+		public static TextBox bnsecurity = new TextBox("id=securityAnswer");
+		
+		public static Label bnmyacc = new Label("id=myAccountLink");
+		
+		
 	}
 
 }

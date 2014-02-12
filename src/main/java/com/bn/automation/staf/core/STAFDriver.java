@@ -22,7 +22,7 @@ import com.bn.automation.staf.widget.Widgets;
 public class STAFDriver implements STAFiDriver {
 
 	public static WebDriver iDriver;
-	public WebDriver getiDriver() {
+	public static WebDriver getiDriver() {
 		return iDriver;
 	}
 
@@ -259,6 +259,7 @@ public class STAFDriver implements STAFiDriver {
 						TextBox t = (TextBox) ScreenObjectInner.getDeclaredField(s1)
 								.get(null);
 						t.populate(s2);
+						//t.sendKeys(s2);
 					}
 				}
 			}

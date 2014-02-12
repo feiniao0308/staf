@@ -9,23 +9,30 @@
 		<field name="element6" value="This is element6" />
 		<field name="element7" value="This is element7" />
 	</datacontainer>
-	
+
 	<datacontainer name="inputsearch" value="124">
 		<field name="searchbar" value="Hello World" />
 	</datacontainer>
-	
+
 	<datacontainer name="inputform" value="124">
 		<field name="name" value="Karthik" />
 		<field name="email" value="Vishwanath" />
 		<field name="phone" value="7164359808" />
 		<field name="add" value="hello street" />
 	</datacontainer>
-	
+
 	<datacontainer name="inputform" value="125">
 		<field name="name" value="Karthi" />
 		<field name="email" value="Vishw" />
 		<field name="phone" value="7164564325" />
 		<field name="add" value="bbye street" />
 	</datacontainer>
-	
+
+	<datacontainer name="login" value="111">
+		<field name="bnfname" value="kviswanat@bn.com" />
+		<field name="bnlname" value="test123" />
+		<field name="bnsecurity" value="kviswanat@bn.com" />
+		<field name="bnemail" value="kviswanat@bn.com" />
+	</datacontainer>
+
 </root>
