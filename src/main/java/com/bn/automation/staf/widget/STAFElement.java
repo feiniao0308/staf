@@ -72,10 +72,7 @@ public class STAFElement extends WidgetInfo implements STAFiElement {
 		return getStafElement();
 	}
 	
-	public void hover(){
-		Actions actions = new Actions(STAFDriver.getiDriver());
-		actions.moveToElement(getStafElement()).perform();
-	}
+	
 
 	@Override
 	public void click() {
