@@ -35,9 +35,9 @@ public class Verify {
 	public void verifyEquals(String actualValue, String expectedValue, String message){
 		try {
 	        Assert.assertEquals(actualValue, expectedValue, message);
-	        logger.info("Expected value: " + expectedValue + " Actual value: " + actualValue + " - PASSED ", true);
+	        logger.info("Expected value->" + expectedValue + " Actual value->" + actualValue + " - PASSED ", true);
 	    } catch (Throwable e) {
-	    	logger.info("Expected value: " + expectedValue + " Actual value: " + actualValue + " - FAILED " + message, true);
+	    	logger.info("Expected value->" + expectedValue + " Actual value->" + actualValue + " - FAILED " + message, true);
 	        //addVerificationFailure(e);
 	    }
 	}
@@ -45,9 +45,9 @@ public class Verify {
 	public void verifyEquals(String actualValue, String expectedValue){
 		try {
 	        Assert.assertEquals(actualValue, expectedValue);
-	        logger.info("Expected value: " + expectedValue + " Actual value: " + actualValue + " - PASSED ", true);
+	        logger.info("Expected value->" + expectedValue + " Actual value->" + actualValue + " - PASSED ", true);
 	    } catch (Throwable e) {
-	    	logger.info("Expected value: " + expectedValue + " Actual value: " + actualValue + " - FAILED ", true);
+	    	logger.info("Expected value->" + expectedValue + " Actual value->" + actualValue + " - FAILED ", true);
 	        //addVerificationFailure(e);
 	    }
 	}
@@ -55,9 +55,9 @@ public class Verify {
 	public void verifyContains(String actualValue, String expectedValue){
 		try {
 	        Assert.assertTrue(actualValue.contains(expectedValue));
-	        logger.info("Expected value: " + expectedValue + " present in Actual value: " + actualValue + " - PASSED ", true);
+	        logger.info("Expected value->" + expectedValue + " present in Actual value->" + actualValue + " - PASSED ", true);
 	    } catch (Throwable e) {
-	    	logger.info("Expected value: " + expectedValue + " present in Actual value: " + actualValue + " - FAILED ", true);
+	    	logger.info("Expected value->" + expectedValue + " present in Actual value->" + actualValue + " - FAILED ", true);
 	        //addVerificationFailure(e);
 	    }
 	}

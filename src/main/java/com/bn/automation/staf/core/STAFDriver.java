@@ -16,12 +16,14 @@ import org.openqa.selenium.ie.InternetExplorerDriver;
 
 import com.bn.automation.staf.helpers.STAFConstant;
 import com.bn.automation.staf.util.XMLReader;
+import com.bn.automation.staf.widget.Label;
 import com.bn.automation.staf.widget.TextBox;
 import com.bn.automation.staf.widget.Widgets;
 
 public class STAFDriver implements STAFiDriver {
 
 	public static WebDriver iDriver;
+
 	public static WebDriver getiDriver() {
 		return iDriver;
 	}
@@ -96,7 +98,7 @@ public class STAFDriver implements STAFiDriver {
 	public static STAFDriver getInstance(String browser) {
 		if (stafDriver == null) {
 			stafDriver = new STAFDriver(browser);
-			
+
 		}
 		return stafDriver;
 	}
@@ -115,7 +117,7 @@ public class STAFDriver implements STAFiDriver {
 	@Override
 	public void get(String url) {
 		System.out.println("inside get");
-		
+
 		iDriver.get(url);
 
 	}
@@ -236,7 +238,7 @@ public class STAFDriver implements STAFiDriver {
 	@Override
 	public void autopopulate(Object containerName, Class<?> className)
 			throws Throwable {
-		
+
 		System.out.println("Pass object of screenobject instead of class");
 
 	}
@@ -256,16 +258,57 @@ public class STAFDriver implements STAFiDriver {
 						String s2 = entry.getValue();
 						System.out.println(s1);
 						System.out.println(s2);
-						TextBox t = (TextBox) ScreenObjectInner.getDeclaredField(s1)
-								.get(null);
+						TextBox t = (TextBox) ScreenObjectInner
+								.getDeclaredField(s1).get(null);
 						t.populate(s2);
-						//t.sendKeys(s2);
+						// t.sendKeys(s2);
 					}
 				}
 			}
 
 		}
 
+	}
+
+	public void autoVerify(Object containerName, Object SO) throws Throwable {
+		Map<String, String> verifyData = new XMLReader()
+				.getContainer(containerName.toString());
+		
+		Class<?> ScreenObject = SO.getClass();
+		if (ScreenObject.getAnnotation(Widgets.class) != null) {
+			Class<?>[] ScreenObjectInners = ScreenObject.getDeclaredClasses();
+			for (Class<?> ScreenObjectInner : ScreenObjectInners) {
+				if (ScreenObjectInner.getAnnotation(Widgets.class) != null) {
+					for (Map.Entry<String, String> entry : verifyData
+							.entrySet()) {
+						String s1 = entry.getKey();
+						String s2 = entry.getValue();
+						System.out.println(s1);
+						System.out.println(s2);
+						Label l = (Label) ScreenObjectInner
+								.getDeclaredField(s1).get(null);
+						System.out.println(l.getText());
+						try{
+							new Verify().verifyEquals(l.getText(), s2);
+						} catch (Throwable e){
+							logger.error("Expected string does not match with element on page");
+							logger.info("Verify equals failed for :" + s1 + "->" + s2);
+							//logger.debug("Verify contains will be performed since verify equals failed");
+							logger.error(e);
+						}
+						/*try {
+							new Verify().verifyContains(l.getText(), s2);
+						} catch (Throwable e) {
+							logger.error("Element of the page does not contain expected string");
+							logger.error(e);
+						} 
+						*/
+
+					}
+				}
+			}
+
+		}
 	}
 
 }

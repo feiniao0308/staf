@@ -34,5 +34,12 @@
 		<field name="bnsecurity" value="kviswanat@bn.com" />
 		<field name="bnemail" value="kviswanat@bn.com" />
 	</datacontainer>
+	
+	<datacontainer name="verifyform" value="145">
+		<field name="nameLabel" value="sdfkjksdf" />
+		<field name="emailLabel" value="E-mail Address:" />
+		<field name="phoneLabel" value="Work Phone Number:" />
+		<field name="addLabel" value="Mailing Address:" />
+	</datacontainer>
 
 </root>
