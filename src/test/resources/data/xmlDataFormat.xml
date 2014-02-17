@@ -41,5 +41,16 @@
 		<field name="phoneLabel" value="Work Phone Number:" />
 		<field name="addLabel" value="Mailing Address:" />
 	</datacontainer>
+	
+	<datacontainer name="loginbn" value="167">
+		<field name="passbn" value="test123" />
+		<field name="emailbn" value="kviswanat@bn.com" />
+	</datacontainer>
+	
+	<datacontainer name="cookiebn" value="167">
+		<cookie property="NAME" value="DYN_USER_CONFIRM" />
+		<cookie property="DOMAIN" value="qwecweb01.hq.bn-corp.com" />
+	</datacontainer>
+	
 
 </root>

@@ -1,7 +1,5 @@
 package com.bn.automation.scripts;
 
-import org.openqa.selenium.By;
-
 import com.bn.automation.staf.core.STAFDriver;
 import com.bn.automation.staf.helpers.STAFConstant;
 

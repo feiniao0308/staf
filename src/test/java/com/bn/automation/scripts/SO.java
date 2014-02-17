@@ -33,6 +33,9 @@ public class SO extends ScreenObject{
 		
 		public static Label bnmyacc = new Label("id=myAccountLink");
 		
+		public static TextBox emailbn = new TextBox("id=email");
+		public static TextBox passbn = new TextBox("id=password");
+		
 		
 	}
 

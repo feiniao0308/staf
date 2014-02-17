@@ -7,6 +7,7 @@ import java.util.Set;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Cookie;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -273,7 +274,7 @@ public class STAFDriver implements STAFiDriver {
 	public void autoVerify(Object containerName, Object SO) throws Throwable {
 		Map<String, String> verifyData = new XMLReader()
 				.getContainer(containerName.toString());
-		
+
 		Class<?> ScreenObject = SO.getClass();
 		if (ScreenObject.getAnnotation(Widgets.class) != null) {
 			Class<?>[] ScreenObjectInners = ScreenObject.getDeclaredClasses();
@@ -288,27 +289,39 @@ public class STAFDriver implements STAFiDriver {
 						Label l = (Label) ScreenObjectInner
 								.getDeclaredField(s1).get(null);
 						System.out.println(l.getText());
-						try{
+						try {
 							new Verify().verifyEquals(l.getText(), s2);
-						} catch (Throwable e){
+						} catch (Throwable e) {
 							logger.error("Expected string does not match with element on page");
-							logger.info("Verify equals failed for :" + s1 + "->" + s2);
-							//logger.debug("Verify contains will be performed since verify equals failed");
+							logger.info("Verify equals failed for :" + s1
+									+ "->" + s2);
+							// logger.debug("Verify contains will be performed since verify equals failed");
 							logger.error(e);
 						}
-						/*try {
-							new Verify().verifyContains(l.getText(), s2);
-						} catch (Throwable e) {
-							logger.error("Element of the page does not contain expected string");
-							logger.error(e);
-						} 
-						*/
+						/*
+						 * try { new Verify().verifyContains(l.getText(), s2); }
+						 * catch (Throwable e) { logger.error(
+						 * "Element of the page does not contain expected string"
+						 * ); logger.error(e); }
+						 */
 
 					}
 				}
 			}
 
 		}
+	}
+
+	public void cookieVerify(Object containerName) {
+
+		Map<String, String> verifyCookie = new XMLReader()
+				.getCookieContainer(containerName.toString());
+		
+		STAFCookie cookie = new STAFCookie();
+		cookie.verifyName(verifyCookie);
+		cookie.verifyDomain(verifyCookie);
+
+		
 	}
 
 }

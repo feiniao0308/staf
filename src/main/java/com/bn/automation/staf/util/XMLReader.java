@@ -18,14 +18,13 @@ import org.jdom2.xpath.XPathFactory;
 import com.bn.automation.staf.core.STAFDriver;
 
 public class XMLReader {
-	
+
 	private String dataContainerElementName = "datacontainer";
 	private String infoContainerElementName = "infocontainer";
 	private String dataElementName = "data";
 	private String infoElementName = "info";
 	private String nameAttribute = "name";
 	private String valueAttribute = "value";
-	
 
 	public String getDataValue(String dataName) {
 
@@ -91,11 +90,11 @@ public class XMLReader {
 				System.out.println(et.getAttributeValue("value"));
 			}
 			Iterator itr = document.getDescendants();
-			/*while (itr.hasNext()) {
-				Content c = (Content) itr.next();
-
-				// System.out.println(c);
-			}*/
+			/*
+			 * while (itr.hasNext()) { Content c = (Content) itr.next();
+			 * 
+			 * // System.out.println(c); }
+			 */
 
 			System.out.println("****");
 			itr = document.getDescendants(new ElementFilter("container"));
@@ -143,33 +142,41 @@ public class XMLReader {
 
 	}
 
-	public String getDataValue(String dataFileLocation, String testCaseID, String dataName) {
-		
+	public String getDataValue(String dataFileLocation, String testCaseID,
+			String dataName) {
+
 		System.out.println("location : " + dataFileLocation);
 		System.out.println("testcaseID : " + testCaseID);
 		System.out.println("dataName : " + dataName);
 		String currentDirectory = System.getProperty("user.dir");
 		SAXBuilder builder = new SAXBuilder();
-		File xmlFile = new File(currentDirectory
-				+ dataFileLocation);
+		File xmlFile = new File(currentDirectory + dataFileLocation);
 
 		try {
 			Document document = (Document) builder.build(xmlFile);
 			Element rootNode = document.getRootElement();
 			List<Element> containersNode = rootNode.getChildren();
-			
-			for(Element containerNode:containersNode){
-				System.out.println(containerNode.getAttributeValue(nameAttribute));
-				if(containerNode.getAttributeValue(nameAttribute).equals(testCaseID)){
-					List<Element> dataContainersNode = containerNode.getChildren(dataContainerElementName);
-					for(Element dataContainerNode:dataContainersNode){
-						List<Element> datasNode = dataContainerNode.getChildren(dataElementName);
-						for(Element dataNode:datasNode){
-							System.out.println(dataNode.getAttributeValue(nameAttribute));
-							if(dataNode.getAttributeValue(nameAttribute).equals(dataName)){
-								System.out.println(dataNode.getAttributeValue(valueAttribute));
-								return dataNode.getAttributeValue(valueAttribute);
-								
+
+			for (Element containerNode : containersNode) {
+				System.out.println(containerNode
+						.getAttributeValue(nameAttribute));
+				if (containerNode.getAttributeValue(nameAttribute).equals(
+						testCaseID)) {
+					List<Element> dataContainersNode = containerNode
+							.getChildren(dataContainerElementName);
+					for (Element dataContainerNode : dataContainersNode) {
+						List<Element> datasNode = dataContainerNode
+								.getChildren(dataElementName);
+						for (Element dataNode : datasNode) {
+							System.out.println(dataNode
+									.getAttributeValue(nameAttribute));
+							if (dataNode.getAttributeValue(nameAttribute)
+									.equals(dataName)) {
+								System.out.println(dataNode
+										.getAttributeValue(valueAttribute));
+								return dataNode
+										.getAttributeValue(valueAttribute);
+
 							}
 						}
 					}
@@ -183,31 +190,39 @@ public class XMLReader {
 		}
 		return null;
 	}
-	
-	public String getInfoValue(String dataFileLocation, String testCaseID, String infoName) {
+
+	public String getInfoValue(String dataFileLocation, String testCaseID,
+			String infoName) {
 
 		String currentDirectory = System.getProperty("user.dir");
 		SAXBuilder builder = new SAXBuilder();
-		File xmlFile = new File(currentDirectory
-				+ dataFileLocation);
+		File xmlFile = new File(currentDirectory + dataFileLocation);
 
 		try {
 			Document document = (Document) builder.build(xmlFile);
 			Element rootNode = document.getRootElement();
 			List<Element> containersNode = rootNode.getChildren();
-			
-			for(Element containerNode:containersNode){
-				System.out.println(containerNode.getAttributeValue(nameAttribute));
-				if(containerNode.getAttributeValue(nameAttribute).equals(testCaseID)){
-					List<Element> dataContainersNode = containerNode.getChildren(infoContainerElementName);
-					for(Element dataContainerNode:dataContainersNode){
-						List<Element> datasNode = dataContainerNode.getChildren(infoElementName);
-						for(Element dataNode:datasNode){
-							System.out.println(dataNode.getAttributeValue(nameAttribute));
-							if(dataNode.getAttributeValue(nameAttribute).equals(infoName)){
-								System.out.println(dataNode.getAttributeValue(valueAttribute));
-								return dataNode.getAttributeValue(valueAttribute);
-								
+
+			for (Element containerNode : containersNode) {
+				System.out.println(containerNode
+						.getAttributeValue(nameAttribute));
+				if (containerNode.getAttributeValue(nameAttribute).equals(
+						testCaseID)) {
+					List<Element> dataContainersNode = containerNode
+							.getChildren(infoContainerElementName);
+					for (Element dataContainerNode : dataContainersNode) {
+						List<Element> datasNode = dataContainerNode
+								.getChildren(infoElementName);
+						for (Element dataNode : datasNode) {
+							System.out.println(dataNode
+									.getAttributeValue(nameAttribute));
+							if (dataNode.getAttributeValue(nameAttribute)
+									.equals(infoName)) {
+								System.out.println(dataNode
+										.getAttributeValue(valueAttribute));
+								return dataNode
+										.getAttributeValue(valueAttribute);
+
 							}
 						}
 					}
@@ -221,38 +236,46 @@ public class XMLReader {
 		}
 		return null;
 	}
-	
-	public HashMap<String,String> getContainer(String containerName) throws Throwable{
-		
+
+	public HashMap<String, String> getContainer(String containerName)
+			throws Throwable {
+
 		STAFDriver driver = STAFDriver.getInstance();
 		String dataFileLocation = driver.getDataFileLocation();
 		String testCaseID = driver.getTestCaseID();
-		HashMap<String,String> Container = new HashMap<String,String>();
+		HashMap<String, String> Container = new HashMap<String, String>();
 		String currentDirectory = System.getProperty("user.dir");
 		SAXBuilder builder = new SAXBuilder();
-		File xmlFile = new File(currentDirectory
-				+ dataFileLocation);
+		File xmlFile = new File(currentDirectory + dataFileLocation);
 		try {
 			Document document = (Document) builder.build(xmlFile);
 			Element rootNode = document.getRootElement();
 			List<Element> containersNode = rootNode.getChildren();
-			
-			for(Element containerNode:containersNode){
-				System.out.println(containerNode.getAttributeValue(nameAttribute));
-				if(containerNode.getAttributeValue(valueAttribute).equals(testCaseID)){
-					if(containerNode.getAttributeValue(nameAttribute).equals(containerName)){
-						List<Element> dataContainersNode = containerNode.getChildren("field");
-						for(Element dataContainerNode:dataContainersNode){
-							Container.put(dataContainerNode.getAttributeValue("name"), dataContainerNode.getAttributeValue("value"));
-							System.out.println(dataContainerNode.getAttributeValue("name"));
-							System.out.println(dataContainerNode.getAttributeValue("value"));
+
+			for (Element containerNode : containersNode) {
+				System.out.println(containerNode
+						.getAttributeValue(nameAttribute));
+				if (containerNode.getAttributeValue(valueAttribute).equals(
+						testCaseID)) {
+					if (containerNode.getAttributeValue(nameAttribute).equals(
+							containerName)) {
+						List<Element> dataContainersNode = containerNode
+								.getChildren("field");
+						for (Element dataContainerNode : dataContainersNode) {
+							Container
+									.put(dataContainerNode
+											.getAttributeValue("name"),
+											dataContainerNode
+													.getAttributeValue("value"));
+							System.out.println(dataContainerNode
+									.getAttributeValue("name"));
+							System.out.println(dataContainerNode
+									.getAttributeValue("value"));
 						}
 					}
 				}
-				
+
 			}
-								
-							
 
 		} catch (IOException io) {
 			System.out.println(io.getMessage());
@@ -260,7 +283,53 @@ public class XMLReader {
 			System.out.println(jdomex.getMessage());
 		}
 		return Container;
+
+	}
+
+	public HashMap<String, String> getCookieContainer(String containerName) {
 		
-		
+		STAFDriver driver = STAFDriver.getInstance();
+		String dataFileLocation = driver.getDataFileLocation();
+		String testCaseID = driver.getTestCaseID();
+		HashMap<String, String> Container = new HashMap<String, String>();
+		String currentDirectory = System.getProperty("user.dir");
+		SAXBuilder builder = new SAXBuilder();
+		File xmlFile = new File(currentDirectory + dataFileLocation);
+		try {
+			Document document = (Document) builder.build(xmlFile);
+			Element rootNode = document.getRootElement();
+			List<Element> containersNode = rootNode.getChildren();
+
+			for (Element containerNode : containersNode) {
+				System.out.println(containerNode
+						.getAttributeValue(nameAttribute));
+				if (containerNode.getAttributeValue(valueAttribute).equals(
+						testCaseID)) {
+					if (containerNode.getAttributeValue(nameAttribute).equals(
+							containerName)) {
+						List<Element> dataContainersNode = containerNode
+								.getChildren("cookie");
+						for (Element dataContainerNode : dataContainersNode) {
+							Container
+									.put(dataContainerNode
+											.getAttributeValue("property"),
+											dataContainerNode
+													.getAttributeValue("value"));
+							System.out.println(dataContainerNode
+									.getAttributeValue("property"));
+							System.out.println(dataContainerNode
+									.getAttributeValue("value"));
+						}
+					}
+				}
+
+			}
+
+		} catch (IOException io) {
+			System.out.println(io.getMessage());
+		} catch (JDOMException jdomex) {
+			System.out.println(jdomex.getMessage());
+		}
+		return Container;
 	}
 }
