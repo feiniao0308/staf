@@ -56,13 +56,15 @@ public abstract class IScript {
 		logger.info("Platform selected is : " + platform);
 		logger.info("Machine name is : " + machine_name);
 		logger.info("Take screen shot has set to : " + screenshot);
+		
+		hub_url = hub_url+"/wd/hub";
 
 		if (grid) {
 			if (browser_name.toLowerCase()
 					.equals(STAFConstant.FIREFOX.toLowerCase())) {
 				DesiredCapabilities capability = DesiredCapabilities.firefox();
 				driver = new RemoteWebDriver(new URL(
-						"http://localhost:4444/wd/hub"), capability);
+						hub_url), capability);
 
 			}
 

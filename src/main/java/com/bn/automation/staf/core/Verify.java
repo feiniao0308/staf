@@ -24,9 +24,9 @@ public class Verify {
 	public void verifyFalse(boolean condition, String message){
 		try {
 	        Assert.assertFalse(condition, message);
-	        logger.info("Expected value: true" + " Actual value: " + condition + " - PASSED ", true);
+	        logger.info("Expected value: false" + " Actual value: " + condition + " - PASSED ", true);
 	    } catch (Throwable e) {
-	    	logger.info("Expected value: true" + " Actual value: " + condition + " - FAILED " + message, true);
+	    	logger.info("Expected value: false" + " Actual value: " + condition + " - FAILED " + message, true);
 	        //addVerificationFailure(e);
 	    }
 		
