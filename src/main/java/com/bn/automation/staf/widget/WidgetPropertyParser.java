@@ -19,7 +19,7 @@ public class WidgetPropertyParser {
 		}
 		
 		if(propertyString != null){
-			String[] propertyNameValuePair = propertyString.split(EQUALS);
+			String[] propertyNameValuePair = propertyString.split(EQUALS,2);
 			String propertyName = propertyNameValuePair[0];
 			String propertyValue = propertyNameValuePair[1];
 			logger.debug("Widget's property is set by locator type->" + propertyName + " and with value->" + propertyValue);

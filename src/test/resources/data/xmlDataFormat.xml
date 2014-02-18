@@ -52,5 +52,11 @@
 		<cookie property="DOMAIN" value="qwecweb01.hq.bn-corp.com" />
 	</datacontainer>
 	
+	<datacontainer name="verifyLabel" value="187">
+		<field name="fnameLabel" value="First Name" />
+		<field name="lnameLabel" value="Last Name" />
+	</datacontainer>
+	
+	
 
 </root>

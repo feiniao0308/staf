@@ -36,6 +36,10 @@ public class SO extends ScreenObject{
 		public static TextBox emailbn = new TextBox("id=email");
 		public static TextBox passbn = new TextBox("id=password");
 		
+		public static Label fnameLabel = new Label("xpath=.//*[@id='createAccountForm']/fieldset[1]/label[1]");
+		public static Label lnameLabel = new Label("xpath=html/body/div[2]/div/div/div/section/form/fieldset[2]/label[1]");
+		
+		
 		
 	}
 
