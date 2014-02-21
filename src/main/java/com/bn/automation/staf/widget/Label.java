@@ -21,9 +21,9 @@ public class Label extends STAFElement implements ITextBox {
 
 	}
 	
-	public void hover(){
+	/*public void hover(){
 		Actions actions = new Actions(STAFDriver.getiDriver());
 		actions.moveToElement(getStafElement()).perform();
-	}
+	}*/
 
 }

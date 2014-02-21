@@ -11,6 +11,8 @@ public class SO extends ScreenObject{
 	
 	@Widgets
 	public static class SOinner {
+		
+		public static TextBox q = new TextBox("name=q");
 		public static TextBox lname2 = new TextBox("name=name1");
 		public TextBox lname = new TextBox("name=lastname2");
 		public TextBox lname4 = new TextBox("name=lastname3");
