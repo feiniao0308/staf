@@ -2,6 +2,7 @@ package com.bn.automation.staf.util;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -286,12 +287,14 @@ public class XMLReader {
 
 	}
 
-	public HashMap<String, String> getCookieContainer(String containerName) {
+	public HashMap<String, List<String>> getCookieContainer(String containerName) {
 		
 		STAFDriver driver = STAFDriver.getInstance();
 		String dataFileLocation = driver.getDataFileLocation();
 		String testCaseID = driver.getTestCaseID();
-		HashMap<String, String> Container = new HashMap<String, String>();
+		HashMap<String, List<String>> Container = new HashMap<String, List<String>>();
+		List<String> names = new ArrayList<String>();
+		List<String> domains = new ArrayList<String>();
 		String currentDirectory = System.getProperty("user.dir");
 		SAXBuilder builder = new SAXBuilder();
 		File xmlFile = new File(currentDirectory + dataFileLocation);
@@ -310,15 +313,29 @@ public class XMLReader {
 						List<Element> dataContainersNode = containerNode
 								.getChildren("cookie");
 						for (Element dataContainerNode : dataContainersNode) {
-							Container
+							if(dataContainerNode.getAttributeValue("property").equals("NAME")){
+								System.out.println(dataContainerNode
+										.getAttributeValue("property"));
+								System.out.println(dataContainerNode
+										.getAttributeValue("value"));
+								names.add(dataContainerNode.getAttributeValue("value"));
+								Container.put(dataContainerNode.getAttributeValue("property"),names);
+							} else if(dataContainerNode.getAttributeValue("property").equals("DOMAIN")){
+								System.out.println(dataContainerNode
+										.getAttributeValue("property"));
+								System.out.println(dataContainerNode
+										.getAttributeValue("value"));
+								domains.add(dataContainerNode.getAttributeValue("value"));
+								Container.put(dataContainerNode.getAttributeValue("property"),domains);
+							} 
+							
+							
+						/*	Container
 									.put(dataContainerNode
 											.getAttributeValue("property"),
 											dataContainerNode
-													.getAttributeValue("value"));
-							System.out.println(dataContainerNode
-									.getAttributeValue("property"));
-							System.out.println(dataContainerNode
-									.getAttributeValue("value"));
+													.getAttributeValue("value"));*/
+							
 						}
 					}
 				}
