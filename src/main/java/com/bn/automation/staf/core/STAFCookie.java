@@ -8,6 +8,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.Cookie;
 
+import com.bn.automation.staf.helpers.Verify;
+
 public class STAFCookie {
 
 	private static final Logger logger = LogManager.getLogger();

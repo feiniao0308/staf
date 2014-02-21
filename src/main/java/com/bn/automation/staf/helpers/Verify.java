@@ -1,4 +1,4 @@
-package com.bn.automation.staf.core;
+package com.bn.automation.staf.helpers;
 
 
 import org.apache.logging.log4j.LogManager;

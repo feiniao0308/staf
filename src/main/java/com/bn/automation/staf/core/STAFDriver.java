@@ -16,6 +16,7 @@ import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 
 import com.bn.automation.staf.helpers.STAFConstant;
+import com.bn.automation.staf.helpers.Verify;
 import com.bn.automation.staf.util.XMLReader;
 import com.bn.automation.staf.widget.Label;
 import com.bn.automation.staf.widget.TextBox;
