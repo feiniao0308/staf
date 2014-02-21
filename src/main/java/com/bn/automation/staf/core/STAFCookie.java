@@ -1,7 +1,7 @@
 package com.bn.automation.staf.core;
 
 import java.util.Iterator;
-import java.util.Map;
+import java.util.List;
 import java.util.Set;
 
 import org.apache.logging.log4j.LogManager;
@@ -14,9 +14,13 @@ public class STAFCookie {
 	private Verify verify = new Verify();
 	Set<Cookie> cookies = STAFDriver.getiDriver().manage().getCookies();
 
-	public void verifyName(Map<String, String> verifyCookie) {
+	public void verifyName(List<String> verifyCookie) {
+		
+		for(String entry:verifyCookie){
+			verifyName(entry);
+		}
 
-		for (Map.Entry<String, String> entry : verifyCookie.entrySet()) {
+		/*for (Map.Entry<String, String> entry : verifyCookie.entrySet()) {
 			String s1 = entry.getKey();
 			String s2 = entry.getValue();
 			System.out.println(s1);
@@ -26,12 +30,16 @@ public class STAFCookie {
 				verifyName(s2);
 			}
 
-		}
+		}*/
 	}
 
-	public void verifyDomain(Map<String, String> verifyCookie) {
+	public void verifyDomain(List<String> verifyCookie) {
+		
+		for(String entry:verifyCookie){
+			verifyDomain(entry);
+		}
 
-		for (Map.Entry<String, String> entry : verifyCookie.entrySet()) {
+		/*for (Map.Entry<String, String> entry : verifyCookie.entrySet()) {
 			String s1 = entry.getKey();
 			String s2 = entry.getValue();
 			System.out.println(s1);
@@ -40,7 +48,7 @@ public class STAFCookie {
 			if (s1.equals("DOMAIN")) {
 				verifyDomain(s2);
 			}
-		}
+		}*/
 
 	}
 
@@ -75,10 +83,10 @@ public class STAFCookie {
 				domainCount++;
 			}
 
-			logger.trace("Cookie Name: " + c.getName() + "\nCookie Domain: "
+			/*logger.trace("Cookie Name: " + c.getName() + "\nCookie Domain: "
 					+ c.getDomain() + "\nCookie Value: " + c.getValue()
 					+ "\nPath: " + c.getPath() + "\nExpiry Date: "
-					+ c.getExpiry() + "\nSecure: " + c.isSecure());
+					+ c.getExpiry() + "\nSecure: " + c.isSecure());*/
 		}
 		if (domainCount > 0) {
 			logger.info("Verify that cookie domain->" + cookieDomain

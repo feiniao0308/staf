@@ -1,5 +1,6 @@
 package com.bn.automation.staf.core;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -7,7 +8,6 @@ import java.util.Set;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Cookie;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -314,12 +314,18 @@ public class STAFDriver implements STAFiDriver {
 
 	public void cookieVerify(Object containerName) {
 
-		Map<String, String> verifyCookie = new XMLReader()
+		HashMap<String, List<String>> verifyCookie = new XMLReader()
 				.getCookieContainer(containerName.toString());
 		
 		STAFCookie cookie = new STAFCookie();
-		cookie.verifyName(verifyCookie);
-		cookie.verifyDomain(verifyCookie);
+		if(verifyCookie.get("NAME")!=null){
+			cookie.verifyName(verifyCookie.get("NAME"));
+		}
+		if(verifyCookie.get("DOMAIN")!=null){
+			cookie.verifyDomain(verifyCookie.get("DOMAIN"));	
+		}
+		
+		
 
 		
 	}

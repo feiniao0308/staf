@@ -50,6 +50,12 @@
 	<datacontainer name="cookiebn" value="167">
 		<cookie property="NAME" value="DYN_USER_CONFIRM" />
 		<cookie property="DOMAIN" value="qwecweb01.hq.bn-corp.com" />
+		<cookie property="NAME" value="DYN_USER_CONFIRM" />
+		<cookie property="DOMAIN" value="qwecweb01.hq.bn-corp.com" />
+		<cookie property="NAME" value="DYN_USER_CONFIRM" />
+		<cookie property="DOMAIN" value="qwecweb01.hq.bn-corp.com" />
+		<cookie property="NAME" value="DYN_USER_CONFIRM" />
+		<cookie property="DOMAIN" value="qwecweb01.hq.bn-corp.com" />
 	</datacontainer>
 	
 
