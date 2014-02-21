@@ -13,7 +13,6 @@
 	<datacontainer name="inputsearch" value="124">
 		<field name="searchbar" value="Hello World" />
 	</datacontainer>
-
 	<datacontainer name="inputform" value="124">
 		<field name="name" value="Karthik" />
 		<field name="email" value="Vishwanath" />
@@ -34,7 +33,6 @@
 		<field name="bnsecurity" value="kviswanat@bn.com" />
 		<field name="bnemail" value="kviswanat@bn.com" />
 	</datacontainer>
-	
 	<datacontainer name="verifyform" value="145">
 		<field name="nameLabel" value="sdfkjksdf" />
 		<field name="emailLabel" value="E-mail Address:" />
