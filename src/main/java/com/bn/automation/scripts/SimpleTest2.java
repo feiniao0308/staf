@@ -9,7 +9,7 @@ import com.bn.automation.staf.anno.Test;
 import com.bn.automation.staf.core.STAFDriver;
 
 @STAFScript
-public class SimpleTest {
+public class SimpleTest2 {
 
 	private static STAFDriver driver;
 

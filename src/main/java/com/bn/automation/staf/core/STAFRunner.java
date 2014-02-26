@@ -7,6 +7,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.bn.automation.staf.anno.STAFScript;
+import com.bn.automation.staf.anno.STAFSuite;
 import com.bn.automation.staf.helpers.STAFConstant;
 import com.bn.automation.staf.util.STAFConfig;
 
@@ -27,6 +28,7 @@ public class STAFRunner extends IScript{
 			System.out.println("******************LOCAL MODE*****************");
 			
 		}
+		
 		
 		
 		
@@ -80,7 +82,22 @@ public class STAFRunner extends IScript{
 	
 	private static void createClassMap(String[] scripts) {
 		for(String script:scripts){
-			if(isStafScript())
+			
+			try {
+				Class clazz = Class.forName(script);
+				if(isStafScript(clazz)){
+					System.out.println("**************STAF_SCRIPT*****************");
+					STAFScript.add(clazz);
+				} else if (isStafSuite(clazz)){
+					System.out.println("**************STAF_SUITE******************");
+					STAFSuite.add(clazz);
+				} else {
+					logger.error("Unable to identify as STAFScript or STAFSuite - Please provide appropriate annotations for execution");
+				}
+			} catch (ClassNotFoundException e) {
+				logger.error("Class not found for : " + script);
+				e.printStackTrace();
+			}
 		}
 	}
 	
@@ -94,6 +111,16 @@ public class STAFRunner extends IScript{
 		}
 		
 		
+	}
+	
+	private static boolean isStafSuite(Class<?> clazz){
+		if(clazz.getAnnotation(STAFSuite.class) != null){
+			logger.debug(clazz.getCanonicalName() + " is identified as STAFSuite");
+			return true;
+		} else {
+			logger.trace(clazz.getCanonicalName() + "is identified as non-STAFSuite");
+			return false;
+		}
 	}
 
 	private static void validateConfigEnv(){
