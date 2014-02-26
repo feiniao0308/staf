@@ -32,8 +32,9 @@ public class STAFConfig {
 			List<Element> fieldNodes = rootNode.getChildren();
 
 			for (Element fieldNode : fieldNodes) {
-				System.out.println(fieldNode
-						.getAttributeValue(STAFConstant.NAME));
+				logger.trace("field name and value in congif file is "
+						+ fieldNode.getAttributeValue(STAFConstant.NAME) + "->"
+						+ fieldNode.getAttributeValue(STAFConstant.VALUE));
 				if (fieldNode.getAttributeValue(STAFConstant.NAME).equals(
 						fieldName)) {
 					fieldValue = fieldNode
@@ -42,12 +43,17 @@ public class STAFConfig {
 							+ fieldValue);
 				}
 			}
+			
+			if(fieldValue == null){
+				logger.error("field name : " + fieldName + " is not found in config file");
+			}
 
 		} catch (IOException io) {
 			System.out.println(io.getMessage());
 		} catch (JDOMException jdomex) {
 			System.out.println(jdomex.getMessage());
 		}
+		
 		return fieldValue;
 
 	}

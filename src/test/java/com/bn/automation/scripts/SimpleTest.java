@@ -3,8 +3,8 @@ package com.bn.automation.scripts;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 
+import com.bn.automation.staf.anno.Test;
 import com.bn.automation.staf.core.STAFDriver;
-import com.bn.automation.staf.core.Test;
 
 public class SimpleTest {
 

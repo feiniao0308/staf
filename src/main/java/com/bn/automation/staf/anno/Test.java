@@ -1,4 +1,4 @@
-package com.bn.automation.staf.core;
+package com.bn.automation.staf.anno;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

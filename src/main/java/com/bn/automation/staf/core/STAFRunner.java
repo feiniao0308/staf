@@ -1,14 +1,20 @@
 package com.bn.automation.staf.core;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.bn.automation.staf.anno.STAFScript;
 import com.bn.automation.staf.helpers.STAFConstant;
 import com.bn.automation.staf.util.STAFConfig;
 
 public class STAFRunner extends IScript{
 	
 	private static final Logger logger = LogManager.getLogger(STAFRunner.class);
+	private static Set<Class<?>> STAFScript = new HashSet<Class<?>>();
+	private static Set<Class<?>> STAFSuite = new HashSet<Class<?>>();
 	
 	
 	public static void main(String[] runnerArgs) throws ClassNotFoundException, InstantiationException, IllegalAccessException {
@@ -16,9 +22,10 @@ public class STAFRunner extends IScript{
 		validateScriptName(runnerArgs);
 		validateConfigEnv();
 		if(isGridMode()){
-			System.out.println("GRID MODE");
+			System.out.println("******************GRID MODE*****************");
 		} else{
-			System.out.println("LOCAL MODE");
+			System.out.println("******************LOCAL MODE*****************");
+			
 		}
 		
 		
@@ -67,9 +74,28 @@ public class STAFRunner extends IScript{
 		} else {
 			logger.debug("Setting the environment for staf script/suite execution");
 			setEnv();
+			createClassMap(scripts);
 		}
 	}
 	
+	private static void createClassMap(String[] scripts) {
+		for(String script:scripts){
+			if(isStafScript())
+		}
+	}
+	
+	private static boolean isStafScript(Class<?> clazz){
+		if(clazz.getAnnotation(STAFScript.class) != null){
+			logger.debug(clazz.getCanonicalName() + " is identified as STAFScript");
+			return true;
+		} else {
+			logger.trace(clazz.getCanonicalName() + "is identified as non-STAFScript");
+			return false;
+		}
+		
+		
+	}
+
 	private static void validateConfigEnv(){
 		if(!info.containsKey(STAFConstant.CONFIG_KEY)){
 			logger.info("Config file needs to be passed for staf script/suite execution");
