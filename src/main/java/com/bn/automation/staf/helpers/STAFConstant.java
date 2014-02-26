@@ -40,6 +40,15 @@ public class STAFConstant {
 	public static final String VALUE = "value";
 	public static final String DEFAULT_BROWSER_NAME = "DEFAULT_BROWSER_NAME";
 	public static final String DEFAULT_URL = "DEFAULT_URL";
+	public static final String IE_DRIVER_PATH = "IE_DRIVER_PATH";
+	public static final String IE_DRIVER_PATH_KEY = "iedriver";
+	public static final String CHROME_DRIVER_PATH = "CHROME_DRIVER_PATH";
+	public static final String CHROME_DRIVER_PATH_KEY = "chromedriver";
+	public static final String KILL_BROWSER_AFTER_TEST = "KILL_BROWSER_AFTER_TEST";
+	public static final String KILL_BROWSER_AFTER_TEST_KEY = "kill_browser_after_test";
+	public static final String KILL_DRIVER_AFTER_TEST = "KILL_DRIVER_AFTER_TEST";
+	public static final String KILL_DRIVER_AFTER_TEST_KEY = "kill_driver_after_test";
+	public static final String GRID = "GRID";
 	
 
 }

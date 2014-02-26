@@ -77,15 +77,30 @@ public class STAFRunner extends IScript{
 			System.exit(0);
 		} else {
 			logger.debug("Config file location is set as : " + info.get(STAFConstant.CONFIG_KEY));
-			try {
-				String dBrowser = new STAFConfig().getField(STAFConstant.DEFAULT_BROWSER_NAME);
-				System.out.println(dBrowser);
-			} catch (Throwable e) {
-				e.printStackTrace();
-			}
+			setConfigEnv();
 		}
 	}
 	
+	private static void setConfigEnv() {
+		try {
+			
+			STAFConfig stafConfig = new STAFConfig();
+			putInfoMap(STAFConstant.BROWSER_NAME_KEY, stafConfig.getField(STAFConstant.DEFAULT_BROWSER_NAME));
+			putInfoMap(STAFConstant.URL_KEY, stafConfig.getField(STAFConstant.DEFAULT_URL));
+			putInfoMap(STAFConstant.IE_DRIVER_PATH_KEY, stafConfig.getField(STAFConstant.IE_DRIVER_PATH));
+			putInfoMap(STAFConstant.CHROME_DRIVER_PATH_KEY, stafConfig.getField(STAFConstant.CHROME_DRIVER_PATH));
+			putInfoMap(STAFConstant.KILL_BROWSER_AFTER_TEST_KEY, stafConfig.getField(STAFConstant.KILL_BROWSER_AFTER_TEST));
+			putInfoMap(STAFConstant.KILL_DRIVER_AFTER_TEST_KEY, stafConfig.getField(STAFConstant.KILL_DRIVER_AFTER_TEST));
+			putInfoMap(STAFConstant.GRID_KEY, stafConfig.getField(STAFConstant.GRID));
+			
+					
+			
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
+		
+	}
+
 	private static boolean isGridMode(){
 		if((boolean) info.get(STAFConstant.GRID_KEY)){
 			logger.info("grid execution is set to true");

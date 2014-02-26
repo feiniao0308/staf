@@ -72,8 +72,8 @@ public abstract class IScript {
 
 	}
 
-	private static void putInfoMap(String key, Object value) {
-		if(!value.equals(NULL)){
+	protected static void putInfoMap(String key, Object value) {
+		if(!value.equals(NULL) && !info.containsKey(key)){
 			logger.debug("info map is created with key->" + key + " & value->" + value);
 			info.put(key, value);
 		} else {
