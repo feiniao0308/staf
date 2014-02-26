@@ -24,9 +24,9 @@ import com.bn.automation.staf.widget.Widgets;
 
 public class STAFDriver implements STAFiDriver {
 
-	public WebDriver iDriver;
+	public static WebDriver iDriver;
 
-	public WebDriver getiDriver() {
+	public static WebDriver getiDriver() {
 		return iDriver;
 	}
 
@@ -43,11 +43,15 @@ public class STAFDriver implements STAFiDriver {
 	private volatile static STAFDriver stafDriver = null;
 
 	public STAFDriver(String browser) {
+		
+		System.out.println(this);
+		
 
 		switch (browser) {
 		case STAFConstant.FIREFOX:
 			setBrowser(STAFConstant.FIREFOX);
 			iDriver = new FirefoxDriver();
+			STAFManager.getInstance(this, iDriver);
 			logger.info("Firefox browser is set and opened in new window");
 			break;
 		case STAFConstant.CHROME:
@@ -116,6 +120,13 @@ public class STAFDriver implements STAFiDriver {
 		return stafDriver;
 	}
 
+	
+	public void setAsHead(){
+		System.out.println(this);
+		STAFManager.putHeadPointer(this);
+	}
+	
+	
 	@Override
 	public void get(String url) {
 		System.out.println("inside get");

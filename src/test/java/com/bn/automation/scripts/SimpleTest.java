@@ -2,10 +2,9 @@ package com.bn.automation.scripts;
 
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
 
 import com.bn.automation.staf.core.STAFDriver;
-import com.bn.automation.staf.helpers.STAFConstant;
+import com.bn.automation.staf.core.Test;
 
 public class SimpleTest {
 
@@ -25,6 +24,8 @@ public class SimpleTest {
 
 	@Test
 	public void test() throws Throwable {
+		
+		System.out.println("hello from test method");
 		/*System.out.println("hello");
 
 		//driver.autopopulate("hello", this.getClass());

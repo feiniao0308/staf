@@ -1,15 +1,42 @@
 package com.bn.automation.staf.core;
 
-import java.lang.reflect.Method;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
-import com.bn.automation.scripts.AnnoScript;
+import com.bn.automation.staf.helpers.STAFConstant;
+import com.bn.automation.staf.util.STAFConfig;
 
-public class STAFRunner {
+public class STAFRunner extends IScript{
 	
-	public static void main(String[] args) throws ClassNotFoundException, InstantiationException, IllegalAccessException {
+	private static final Logger logger = LogManager.getLogger(STAFRunner.class);
+	
+	
+	public static void main(String[] runnerArgs) throws ClassNotFoundException, InstantiationException, IllegalAccessException {
+		
+		validateScriptName(runnerArgs);
+		validateConfigEnv();
+		if(isGridMode()){
+			System.out.println("GRID MODE");
+		} else{
+			System.out.println("LOCAL MODE");
+		}
 		
 		
-		//System.out.println(args[0]);
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		/*//System.out.println(args[0]);
 		//Class className = Class.forName("AnnoScript");
 		
 		//Object annoObj = className.newInstance();
@@ -28,8 +55,53 @@ public class STAFRunner {
 					e.printStackTrace();
 				}
 			}
+		}*/
+		
+	}
+	
+	private static void validateScriptName(String[] scripts){
+		if(scripts.length == 0){
+			logger.info("Pass script/suite to STAFRunner to execute");
+			logger.error("Script execution process will be killed");
+			System.exit(0);
+		} else {
+			logger.debug("Setting the environment for staf script/suite execution");
+			setEnv();
+		}
+	}
+	
+	private static void validateConfigEnv(){
+		if(!info.containsKey(STAFConstant.CONFIG_KEY)){
+			logger.info("Config file needs to be passed for staf script/suite execution");
+			logger.error("Script execution process will be killed");
+			System.exit(0);
+		} else {
+			logger.debug("Config file location is set as : " + info.get(STAFConstant.CONFIG_KEY));
+			try {
+				String dBrowser = new STAFConfig().getField(STAFConstant.DEFAULT_BROWSER_NAME);
+				System.out.println(dBrowser);
+			} catch (Throwable e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	private static boolean isGridMode(){
+		if((boolean) info.get(STAFConstant.GRID_KEY)){
+			logger.info("grid execution is set to true");
+			logger.info("STAF GRID EXECUTION STARTS NOW");
+			viewInfoMap();
+			return true;
+			
+		} else {
+			logger.info("local execution is set to true");
+			logger.info("STAF LOCAL EXECUTION STARTS NOW");
+			viewInfoMap();
+			return false;
 		}
 		
 	}
+	
+	
 
 }
