@@ -20,7 +20,7 @@ public class STAFConfig {
 
 	public String getField(String fieldName) throws Throwable {
 
-		String configPath = IScript.info.get(STAFConstant.CONFIG_KEY)
+		String configPath = IScript.getInfo().get(STAFConstant.CONFIG_KEY)
 				.toString();
 		String currentDirectory = System.getProperty("user.dir");
 		SAXBuilder builder = new SAXBuilder();
@@ -56,6 +56,49 @@ public class STAFConfig {
 		
 		return fieldValue;
 
+	}
+	
+	public boolean isFieldPresent(String fieldName) {
+		String configPath = IScript.getInfo().get(STAFConstant.CONFIG_KEY)
+				.toString();
+		String currentDirectory = System.getProperty("user.dir");
+		SAXBuilder builder = new SAXBuilder();
+		String fieldValue = null;
+		boolean isFieldPresent = false;
+		File file = new File(currentDirectory + configPath);
+		try {
+			Document document = (Document) builder.build(file);
+			Element rootNode = document.getRootElement();
+			List<Element> fieldNodes = rootNode.getChildren();
+
+			for (Element fieldNode : fieldNodes) {
+				logger.trace("field name and value in congif file is "
+						+ fieldNode.getAttributeValue(STAFConstant.NAME) + "->"
+						+ fieldNode.getAttributeValue(STAFConstant.VALUE));
+				if (fieldNode.getAttributeValue(STAFConstant.NAME).equals(
+						fieldName)) {
+					fieldValue = fieldNode
+							.getAttributeValue(STAFConstant.VALUE);
+					logger.debug("field name->" + fieldName + " & value->"
+							+ fieldValue);
+				}
+			}
+			
+			if(fieldValue == null){
+				logger.error("field name : " + fieldName + " is not found in config file");
+				isFieldPresent = false;
+			} else {
+				logger.error("field name : " + fieldName + " is found in config file");
+				isFieldPresent = true;
+			}
+
+		} catch (IOException io) {
+			logger.error("IOException - Field Name/File not found or something else went wrong");
+		} catch (JDOMException jdomex) {
+			logger.error("JDOMException - Field Name/File not found or something else went wrong");
+		}
+		
+		return isFieldPresent;
 	}
 
 }

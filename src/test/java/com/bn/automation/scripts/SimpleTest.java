@@ -29,6 +29,13 @@ public class SimpleTest {
 	public void test() throws Throwable {
 		
 		System.out.println("hello from test method");
+		
+		STAFDriver sd = new STAFDriver();
+		sd.get("http://google.com");
+		Thread.sleep(5000);
+		sd.quit();
+		
+		
 		/*System.out.println("hello");
 
 		//driver.autopopulate("hello", this.getClass());

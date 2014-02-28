@@ -10,7 +10,9 @@ import com.bn.automation.staf.helpers.STAFConstant;
 public class STAFManager {
 	
 	private static STAFManager manager = null;
-	public static final Pointer HEAD = new Pointer();
+	private static final Pointer HEAD = new Pointer();
+	
+
 	private static final Pointer TAIL = new Pointer();
 	private static STAFDriver stafInstance = null;
 	private static Map<Pointer,WebDriver> wd = new HashMap<Pointer,WebDriver>();
@@ -24,7 +26,23 @@ public class STAFManager {
 		//createStafInstance();
 	}
 
+	public static STAFManager getInstance(STAFDriver sd, WebDriver wd){
+		System.out.println("SD:" + sd);
+		System.out.println("WD:" + wd);
+		if(manager == null){
+			manager =  new STAFManager();
+			System.out.println("created new stafmanager");
+			
+			/*wd.put(HEAD, d);
+			wd.put(TAIL, null);*/
+		}
+		putHeadPointer(sd);
+		putTailPointer(sd, wd);
+		System.out.println("returning stafmanager");
+		return manager;
+	}
 	
+	@Deprecated
 	public static STAFManager getInstance(WebDriver d){
 		if(manager == null){
 			manager =  new STAFManager();
@@ -56,20 +74,8 @@ public class STAFManager {
 	}
 
 
-	public static STAFManager getInstance(STAFDriver sd, WebDriver wd){
-		System.out.println("SD:" + sd);
-		System.out.println("WD:" + wd);
-		if(manager == null){
-			manager =  new STAFManager();
-			System.out.println("created new stafmanager");
-			
-			/*wd.put(HEAD, d);
-			wd.put(TAIL, null);*/
-		}
-		putHeadPointer(sd);
-		putTailPointer(sd, wd);
-		System.out.println("returning stafmanager");
-		return manager;
+	public static Pointer getHead() {
+		return HEAD;
 	}
 	
 	

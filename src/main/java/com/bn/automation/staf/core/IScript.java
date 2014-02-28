@@ -32,7 +32,14 @@ public abstract class IScript {
 	public static boolean screenshot = Boolean.valueOf(System
 			.getProperty(STAFConstant.SCREENSHOT_ARG));
 	private static final String NULL = STAFConstant.NULL;
-	public static Map<String, Object> info = new HashMap<String, Object>();
+	private static Map<String, Object> info = new HashMap<String, Object>();
+	
+	public static Map<String, Object> getInfo() {
+		return info;
+	}
+
+	
+
 	private static final Logger logger = LogManager.getLogger(IScript.class);
 
 	protected static void setEnv() {

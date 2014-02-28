@@ -2,10 +2,11 @@ package com.bn.automation.staf.helpers;
 
 public class STAFConstant {
 	
-	public static final String FIREFOX = "Firefox";
-	public static final String CHROME = "Chrome";
-	public static final String IE = "InternetExplorer";
-	public static final String HTML_UNIT = "HTMLUnit";
+	public static final String FIREFOX = "firefox";
+	public static final String CHROME = "chrome";
+	public static final String IE = "ie";
+	public static final String HTML_UNIT = "htmlunit";
+	public static final String SAFARI = "safari";
 	public static final String BY_ID = "id";
 	public static final String BY_NAME = "name";
 	public static final String BY_XPATH = "xpath";
@@ -49,6 +50,7 @@ public class STAFConstant {
 	public static final String KILL_DRIVER_AFTER_TEST = "KILL_DRIVER_AFTER_TEST";
 	public static final String KILL_DRIVER_AFTER_TEST_KEY = "kill_driver_after_test";
 	public static final String GRID = "GRID";
+	public static final String LOCAL = "LOCAL";
 	
 
 }

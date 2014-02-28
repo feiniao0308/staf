@@ -14,8 +14,10 @@ import com.bn.automation.staf.util.STAFConfig;
 public class STAFRunner extends IScript{
 	
 	private static final Logger logger = LogManager.getLogger(STAFRunner.class);
-	private static Set<Class<?>> STAFScript = new HashSet<Class<?>>();
-	private static Set<Class<?>> STAFSuite = new HashSet<Class<?>>();
+	private static Set<Class<?>> STAFScriptSet = new HashSet<Class<?>>();
+	private static Set<Class<?>> STAFSuiteSet = new HashSet<Class<?>>();
+	private static final ScriptRunner SCRIPT_RUNNER = new ScriptRunner();
+	private static final SuiteRunner SUITE_RUNNER = new SuiteRunner();
 	
 	
 	public static void main(String[] runnerArgs) throws ClassNotFoundException, InstantiationException, IllegalAccessException {
@@ -27,10 +29,24 @@ public class STAFRunner extends IScript{
 		} else{
 			System.out.println("******************LOCAL MODE*****************");
 			
+			
 		}
 		
+		if(!STAFScriptSet.isEmpty()){
+			System.out.println("****************SCRIPT EXECUTION*****************");
+			for(Class<?> stafScript:STAFScriptSet){
+				SCRIPT_RUNNER.initiateScript(stafScript);
+			}
+			
+			
+		} 
 		
-		
+		if(!STAFSuiteSet.isEmpty()){
+			System.out.println("****************SUITE EXECUTION*****************");
+			for(Class<?> stafSuite:STAFSuiteSet){
+				SCRIPT_RUNNER.initiateScript(stafSuite);
+			}
+		}
 		
 		
 		
@@ -84,13 +100,13 @@ public class STAFRunner extends IScript{
 		for(String script:scripts){
 			
 			try {
-				Class clazz = Class.forName(script);
+				Class<?> clazz = Class.forName(script);
 				if(isStafScript(clazz)){
 					System.out.println("**************STAF_SCRIPT*****************");
-					STAFScript.add(clazz);
+					STAFScriptSet.add(clazz);
 				} else if (isStafSuite(clazz)){
 					System.out.println("**************STAF_SUITE******************");
-					STAFSuite.add(clazz);
+					STAFSuiteSet.add(clazz);
 				} else {
 					logger.error("Unable to identify as STAFScript or STAFSuite - Please provide appropriate annotations for execution");
 				}
@@ -124,12 +140,12 @@ public class STAFRunner extends IScript{
 	}
 
 	private static void validateConfigEnv(){
-		if(!info.containsKey(STAFConstant.CONFIG_KEY)){
+		if(!getInfo().containsKey(STAFConstant.CONFIG_KEY)){
 			logger.info("Config file needs to be passed for staf script/suite execution");
 			logger.error("Script execution process will be killed");
 			System.exit(0);
 		} else {
-			logger.debug("Config file location is set as : " + info.get(STAFConstant.CONFIG_KEY));
+			logger.debug("Config file location is set as : " + getInfo().get(STAFConstant.CONFIG_KEY));
 			setConfigEnv();
 		}
 	}
@@ -138,13 +154,20 @@ public class STAFRunner extends IScript{
 		try {
 			
 			STAFConfig stafConfig = new STAFConfig();
-			putInfoMap(STAFConstant.BROWSER_NAME_KEY, stafConfig.getField(STAFConstant.DEFAULT_BROWSER_NAME));
-			putInfoMap(STAFConstant.URL_KEY, stafConfig.getField(STAFConstant.DEFAULT_URL));
-			putInfoMap(STAFConstant.IE_DRIVER_PATH_KEY, stafConfig.getField(STAFConstant.IE_DRIVER_PATH));
-			putInfoMap(STAFConstant.CHROME_DRIVER_PATH_KEY, stafConfig.getField(STAFConstant.CHROME_DRIVER_PATH));
-			putInfoMap(STAFConstant.KILL_BROWSER_AFTER_TEST_KEY, stafConfig.getField(STAFConstant.KILL_BROWSER_AFTER_TEST));
-			putInfoMap(STAFConstant.KILL_DRIVER_AFTER_TEST_KEY, stafConfig.getField(STAFConstant.KILL_DRIVER_AFTER_TEST));
-			putInfoMap(STAFConstant.GRID_KEY, stafConfig.getField(STAFConstant.GRID));
+			if(stafConfig.isFieldPresent(STAFConstant.DEFAULT_BROWSER_NAME))
+				putInfoMap(STAFConstant.BROWSER_NAME_KEY, stafConfig.getField(STAFConstant.DEFAULT_BROWSER_NAME));
+			if(stafConfig.isFieldPresent(STAFConstant.DEFAULT_URL))
+				putInfoMap(STAFConstant.URL_KEY, stafConfig.getField(STAFConstant.DEFAULT_URL));
+			if(stafConfig.isFieldPresent(STAFConstant.IE_DRIVER_PATH))
+				putInfoMap(STAFConstant.IE_DRIVER_PATH_KEY, stafConfig.getField(STAFConstant.IE_DRIVER_PATH));
+			if(stafConfig.isFieldPresent(STAFConstant.CHROME_DRIVER_PATH))
+				putInfoMap(STAFConstant.CHROME_DRIVER_PATH_KEY, stafConfig.getField(STAFConstant.CHROME_DRIVER_PATH));
+			if(stafConfig.isFieldPresent(STAFConstant.KILL_BROWSER_AFTER_TEST))
+				putInfoMap(STAFConstant.KILL_BROWSER_AFTER_TEST_KEY, stafConfig.getField(STAFConstant.KILL_BROWSER_AFTER_TEST));
+			if(stafConfig.isFieldPresent(STAFConstant.KILL_DRIVER_AFTER_TEST))
+				putInfoMap(STAFConstant.KILL_DRIVER_AFTER_TEST_KEY, stafConfig.getField(STAFConstant.KILL_DRIVER_AFTER_TEST));
+			if(stafConfig.isFieldPresent(STAFConstant.GRID))
+				putInfoMap(STAFConstant.GRID_KEY, stafConfig.getField(STAFConstant.GRID));
 			
 					
 			
@@ -154,8 +177,8 @@ public class STAFRunner extends IScript{
 		
 	}
 
-	private static boolean isGridMode(){
-		if((boolean) info.get(STAFConstant.GRID_KEY)){
+	public static boolean isGridMode(){
+		if((boolean) getInfo().get(STAFConstant.GRID_KEY)){
 			logger.info("grid execution is set to true");
 			logger.info("STAF GRID EXECUTION STARTS NOW");
 			viewInfoMap();

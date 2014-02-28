@@ -14,6 +14,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.safari.SafariDriver;
 
 import com.bn.automation.staf.helpers.STAFConstant;
 import com.bn.automation.staf.helpers.Verify;
@@ -22,26 +23,58 @@ import com.bn.automation.staf.widget.Label;
 import com.bn.automation.staf.widget.TextBox;
 import com.bn.automation.staf.widget.Widgets;
 
-public class STAFDriver implements STAFiDriver {
+public class STAFDriver extends Driver {
 
 	public static WebDriver iDriver;
-
-	public static WebDriver getiDriver() {
-		return iDriver;
-	}
-
-	/*public static void setiDriver(WebDriver iDriver) {
-		STAFDriver.iDriver = STAFDriver.getInstance();
-		System.out.println("Hello");
-	}*/
-
+	private static WebDriver wd;
 	private static String browser;
-	private String testCaseID;
-	private String dataFileLocation;
-	private String URL;
-	private static final Logger logger = LogManager.getLogger();
+	private static final Logger logger = LogManager.getLogger(STAFDriver.class);
 	private volatile static STAFDriver stafDriver = null;
-
+	private static Map<String,Object> infoMap = IScript.getInfo();
+	
+	public STAFDriver(){
+		
+		if(!STAFRunner.isGridMode()){
+			switch(getInfoMap().get(STAFConstant.BROWSER_NAME_KEY).toString().toLowerCase()){
+			case STAFConstant.FIREFOX:
+				setWd(new FirefoxDriver());
+				STAFManager.getInstance(this, getWd());
+				logger.info("Firefox browser is set and opened in new window");
+				break;
+			case STAFConstant.CHROME:
+				setWd(new ChromeDriver());
+				STAFManager.getInstance(this, getWd());
+				logger.info("Chrome browser is set and opened in new window");
+				break;
+			case STAFConstant.IE:
+				setWd(new InternetExplorerDriver());
+				STAFManager.getInstance(this, getWd());
+				logger.info("Internet Explorer browser is set and opened in new window");
+				break;
+			case STAFConstant.HTML_UNIT:
+				setWd(new HtmlUnitDriver());
+				STAFManager.getInstance(this, getWd());
+				logger.info("HTML unit browser is set and opened in new window");
+				break;
+			case STAFConstant.SAFARI:
+				setWd(new SafariDriver());
+				STAFManager.getInstance(this, getWd());
+			default:
+				throw new IllegalArgumentException("Invalid browser type : "
+						+ browser);
+			}
+		} else if (STAFRunner.isGridMode()){
+			
+		} else {
+			System.out.println("*********************UNKNOWN MODE******************");
+		}
+		
+		
+	}
+	
+	
+	
+	@Deprecated
 	public STAFDriver(String browser) {
 		
 		System.out.println(this);
@@ -78,6 +111,7 @@ public class STAFDriver implements STAFiDriver {
 
 	}
 
+	@Deprecated
 	public STAFDriver(String browser, String dataFileLocation) {
 		setDataFileLocation(dataFileLocation);
 		switch (browser) {
@@ -101,6 +135,7 @@ public class STAFDriver implements STAFiDriver {
 		}
 	}
 
+	@Deprecated
 	public static STAFDriver getInstance(String browser) {
 		if (stafDriver == null) {
 			stafDriver = new STAFDriver(browser);
@@ -109,6 +144,7 @@ public class STAFDriver implements STAFiDriver {
 		return stafDriver;
 	}
 
+	@Deprecated
 	public static STAFDriver getInstance() {
 
 		if (stafDriver == null) {
@@ -121,22 +157,41 @@ public class STAFDriver implements STAFiDriver {
 	}
 
 	
+	
+	public static Map<String, Object> getInfoMap() {
+		return infoMap;
+	}
+	
+	private static WebDriver getWd() {
+		return wd;
+	}
+
+	private static void setWd(WebDriver wd) {
+		STAFDriver.wd = wd;
+	}
+
+	@Deprecated
+	public static WebDriver getiDriver() {
+		return iDriver;
+	}
+	
 	public void setAsHead(){
 		System.out.println(this);
 		STAFManager.putHeadPointer(this);
 	}
 	
 	
-	@Override
+	/*@Override
 	public void get(String url) {
 		System.out.println("inside get");
-
-		iDriver.get(url);
+		getHeadWDriver().get(url);
+		//iDriver.get(url);
 
 	}
 
 	@Override
 	public String getCurrentUrl() {
+		re
 		return iDriver.getCurrentUrl();
 	}
 
@@ -195,51 +250,8 @@ public class STAFDriver implements STAFiDriver {
 	public Options manage() {
 		return iDriver.manage();
 	}
-
-	@Override
-	public String getTestCaseID() {
-		return logger.exit(this.testCaseID);
-	}
-
-	@Override
-	public void setTestCaseID(String value) {
-		logger.entry(value);
-		this.testCaseID = value;
-	}
-
-	@Override
-	public String getDataFileLocation() {
-		return logger.exit(this.dataFileLocation);
-	}
-
-	@Override
-	public void setDataFileLocation(String value) {
-		logger.entry(value);
-		this.dataFileLocation = value;
-	}
-
-	@Override
-	public String getURL() {
-		return logger.exit(this.URL);
-	}
-
-	@Override
-	public void setURL(String value) {
-		logger.entry(value);
-		this.URL = value;
-	}
-
-	@Override
-	public Object getDriver() {
-		return null;
-
-	}
-
-	@Override
-	public void setDriver() {
-
-	}
-
+*/
+	
 	public static String getBrowser() {
 		return logger.exit(browser);
 	}
