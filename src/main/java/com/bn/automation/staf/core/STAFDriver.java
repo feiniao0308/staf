@@ -14,6 +14,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.safari.SafariDriver;
 
 import com.bn.automation.staf.helpers.STAFConstant;
 import com.bn.automation.staf.helpers.Verify;
@@ -22,211 +23,148 @@ import com.bn.automation.staf.widget.Label;
 import com.bn.automation.staf.widget.TextBox;
 import com.bn.automation.staf.widget.Widgets;
 
-public class STAFDriver implements STAFiDriver {
+public class STAFDriver extends Driver {
 
+	@Deprecated
 	public static WebDriver iDriver;
+	private static WebDriver wd;
+	private static String browser;
+	private static final Logger logger = LogManager.getLogger(STAFDriver.class);
+	@Deprecated
+	private volatile static STAFDriver stafDriver = null;
+	private static Map<String, Object> infoMap = IScript.getInfo();
 
+	public STAFDriver() {
+		logger.entry();
+		logger.info("STAFDriver class is intialized and STAFDriver instance will be created ");
+		if (!STAFRunner.isGridMode()) {
+
+			logger.info("------------------------------------------------------------------------");
+			logger.info("\tLOCAL MODE");
+			logger.info("------------------------------------------------------------------------");
+			switch (getInfoMap().get(STAFConstant.BROWSER_NAME_KEY).toString()
+					.toLowerCase()) {
+			case STAFConstant.FIREFOX:
+				logger.info(STAFConstant.DASH);
+				logger.info("\tFIREFOX");
+				logger.info(STAFConstant.DASH);
+				setWd(new FirefoxDriver());
+				STAFManager.getInstance(this, getWd());
+				logger.info("Firefox browser is set and opened in new window");
+				break;
+			case STAFConstant.CHROME:
+				logger.info(STAFConstant.DASH);
+				logger.info("\tCHROME");
+				logger.info(STAFConstant.DASH);
+				// TODO check whether driver exist in that location
+				System.setProperty(STAFConstant.WEBDRIVER_CHROME_DRIVER,
+						getInfoMap().get(STAFConstant.CHROME_DRIVER_PATH_KEY)
+								.toString());
+				setWd(new ChromeDriver());
+				STAFManager.getInstance(this, getWd());
+				logger.info("Chrome browser is set and opened in new window");
+				break;
+			case STAFConstant.IE:
+				logger.info(STAFConstant.DASH);
+				logger.info("\tINTERNET EXPLORER");
+				logger.info(STAFConstant.DASH);
+				// TODO check whether driver exist in that location
+				System.setProperty(STAFConstant.WEBDRIVER_IE_DRIVER,
+						getInfoMap().get(STAFConstant.IE_DRIVER_PATH_KEY)
+								.toString());
+				setWd(new InternetExplorerDriver());
+				STAFManager.getInstance(this, getWd());
+				logger.info("Internet Explorer browser is set and opened in new window");
+				break;
+			case STAFConstant.HTML_UNIT:
+				logger.info(STAFConstant.DASH);
+				logger.info("\tHTML UNIT");
+				logger.info(STAFConstant.DASH);
+				setWd(new HtmlUnitDriver());
+				STAFManager.getInstance(this, getWd());
+				logger.info("HTML unit browser is set and opened in new window");
+				break;
+			case STAFConstant.SAFARI:
+				logger.info(STAFConstant.DASH);
+				logger.info("\tSAFARI");
+				logger.info(STAFConstant.DASH);
+				setWd(new SafariDriver());
+				STAFManager.getInstance(this, getWd());
+			default:
+				logger.info(STAFConstant.DASH);
+				logger.error("\tINVALID BROWSER");
+				logger.info(STAFConstant.DASH);
+				throw new IllegalArgumentException("Invalid browser type : "
+						+ browser);
+			}
+		} else if (STAFRunner.isGridMode()) {
+
+		} else {
+			logger.info(STAFConstant.DASH);
+			logger.error("\tINVALID EXECUTION MODE");
+			logger.info(STAFConstant.DASH);
+		}
+
+	}
+
+	public static Map<String, Object> getInfoMap() {
+		return infoMap;
+	}
+
+	private static WebDriver getWd() {
+		return wd;
+	}
+
+	private static void setWd(WebDriver wd) {
+		STAFDriver.wd = wd;
+	}
+
+	@Deprecated
 	public static WebDriver getiDriver() {
 		return iDriver;
 	}
 
-	public static void setiDriver(WebDriver iDriver) {
-		STAFDriver.iDriver = STAFDriver.getInstance();
-		System.out.println("Hello");
+	public void setAsHead() {
+		System.out.println(this);
+		STAFManager.putHeadPointer(this);
 	}
 
-	private static String browser;
-	private String testCaseID;
-	private String dataFileLocation;
-	private String URL;
-	private static final Logger logger = LogManager.getLogger();
-	private volatile static STAFDriver stafDriver = null;
-
-	public STAFDriver(String browser) {
-
-		switch (browser) {
-		case STAFConstant.FIREFOX:
-			setBrowser(STAFConstant.FIREFOX);
-			iDriver = new FirefoxDriver();
-			logger.info("Firefox browser is set and opened in new window");
-			break;
-		case STAFConstant.CHROME:
-			setBrowser(STAFConstant.CHROME);
-			iDriver = new ChromeDriver();
-			logger.info("Chrome browser is set and opened in new window");
-			break;
-		case STAFConstant.IE:
-			setBrowser(STAFConstant.IE);
-			iDriver = new InternetExplorerDriver();
-			logger.info("Internet Explorer browser is set and opened in new window");
-			break;
-		case STAFConstant.HTML_UNIT:
-			setBrowser(STAFConstant.HTML_UNIT);
-			iDriver = new HtmlUnitDriver();
-			logger.info("HTML unit browser is set and opened in new window");
-			break;
-		case "other1":
-		case "other2":
-		default:
-			throw new IllegalArgumentException("Invalid browser type : "
-					+ browser);
-		}
-
-	}
-
-	public STAFDriver(String browser, String dataFileLocation) {
-		setDataFileLocation(dataFileLocation);
-		switch (browser) {
-		case STAFConstant.FIREFOX:
-			iDriver = new FirefoxDriver();
-			break;
-		case STAFConstant.CHROME:
-			iDriver = new ChromeDriver();
-			break;
-		case STAFConstant.IE:
-			iDriver = new InternetExplorerDriver();
-			break;
-		case STAFConstant.HTML_UNIT:
-			iDriver = new HtmlUnitDriver();
-			break;
-		case "other1":
-		case "other2":
-		default:
-			throw new IllegalArgumentException("Invalid browser type : "
-					+ browser);
-		}
-	}
-
-	public static STAFDriver getInstance(String browser) {
-		if (stafDriver == null) {
-			stafDriver = new STAFDriver(browser);
-
-		}
-		return stafDriver;
-	}
-
-	public static STAFDriver getInstance() {
-
-		if (stafDriver == null) {
-			stafDriver = new STAFDriver(STAFConstant.FIREFOX);
-			setiDriver(stafDriver);
-			logger.debug("Firefox browser will be used if no browser name is passed to getInstance");
-		}
-		logger.debug("Browser selected is : " + getBrowser());
-		return stafDriver;
-	}
-
-	@Override
-	public void get(String url) {
-		System.out.println("inside get");
-
-		iDriver.get(url);
-
-	}
-
-	@Override
-	public String getCurrentUrl() {
-		return iDriver.getCurrentUrl();
-	}
-
-	@Override
-	public String getTitle() {
-		return iDriver.getTitle();
-	}
-
-	@Override
-	public List<WebElement> findElements(By by) {
-		return iDriver.findElements(by);
-	}
-
-	@Override
-	public WebElement findElement(By by) {
-		return iDriver.findElement(by);
-	}
-
-	@Override
-	public String getPageSource() {
-		return iDriver.getPageSource();
-	}
-
-	@Override
-	public void close() {
-		iDriver.close();
-	}
-
-	@Override
-	public void quit() {
-		iDriver.quit();
-	}
-
-	@Override
-	public Set<String> getWindowHandles() {
-		return iDriver.getWindowHandles();
-	}
-
-	@Override
-	public String getWindowHandle() {
-		return iDriver.getWindowHandle();
-	}
-
-	@Override
-	public TargetLocator switchTo() {
-		return iDriver.switchTo();
-	}
-
-	@Override
-	public Navigation navigate() {
-		return iDriver.navigate();
-	}
-
-	@Override
-	public Options manage() {
-		return iDriver.manage();
-	}
-
-	@Override
-	public String getTestCaseID() {
-		return logger.exit(this.testCaseID);
-	}
-
-	@Override
-	public void setTestCaseID(String value) {
-		logger.entry(value);
-		this.testCaseID = value;
-	}
-
-	@Override
-	public String getDataFileLocation() {
-		return logger.exit(this.dataFileLocation);
-	}
-
-	@Override
-	public void setDataFileLocation(String value) {
-		logger.entry(value);
-		this.dataFileLocation = value;
-	}
-
-	@Override
-	public String getURL() {
-		return logger.exit(this.URL);
-	}
-
-	@Override
-	public void setURL(String value) {
-		logger.entry(value);
-		this.URL = value;
-	}
-
-	@Override
-	public Object getDriver() {
-		return null;
-
-	}
-
-	@Override
-	public void setDriver() {
-
-	}
+	/*
+	 * @Override public void get(String url) { System.out.println("inside get");
+	 * getHeadWDriver().get(url); //iDriver.get(url);
+	 * 
+	 * }
+	 * 
+	 * @Override public String getCurrentUrl() { re return
+	 * iDriver.getCurrentUrl(); }
+	 * 
+	 * @Override public String getTitle() { return iDriver.getTitle(); }
+	 * 
+	 * @Override public List<WebElement> findElements(By by) { return
+	 * iDriver.findElements(by); }
+	 * 
+	 * @Override public WebElement findElement(By by) { //return
+	 * this.findElement(by); return iDriver.findElement(by); }
+	 * 
+	 * @Override public String getPageSource() { return iDriver.getPageSource();
+	 * }
+	 * 
+	 * @Override public void close() { iDriver.close(); }
+	 * 
+	 * @Override public void quit() { iDriver.quit(); }
+	 * 
+	 * @Override public Set<String> getWindowHandles() { return
+	 * iDriver.getWindowHandles(); }
+	 * 
+	 * @Override public String getWindowHandle() { return
+	 * iDriver.getWindowHandle(); }
+	 * 
+	 * @Override public TargetLocator switchTo() { return iDriver.switchTo(); }
+	 * 
+	 * @Override public Navigation navigate() { return iDriver.navigate(); }
+	 * 
+	 * @Override public Options manage() { return iDriver.manage(); }
+	 */
 
 	public static String getBrowser() {
 		return logger.exit(browser);
@@ -317,18 +255,98 @@ public class STAFDriver implements STAFiDriver {
 
 		HashMap<String, List<String>> verifyCookie = new XMLReader()
 				.getCookieContainer(containerName.toString());
-		
+
 		STAFCookie cookie = new STAFCookie();
-		if(verifyCookie.get("NAME")!=null){
+		if (verifyCookie.get("NAME") != null) {
 			cookie.verifyName(verifyCookie.get("NAME"));
 		}
-		if(verifyCookie.get("DOMAIN")!=null){
-			cookie.verifyDomain(verifyCookie.get("DOMAIN"));	
+		if (verifyCookie.get("DOMAIN") != null) {
+			cookie.verifyDomain(verifyCookie.get("DOMAIN"));
 		}
-		
-		
 
-		
+	}
+
+	// Depreacted methods
+	// TODO remove these methods
+	@Deprecated
+	public STAFDriver(String browser) {
+
+		System.out.println(this);
+
+		switch (browser) {
+		case STAFConstant.FIREFOX:
+			setBrowser(STAFConstant.FIREFOX);
+			iDriver = new FirefoxDriver();
+			STAFManager.getInstance(this, iDriver);
+			logger.info("Firefox browser is set and opened in new window");
+			break;
+		case STAFConstant.CHROME:
+			setBrowser(STAFConstant.CHROME);
+			iDriver = new ChromeDriver();
+			logger.info("Chrome browser is set and opened in new window");
+			break;
+		case STAFConstant.IE:
+			setBrowser(STAFConstant.IE);
+			iDriver = new InternetExplorerDriver();
+			logger.info("Internet Explorer browser is set and opened in new window");
+			break;
+		case STAFConstant.HTML_UNIT:
+			setBrowser(STAFConstant.HTML_UNIT);
+			iDriver = new HtmlUnitDriver();
+			logger.info("HTML unit browser is set and opened in new window");
+			break;
+		case "other1":
+		case "other2":
+		default:
+			throw new IllegalArgumentException("Invalid browser type : "
+					+ browser);
+		}
+
+	}
+
+	@Deprecated
+	public STAFDriver(String browser, String dataFileLocation) {
+		setDataFileLocation(dataFileLocation);
+		switch (browser) {
+		case STAFConstant.FIREFOX:
+			iDriver = new FirefoxDriver();
+			break;
+		case STAFConstant.CHROME:
+			iDriver = new ChromeDriver();
+			break;
+		case STAFConstant.IE:
+			iDriver = new InternetExplorerDriver();
+			break;
+		case STAFConstant.HTML_UNIT:
+			iDriver = new HtmlUnitDriver();
+			break;
+		case "other1":
+		case "other2":
+		default:
+			throw new IllegalArgumentException("Invalid browser type : "
+					+ browser);
+		}
+	}
+
+	@Deprecated
+	public static STAFDriver getInstance(String browser) {
+		if (stafDriver == null) {
+			stafDriver = new STAFDriver(browser);
+
+		}
+		return stafDriver;
+	}
+
+	@Deprecated
+	public static STAFDriver getInstance() {
+
+		if (stafDriver == null) {
+			stafDriver = new STAFDriver(STAFConstant.FIREFOX);
+			// setiDriver(stafDriver);
+			logger.debug("Firefox browser will be used if no browser name is passed to getInstance");
+		}
+		logger.debug("Browser selected is : " + getBrowser());
+		return stafDriver;
 	}
 
 }

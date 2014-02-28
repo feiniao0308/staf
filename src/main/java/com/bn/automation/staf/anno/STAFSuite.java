@@ -1,12 +1,12 @@
-package com.bn.automation.staf.core;
+package com.bn.automation.staf.anno;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-@Target(value=ElementType.METHOD)
+@Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Test {
+public @interface STAFSuite {
 
 }

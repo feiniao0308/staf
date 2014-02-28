@@ -18,6 +18,7 @@ public class STAFElement extends WidgetInfo implements STAFiElement {
 
 	// private static final Map<String,String> elementProperty = null;
 	private static WebElement element = null;
+	private static By by = null;
 	private static final Logger logger = LogManager.getLogger();
 
 	public STAFElement(String widgetProperty) {
@@ -32,8 +33,13 @@ public class STAFElement extends WidgetInfo implements STAFiElement {
 	}
 
 	public WebElement getStafElement() {
-		switch (getPropertyName()) {
+		
+		System.out.println("by : " + getByElement()); 
+		return getStafManager().findElement(getByElement());
+		
+		/*switch (getPropertyName()) {
 		case STAFConstant.BY_ID:
+			//by = By.id(getPropertyValue());
 			element = getStafManager().findElement(By.id(getPropertyValue()));
 			logger.debug("Element is identified with type :"
 					+ getPropertyName() + " and value :" + getPropertyValue());
@@ -65,11 +71,56 @@ public class STAFElement extends WidgetInfo implements STAFiElement {
 			throw new IllegalArgumentException("Invalid by type : "
 					+ getPropertyName());
 		}
-		return element;
+		return element;*/
+	}
+	
+	public By getByElement(){
+		switch (getPropertyName()) {
+		case STAFConstant.BY_ID:
+			by = By.id(getPropertyValue());
+			//element = getStafManager().findElement(By.id(getPropertyValue()));
+			logger.debug("Element is identified with type :"
+					+ getPropertyName() + " and value :" + getPropertyValue());
+			break;
+		case STAFConstant.BY_NAME:
+			by = By.name(getPropertyValue());
+			//element = getStafManager().findElement(By.name(getPropertyValue()));
+			logger.debug("Element is identified with type :"
+					+ getPropertyName() + " and value :" + getPropertyValue());
+			break;
+		case STAFConstant.BY_XPATH:
+			by = By.xpath(getPropertyValue());
+			//element = getStafManager()
+			//		.findElement(By.xpath(getPropertyValue()));
+			logger.debug("Element is identified with type :"
+					+ getPropertyName() + " and value :" + getPropertyValue());
+			break;
+		case STAFConstant.BY_CLASS_NAME:
+			by = By.className(getPropertyValue());
+			//element = getStafManager().findElement(
+			//		By.className(getPropertyValue()));
+			logger.debug("Element is identified with type :"
+					+ getPropertyName() + " and value :" + getPropertyValue());
+			break;
+		case STAFConstant.BY_TAG_NAME:
+			by = By.tagName(getPropertyValue());
+			//element = getStafManager().findElement(
+			//		By.tagName(getPropertyValue()));
+			logger.debug("Element is identified with type :"
+					+ getPropertyName() + " and value :" + getPropertyValue());
+		case "other2":
+		default:
+			throw new IllegalArgumentException("Invalid by type : "
+					+ getPropertyName());
+		}
+		return by;
 	}
 
 	private WebElement getElement() {
-		return getStafElement();
+		System.out.println("this is : " + this);
+		return this.getStafElement();
+		//return getStafElement();
+		
 	}
 	
 	

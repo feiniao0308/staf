@@ -9,7 +9,7 @@ import com.bn.automation.staf.anno.Test;
 import com.bn.automation.staf.core.STAFDriver;
 
 @STAFScript
-public class SimpleTest {
+public class SimpleTest2 {
 
 	private static STAFDriver driver;
 
@@ -29,13 +29,19 @@ public class SimpleTest {
 	public void test() throws Throwable {
 		
 		System.out.println("hello from test method");
+
+		System.out.println("hello from test method");
 		
 		STAFDriver sd = new STAFDriver();
+		STAFDriver sd2 = new STAFDriver();
 		sd.get("http://google.com");
+		
+		Thread.sleep(5000);
+		sd2.get("http://yahoo.com");
 		Thread.sleep(5000);
 		sd.quit();
-		
-		
+		Thread.sleep(2000);
+		sd2.quit();
 		/*System.out.println("hello");
 
 		//driver.autopopulate("hello", this.getClass());

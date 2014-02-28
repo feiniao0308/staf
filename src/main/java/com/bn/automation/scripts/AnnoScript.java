@@ -1,6 +1,7 @@
 package com.bn.automation.scripts;
 
-import com.bn.automation.staf.core.Test;
+import org.testng.annotations.Test;
+
 
 public class AnnoScript {
 	
