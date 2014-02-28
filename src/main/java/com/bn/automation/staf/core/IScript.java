@@ -89,14 +89,15 @@ public abstract class IScript {
 	}
 
 	protected static void viewInfoMap() {
-		logger.info("INFO MAP FOR ALL KEYS");
+		logger.info(STAFConstant.DASH);
+		logger.info("INFO MAP FOR STAF EXECUTION");
+		logger.info(STAFConstant.DASH);
 		for (Map.Entry<String, Object> entry : info.entrySet()) {
-			System.out.println(entry.getKey().length()+":"+entry.getValue().toString().length());
-
-			System.out
-					.println("\t*" + entry.getKey() + "->" + entry.getValue());
+			
+			logger.info("{} -> {} ", entry.getKey(),entry.getValue());
 
 		}
+		logger.info(STAFConstant.DASH);
 
 	}
 	

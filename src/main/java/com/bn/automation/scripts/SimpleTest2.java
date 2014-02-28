@@ -33,9 +33,15 @@ public class SimpleTest2 {
 		System.out.println("hello from test method");
 		
 		STAFDriver sd = new STAFDriver();
+		STAFDriver sd2 = new STAFDriver();
 		sd.get("http://google.com");
+		
+		Thread.sleep(5000);
+		sd2.get("http://yahoo.com");
 		Thread.sleep(5000);
 		sd.quit();
+		Thread.sleep(2000);
+		sd2.quit();
 		/*System.out.println("hello");
 
 		//driver.autopopulate("hello", this.getClass());

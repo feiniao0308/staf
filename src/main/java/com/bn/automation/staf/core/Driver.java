@@ -16,109 +16,149 @@ public class Driver implements STAFiDriver {
 	protected String dataFileLocation;
 	protected String URL;
 
-	protected static STAFDriver getHeadSDriver() {
-
-		return STAFManager.getHeadPointer().get(STAFManager.getHead());
+	protected STAFDriver getHeadSDriver() {
+		logger.debug("Get head/current instance of STAFDriver from the Head Pointer Map<HEAD,STAFDriver> ");
+		return logger.exit(STAFManager.getHeadPointer().get(STAFManager.getHead()));
 	}
 
-	private static WebDriver getHeadWDriver() {
-		return STAFManager.getTailPointer().get(getHeadSDriver());
+	private WebDriver getHeadWDriver() {
+		logger.debug("Get head/current instance of WebDriver from the Tail Pointer Map<STAFDriver,WebDriver> using the head instance of STAFDriver ->" + this );
+		return logger.exit(STAFManager.getTailPointer().get(getHeadSDriver()));
+	}
+	
+	private WebDriver getThisWDriver(){
+		logger.debug("Get instance of WebDriver from the Tail Pointer Map<STAFDriver,WebDriver> using this instance of STAFDriver  ->" + this);
+		return logger.exit(STAFManager.getTailPointer().get(this));
 	}
 
 	@Override
 	public void close() {
-		getHeadWDriver().close();
+		logger.entry();
+		logger.debug("this instance of driver will be closed");
+		getThisWDriver().close();
 
 	}
 
 	@Override
 	public WebElement findElement(By by) {
-		return getHeadWDriver().findElement(by);
+		logger.entry();
+		logger.debug("Find WebElement from this instance of driver using : " + by);
+		return logger.exit(getThisWDriver().findElement(by));
 	}
 
 	@Override
 	public List<WebElement> findElements(By by) {
-		return getHeadWDriver().findElements(by);
+		logger.entry();
+		logger.debug("Find List of WebElements from this instance of driver using : " + by);
+		return logger.exit(getThisWDriver().findElements(by));
 	}
 
 	@Override
 	public void get(String url) {
-		getHeadWDriver().get(url);
+		logger.entry();
+		logger.debug("Open passed URL : " + url + " in new browser window");
+		getThisWDriver().get(url);
 	}
 
 	@Override
 	public String getCurrentUrl() {
-		return getHeadWDriver().getCurrentUrl();
+		logger.entry();
+		logger.debug("");
+		return getThisWDriver().getCurrentUrl();
 	}
 
 	@Override
 	public String getPageSource() {
-		return getHeadWDriver().getPageSource();
+		logger.entry();
+		logger.debug("");
+		return getThisWDriver().getPageSource();
 	}
 
 	@Override
 	public String getTitle() {
-		return getHeadWDriver().getTitle();
+		logger.entry();
+		logger.debug("");
+		return getThisWDriver().getTitle();
 	}
 
 	@Override
 	public String getWindowHandle() {
-		return getHeadWDriver().getWindowHandle();
+		logger.entry();
+		logger.debug("");
+		return getThisWDriver().getWindowHandle();
 	}
 
 	@Override
 	public Set<String> getWindowHandles() {
-		return getHeadWDriver().getWindowHandles();
+		logger.entry();
+		logger.debug("");
+		return getThisWDriver().getWindowHandles();
 	}
 
 	@Override
 	public Options manage() {
-		return getHeadWDriver().manage();
+		logger.entry();
+		logger.debug("");
+		return getThisWDriver().manage();
 	}
 
 	@Override
 	public Navigation navigate() {
-		return getHeadWDriver().navigate();
+		logger.entry();
+		logger.debug("");
+		return getThisWDriver().navigate();
 	}
 
 	@Override
 	public void quit() {
+		logger.entry();
+		logger.debug("");
 		//TODO check whether its working or not
-		getHeadWDriver().quit();
+		getThisWDriver().quit();
 	}
 
 	@Override
 	public TargetLocator switchTo() {
-		return getHeadWDriver().switchTo();
+		logger.entry();
+		logger.debug("");
+		return getThisWDriver().switchTo();
 	}
 
 	@Override
 	public String getTestCaseID() {
+		logger.entry();
+		logger.debug("");
 		return logger.exit(this.testCaseID);
 	}
 
+	
 	@Override
 	public void setTestCaseID(String value) {
+		logger.debug("");
 		logger.entry(value);
 		this.testCaseID = value;
 	}
 
+	@Deprecated
 	@Override
 	public String getDataFileLocation() {
 		return logger.exit(this.dataFileLocation);
 	}
 
+	@Deprecated
 	@Override
 	public void setDataFileLocation(String value) {
 		logger.entry(value);
 		this.dataFileLocation = value;
 	}
 
+	@Deprecated
 	@Override
 	public String getURL() {
 		return logger.exit(this.URL);
 	}
 
+	@Deprecated
 	@Override
 	public void setURL(String value) {
 		logger.entry(value);

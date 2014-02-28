@@ -52,5 +52,10 @@ public class STAFConstant {
 	public static final String GRID = "GRID";
 	public static final String LOCAL = "LOCAL";
 	
+	public static final String DASH = "------------------------------------------------------------------------";
+	
+	public static final String WEBDRIVER_CHROME_DRIVER = "webdriver.chrome.driver";
+	public static final String WEBDRIVER_IE_DRIVER = "webdriver.ie.driver";
+	
 
 }
