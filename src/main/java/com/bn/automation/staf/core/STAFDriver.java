@@ -1,15 +1,17 @@
 package com.bn.automation.staf.core;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.openqa.selenium.By;
+import org.jdom2.Document;
+import org.jdom2.JDOMException;
+import org.jdom2.input.SAXBuilder;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
@@ -18,6 +20,7 @@ import org.openqa.selenium.safari.SafariDriver;
 
 import com.bn.automation.staf.helpers.STAFConstant;
 import com.bn.automation.staf.helpers.Verify;
+import com.bn.automation.staf.util.XML;
 import com.bn.automation.staf.util.XMLReader;
 import com.bn.automation.staf.widget.Label;
 import com.bn.automation.staf.widget.TextBox;
@@ -30,6 +33,10 @@ public class STAFDriver extends Driver {
 	private static WebDriver wd;
 	private static String browser;
 	private static final Logger logger = LogManager.getLogger(STAFDriver.class);
+	private static Document configDocument;
+	private static Document dataDocument;
+	private static final XML configXML = new XML();
+			
 	@Deprecated
 	private volatile static STAFDriver stafDriver = null;
 	private static Map<String, Object> infoMap = IScript.getInfo();
@@ -37,16 +44,17 @@ public class STAFDriver extends Driver {
 	public STAFDriver() {
 		logger.entry();
 		logger.info("STAFDriver class is intialized and STAFDriver instance will be created ");
+		setCongif(infoMap.get(STAFConstant.CONFIG_KEY).toString());
 		if (!STAFRunner.isGridMode()) {
 
 			logger.info("------------------------------------------------------------------------");
-			logger.info("\tLOCAL MODE");
+			logger.info("MODE : LOCAL");
 			logger.info("------------------------------------------------------------------------");
 			switch (getInfoMap().get(STAFConstant.BROWSER_NAME_KEY).toString()
 					.toLowerCase()) {
 			case STAFConstant.FIREFOX:
 				logger.info(STAFConstant.DASH);
-				logger.info("\tFIREFOX");
+				logger.info("BROWSER : FIREFOX");
 				logger.info(STAFConstant.DASH);
 				setWd(new FirefoxDriver());
 				STAFManager.getInstance(this, getWd());
@@ -54,7 +62,7 @@ public class STAFDriver extends Driver {
 				break;
 			case STAFConstant.CHROME:
 				logger.info(STAFConstant.DASH);
-				logger.info("\tCHROME");
+				logger.info("BROWSER : CHROME");
 				logger.info(STAFConstant.DASH);
 				// TODO check whether driver exist in that location
 				System.setProperty(STAFConstant.WEBDRIVER_CHROME_DRIVER,
@@ -66,7 +74,7 @@ public class STAFDriver extends Driver {
 				break;
 			case STAFConstant.IE:
 				logger.info(STAFConstant.DASH);
-				logger.info("\tINTERNET EXPLORER");
+				logger.info("BROWSER : INTERNET EXPLORER");
 				logger.info(STAFConstant.DASH);
 				// TODO check whether driver exist in that location
 				System.setProperty(STAFConstant.WEBDRIVER_IE_DRIVER,
@@ -78,7 +86,7 @@ public class STAFDriver extends Driver {
 				break;
 			case STAFConstant.HTML_UNIT:
 				logger.info(STAFConstant.DASH);
-				logger.info("\tHTML UNIT");
+				logger.info("BROWSER : HTML UNIT");
 				logger.info(STAFConstant.DASH);
 				setWd(new HtmlUnitDriver());
 				STAFManager.getInstance(this, getWd());
@@ -86,13 +94,13 @@ public class STAFDriver extends Driver {
 				break;
 			case STAFConstant.SAFARI:
 				logger.info(STAFConstant.DASH);
-				logger.info("\tSAFARI");
+				logger.info("BROWSER : SAFARI");
 				logger.info(STAFConstant.DASH);
 				setWd(new SafariDriver());
 				STAFManager.getInstance(this, getWd());
 			default:
 				logger.info(STAFConstant.DASH);
-				logger.error("\tINVALID BROWSER");
+				logger.error("ERROR : INVALID BROWSER");
 				logger.info(STAFConstant.DASH);
 				throw new IllegalArgumentException("Invalid browser type : "
 						+ browser);
@@ -101,7 +109,7 @@ public class STAFDriver extends Driver {
 
 		} else {
 			logger.info(STAFConstant.DASH);
-			logger.error("\tINVALID EXECUTION MODE");
+			logger.error("INVALID EXECUTION MODE");
 			logger.info(STAFConstant.DASH);
 		}
 
@@ -264,6 +272,48 @@ public class STAFDriver extends Driver {
 			cookie.verifyDomain(verifyCookie.get("DOMAIN"));
 		}
 
+	}
+
+	@Override
+	public XML getConfig() {
+
+		return STAFRunner.getConfigXml();
+	}
+
+	@Override
+	public XML getData() {
+		return null;
+	}
+
+	@Override
+	public void setCongif(String configPath) {
+		logger.entry(configPath);
+
+		try {
+			SAXBuilder builder = new SAXBuilder();
+			File xmlFile = new File(configPath);
+			configDocument = (Document) builder.build(xmlFile);
+
+		} catch (IOException io) {
+			System.out.println(io.getMessage());
+		} catch (JDOMException jdomex) {
+			System.out.println(jdomex.getMessage());
+		}
+
+	}
+
+	@Override
+	public void setData(String dataPath) {
+		try {
+			SAXBuilder builder = new SAXBuilder();
+			File xmlFile = new File(dataPath);
+			dataDocument = (Document) builder.build(xmlFile);
+
+		} catch (IOException io) {
+			System.out.println(io.getMessage());
+		} catch (JDOMException jdomex) {
+			System.out.println(jdomex.getMessage());
+		}
 	}
 
 	// Depreacted methods
