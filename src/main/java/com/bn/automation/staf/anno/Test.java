@@ -8,5 +8,9 @@ import java.lang.annotation.Target;
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Test {
+	
+	
+	boolean enabled() default true;
+	int[] id() default { -1 };
 
 }

@@ -1,15 +1,23 @@
 package com.bn.automation.staf.core;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.jdom2.Document;
+import org.jdom2.JDOMException;
+import org.jdom2.input.SAXBuilder;
 
 import com.bn.automation.staf.anno.STAFScript;
 import com.bn.automation.staf.anno.STAFSuite;
 import com.bn.automation.staf.helpers.STAFConstant;
 import com.bn.automation.staf.util.STAFConfig;
+import com.bn.automation.staf.util.XML;
 
 public class STAFRunner extends IScript{
 	
@@ -18,8 +26,25 @@ public class STAFRunner extends IScript{
 	private static Set<Class<?>> STAFSuiteSet = new HashSet<Class<?>>();
 	private static final ScriptRunner SCRIPT_RUNNER = new ScriptRunner();
 	private static final SuiteRunner SUITE_RUNNER = new SuiteRunner();
+	private static final XML CONFIG_XML = new XML();
+	public static XML getConfigXml() {
+		return CONFIG_XML;
+	}
+
+	private static Document configDocument;
+	private static Map<XML,Document> configMap = new HashMap<XML,Document>();
+	private static int testID;
 	
 	
+	
+	public static int getTestID() {
+		return testID;
+	}
+
+	public static void setTestID(int currentID) {
+		STAFRunner.testID = currentID;
+	}
+
 	public static void main(String[] runnerArgs) throws ClassNotFoundException, InstantiationException, IllegalAccessException {
 		
 		validateScriptName(runnerArgs);
@@ -49,6 +74,7 @@ public class STAFRunner extends IScript{
 		}
 		
 		
+			
 		
 		
 		
@@ -56,31 +82,6 @@ public class STAFRunner extends IScript{
 		
 		
 		
-		
-		
-		
-		
-		
-		/*//System.out.println(args[0]);
-		//Class className = Class.forName("AnnoScript");
-		
-		//Object annoObj = className.newInstance();
-		Class clazz = Class.forName("com.bn.automation.scripts.AnnoScript");
-		Object obz = clazz.newInstance();
-		
-		Method[] methods = clazz.getDeclaredMethods();
-		//AnnoScript script = new AnnoScript();
-		//Method[] methods = script.getClass().getDeclaredMethods();
-		
-		for(Method method:methods){
-			if(method.getAnnotation(Test.class) != null){
-				try{
-					method.invoke(obz);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		}*/
 		
 	}
 	
@@ -146,10 +147,36 @@ public class STAFRunner extends IScript{
 			System.exit(0);
 		} else {
 			logger.debug("Config file location is set as : " + getInfo().get(STAFConstant.CONFIG_KEY));
+			createConfigMap();
 			setConfigEnv();
 		}
 	}
 	
+	public static Map<XML, Document> getConfigMap() {
+		return configMap;
+	}
+
+	
+
+	private static void createConfigMap() {
+		logger.entry();
+
+		try {
+			SAXBuilder builder = new SAXBuilder();
+		//	File xmlFile = new File(getInfo().get(STAFConstant.CONFIG_KEY).toString());
+			String currentDirectory = System.getProperty("user.dir");
+			System.out.println("*****************" + currentDirectory);
+			File xmlFile = new File(getInfo().get(STAFConstant.CONFIG_KEY).toString());
+			configDocument = (Document) builder.build(xmlFile);
+			getConfigMap().put(CONFIG_XML, configDocument);
+			
+		} catch (IOException io) {
+			System.out.println(io.getMessage());
+		} catch (JDOMException jdomex) {
+			System.out.println(jdomex.getMessage());
+		}
+	}
+
 	private static void setConfigEnv() {
 		try {
 			

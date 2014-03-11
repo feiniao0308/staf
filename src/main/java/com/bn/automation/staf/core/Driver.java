@@ -9,6 +9,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import com.bn.automation.staf.util.XML;
+
 public class Driver implements STAFiDriver {
 
 	private static final Logger logger = LogManager.getLogger(Driver.class);
@@ -183,6 +185,30 @@ public class Driver implements STAFiDriver {
 			throws Throwable {
 		// TODO remove this or re route by passing SO obj
 
+	}
+
+	@Override
+	public XML getConfig() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public XML getData() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setCongif(String configPath) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setData(String dataPath) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
