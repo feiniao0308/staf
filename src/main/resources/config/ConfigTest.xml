@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <root>
 
-	<field name="DEFAULT_BROWSER_NAME" value="Firefox" />
+	<field name="DEFAULT_BROWSER_NAME" value="Firefox">
+	<f name="something" value="good" />
+	</field>
 	<field name="DEFAULT_URL" value="http://qwecweb01.hq.bn-corp.com/bn/" />
 	<field name="IE_DRIVER_PATH" value="C:\dev\IEDriverServer.exe" />
 	<field name="CHROME_DRIVER_PATH" value="C:\dev\chromedriver.exe" />
@@ -15,5 +17,6 @@
 	</datacontainer>
 
 	<field name="hello" value="world" />
+	<cookie name="hello" value="cookie world" />
 	
 </root>

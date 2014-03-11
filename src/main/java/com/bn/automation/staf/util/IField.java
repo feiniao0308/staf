@@ -1,9 +1,11 @@
 package com.bn.automation.staf.util;
 
+import org.jdom2.Element;
+
 public interface IField {
 	
-	String get();
-	
-	IAttribute getAttribute(String attName);
+	Element geteField();
+	void seteField(Element eField);
+	String[][] extractData();
 
 }

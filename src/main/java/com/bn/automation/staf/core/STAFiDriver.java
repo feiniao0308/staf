@@ -2,7 +2,7 @@ package com.bn.automation.staf.core;
 
 import org.openqa.selenium.WebDriver;
 
-import com.bn.automation.staf.util.XML;
+import com.bn.automation.staf.util.IXML;
 
 public interface STAFiDriver extends WebDriver{
 	String getTestCaseID();
@@ -19,11 +19,12 @@ public interface STAFiDriver extends WebDriver{
 	void autopopulate(Object containerName, Class<?> className)
 			throws Throwable;
 	
-	XML getConfig();
-	XML getData();
+	IXML getConfig();
+	IXML getData();
 	
 	void setCongif(String configPath);
 	void setData(String dataPath);
+	
 	
 
 }

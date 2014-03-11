@@ -1,9 +1,13 @@
 package com.bn.automation.staf.util;
 
+import org.jdom2.Element;
+
 public interface ICookie {
 	
-	String get();
+	Element geteCookie();
+	void seteCookie(Element eeCookie);
+	String[][] extractData();
 	
-	IAttribute getAttribute(String attName);
+	
 
 }

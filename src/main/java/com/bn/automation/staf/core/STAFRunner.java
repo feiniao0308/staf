@@ -33,9 +33,18 @@ public class STAFRunner extends IScript{
 
 	private static Document configDocument;
 	private static Map<XML,Document> configMap = new HashMap<XML,Document>();
+	private static int testID;
 	
 	
 	
+	public static int getTestID() {
+		return testID;
+	}
+
+	public static void setTestID(int currentID) {
+		STAFRunner.testID = currentID;
+	}
+
 	public static void main(String[] runnerArgs) throws ClassNotFoundException, InstantiationException, IllegalAccessException {
 		
 		validateScriptName(runnerArgs);
@@ -154,6 +163,9 @@ public class STAFRunner extends IScript{
 
 		try {
 			SAXBuilder builder = new SAXBuilder();
+		//	File xmlFile = new File(getInfo().get(STAFConstant.CONFIG_KEY).toString());
+			String currentDirectory = System.getProperty("user.dir");
+			System.out.println("*****************" + currentDirectory);
 			File xmlFile = new File(getInfo().get(STAFConstant.CONFIG_KEY).toString());
 			configDocument = (Document) builder.build(xmlFile);
 			getConfigMap().put(CONFIG_XML, configDocument);

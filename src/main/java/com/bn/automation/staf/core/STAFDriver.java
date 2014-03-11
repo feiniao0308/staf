@@ -2,6 +2,8 @@ package com.bn.automation.staf.core;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,6 +18,8 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.safari.SafariDriver;
 
 import com.bn.automation.staf.helpers.STAFConstant;
@@ -36,7 +40,7 @@ public class STAFDriver extends Driver {
 	private static Document configDocument;
 	private static Document dataDocument;
 	private static final XML configXML = new XML();
-			
+
 	@Deprecated
 	private volatile static STAFDriver stafDriver = null;
 	private static Map<String, Object> infoMap = IScript.getInfo();
@@ -106,7 +110,18 @@ public class STAFDriver extends Driver {
 						+ browser);
 			}
 		} else if (STAFRunner.isGridMode()) {
+			
+			if (infoMap.get(STAFConstant.BROWSER_NAME_KEY).toString().toLowerCase().equals(STAFConstant.FIREFOX.toLowerCase())) { 
+				DesiredCapabilities capability = DesiredCapabilities.firefox(); 
+				try {
+					setWd(new RemoteWebDriver(new URL(infoMap.get(STAFConstant.HUB_URL_KEY).toString() + "/wd/hub"), capability));
+					STAFManager.getInstance(this, getWd());
+				} catch (MalformedURLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 
+			}
 		} else {
 			logger.info(STAFConstant.DASH);
 			logger.error("INVALID EXECUTION MODE");

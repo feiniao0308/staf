@@ -1,17 +1,32 @@
 package com.bn.automation.staf.util;
 
-public class Field implements IField{
+import java.util.HashMap;
+import java.util.List;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.jdom2.Element;
+
+public class Field extends Tag implements IField{
+	
+	private Element eField;
+	private static final Logger logger = LogManager.getLogger(Tag.class);
 
 	@Override
-	public String get() {
+	public String[][] extractData() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public IAttribute getAttribute(String attName) {
-		// TODO Auto-generated method stub
-		return null;
+	public Element geteField() {
+		return eField;
+	}
+
+	@Override
+	public void seteField(Element eField) {
+		this.eField = eField;
+		
 	}
 
 }
