@@ -21,8 +21,8 @@ public class HTMLGenerator {
 			
 	        TransformerFactory tFactory=TransformerFactory.newInstance();
 
-	        //Source xslDoc=new StreamSource(path+"/src/test/resources/stylesheet/StafStylesheet.xsl");
-	        //Source xmlDoc=new StreamSource(path+"/target/STAFlog.xml");
+	        //Source xslDoc=data StreamSource(path+"/src/test/resources/stylesheet/StafStylesheet.xsl");
+	        //Source xmlDoc=data StreamSource(path+"/target/STAFlog.xml");
 	        Source xslDoc=new StreamSource(path+"/src/test/resources/stylesheet/DefaultStylesheet2.xsl");
 	        Source xmlDoc=new StreamSource(path+"/target/test.xml");
 	      

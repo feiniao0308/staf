@@ -26,6 +26,6 @@ public class ManagerTest {
 		
 		System.out.println("The End");
 		
-		//STAFManager sm2 = new STAFManager();
+		//STAFManager sm2 = data STAFManager();
 	}
 }

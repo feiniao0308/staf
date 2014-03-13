@@ -15,7 +15,7 @@ public class STAFManager {
 	private static final Pointer HEAD = new Pointer();
 	private static Map<Pointer, STAFDriver> headPointer = new HashMap<Pointer, STAFDriver>();
 	private static Map<STAFDriver, WebDriver> tailPointer = new HashMap<STAFDriver, WebDriver>();
-	// private static final Pointer TAIL = new Pointer();
+	// private static final Pointer TAIL = data Pointer();
 	@Deprecated
 	private static STAFDriver stafInstance = null;
 	private static final Logger logger = LogManager
@@ -25,7 +25,7 @@ public class STAFManager {
 	public STAFManager() {
 		logger.entry();
 		logger.debug("STAFManager is Singleton Class");
-		logger.debug("Use STAFManager.getInstance(STAFDriver sd, WebDriver wd) method to instantiate new STAFManager object. ");
+		logger.debug("Use STAFManager.getInstance(STAFDriver sd, WebDriver wd) method to instantiate data STAFManager object. ");
 	}
 
 	public static STAFManager getInstance(STAFDriver sd, WebDriver wd) {
@@ -34,7 +34,7 @@ public class STAFManager {
 				+ sd + " and WebDriver instance->" + wd);
 		if (manager == null) {
 			manager = new STAFManager();
-			logger.debug("STAFManager was null and hence new singleton object is been created");
+			logger.debug("STAFManager was null and hence data singleton object is been created");
 		}
 		putHeadPointer(sd);
 		putTailPointer(sd, wd);
@@ -48,6 +48,10 @@ public class STAFManager {
 		logger.entry();
 		return logger.exit(headPointer);
 	}
+
+    public static STAFDriver getHeadSD(){
+        return getHeadPointer().get(getHead());
+    }
 
 	public static void putHeadPointer(STAFDriver sd) {
 		logger.entry(sd);
@@ -115,7 +119,7 @@ public class STAFManager {
 	public static STAFManager getInstance(WebDriver d) {
 		if (manager == null) {
 			manager = new STAFManager();
-			System.out.println("created new stafmanager");
+			System.out.println("created data stafmanager");
 			/*
 			 * wd.put(HEAD, d); wd.put(TAIL, null);
 			 */

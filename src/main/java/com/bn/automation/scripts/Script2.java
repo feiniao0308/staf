@@ -26,13 +26,13 @@ public class Script2 {
 
 		//driver.autopopulate("hello", this.getClass());
 		//driver.setDataFileLocation("\\src\\test\\resources\\data\\xmlDataFormat.xml");
-		/*driver.autopopulate("inputform", SO.class);*/
+		/*driver.autopopulate("inputform", SO2.class);*/
 		//System.out.println(Class.forName(""));
-		//System.out.println("SO"+getField("searchbar"));
-		/*SO so = new SO();
+		//System.out.println("SO2"+getField("searchbar"));
+		/*SO2 so = data SO2();
 		so.searchbar.autoPopulate();
-		SO.searchbar.autoPopulate();
-		new XMLReader().getContainer();
+		SO2.searchbar.autoPopulate();
+		data XMLReader().getContainer();
 		//Assert.assertTrue(driver.getTitle().equals("B&N | Homepage"));
 */	}
 

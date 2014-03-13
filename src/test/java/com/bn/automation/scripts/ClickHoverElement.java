@@ -10,7 +10,7 @@ public class ClickHoverElement {
 		driver.get("http://qwecweb01.hq.bn-corp.com/bn/");
 		driver.setTestCaseID("111");
 		driver.setDataFileLocation("\\src\\test\\resources\\data\\xmlDataFormat.xml");
-		//SO.SOinner.bnmyacc.hover();
+		//SO2.SOinner.bnmyacc.hover();
 		Thread.sleep(1000L);
 		//driver.findElement(By.xpath(".//*[@id='myAccountLinks']/ul/li[1]/a")).click();
 

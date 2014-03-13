@@ -1,75 +1,88 @@
 package com.bn.automation.staf.util;
 
-import java.util.HashMap;
-import java.util.List;
-
+import com.bn.automation.staf.helpers.XMLConstant;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jdom2.Element;
 
-public class DataContainer implements IDataContainer{
-	
-	private Element eDataContainer;
-	private static final Logger logger = LogManager.getLogger(DataContainer.class);
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-	@Override
-	public IField getField(String fieldName) {
-		return this.getField(fieldName);
-	}
+public class DataContainer implements IDataContainer {
 
-	@Override
-	public ICookie getCookie(String cookieProperty) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    private static final Logger logger = LogManager.getLogger(DataContainer.class);
+    private Element eDataContainer;
 
-	
+    @Override
+    public Element geteDataContainer() {
+        return eDataContainer;
+    }
 
-	@Override
-	public Element geteDataContainer() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public void seteDataContainer(Element eDataContainer) {
+        this.eDataContainer = eDataContainer;
+    }
 
-	@Override
-	public void seteDataContainer(Element eDataContainer) {
-		// TODO Auto-generated method stub
-		
-	}
+    @Override
+    public String getField(String fieldName) {
+        String value = null;
+        List<Element> fieldNodes = this.geteDataContainer().getChildren(XMLConstant.FIELD);
+        for (Element fieldNode : fieldNodes) {
+            if (fieldNode.getAttributeValue(XMLConstant.NAME).equals(fieldName)) {
+                logger.debug("XML : Field name->"
+                        + fieldNode.getAttributeValue(XMLConstant.NAME)
+                        + " | value->"
+                        + fieldNode.getAttributeValue(XMLConstant.VALUE));
+                value = fieldNode.getAttributeValue(XMLConstant.VALUE);
+                break;
+            }
 
-	@Override
-	public List<IField> getFields() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+        }
 
-	@Override
-	public List<ICookie> getCookies() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+        return logger.exit(value);
+    }
 
-	@Override
-	public ITag getTag(String tagName) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public IDataContainer getDataContainer(String containerName) {
 
-	@Override
-	public List<ITag> getTags(String tagName) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+        IDataContainer container = new DataContainer();
+        List<Element> containerNodes = this.eDataContainer.getChildren(XMLConstant.DATACONTAINER);
+        for (Element containerNode : containerNodes) {
+            logger.trace("XML : DataContainer name->"
+                    + containerNode.getAttributeValue(XMLConstant.NAME)
+                    + " | value->"
+                    + containerNode.getAttributeValue(XMLConstant.VALUE));
 
-	@Override
-	public String[][] extractData() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+            if (containerNode.getAttributeValue(XMLConstant.NAME).equals(containerName)) {
+                logger.debug("XML : DataContainer name->"
+                        + containerNode.getAttributeValue(XMLConstant.NAME)
+                        + " | value->"
+                        + containerNode.getAttributeValue(XMLConstant.VALUE));
+                container.seteDataContainer(containerNode);
+                break;
+            }
 
-	
+        }
 
-	
+        return logger.exit(container);
+    }
 
-	
+
+    @Override
+    public Map<String, String> get() {
+        Map<String, String> dataMap = new HashMap<String, String>();
+        List<Element> fieldNodes = this.eDataContainer.getChildren(XMLConstant.FIELD);
+        for (Element fieldNode : fieldNodes) {
+            logger.trace("XML : Field name->"
+                    + fieldNode.getAttributeValue(XMLConstant.NAME)
+                    + " | value->"
+                    + fieldNode.getAttributeValue(XMLConstant.VALUE));
+            dataMap.put(fieldNode.getAttributeValue(XMLConstant.NAME), fieldNode.getAttributeValue(XMLConstant.VALUE));
+        }
+
+        return logger.exit(dataMap);
+    }
+
+
 }

@@ -14,6 +14,6 @@
 		<field name="KILL_DRIVER_AFTER_TEST" value="true" />
 	</datacontainer>
 
-	<field name="hello" value="world" />
+	<field name="hello" value="world of config" />
 	
 </root>

@@ -22,7 +22,7 @@ public class Label extends STAFElement implements ITextBox {
 	}
 	
 	/*public void hover(){
-		Actions actions = new Actions(STAFDriver.getiDriver());
+		Actions actions = data Actions(STAFDriver.getiDriver());
 		actions.moveToElement(getStafElement()).perform();
 	}*/
 

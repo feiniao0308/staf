@@ -56,6 +56,15 @@ public class STAFConstant {
 	
 	public static final String WEBDRIVER_CHROME_DRIVER = "webdriver.chrome.driver";
 	public static final String WEBDRIVER_IE_DRIVER = "webdriver.ie.driver";
+
+    public static final String IS_SELECTED = "isSelected";
+    public static final String IS_PRESENT = "isPresent";
+    public static final String IS_ENABLED = "isEnabled";
+    public static final String IS_DISPLAYED = "isDisplayed";
+    public static final String GET_TEXT = "getText";
+    public static final String COOKIE_NAME = "cookieName";
+    public static final String COOKIE_DOMAIN = "cookieDomain";
+
 	
 
 }

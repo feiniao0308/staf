@@ -1,12 +1,8 @@
 package com.bn.automation.scripts;
 
-import java.util.Iterator;
-import java.util.Set;
-
 import org.openqa.selenium.By;
-import org.openqa.selenium.Cookie;
 
-import com.bn.automation.scripts.SO.SOinner;
+import com.bn.automation.scripts.SO2.SOinner;
 import com.bn.automation.staf.core.STAFDriver;
 import com.bn.automation.staf.helpers.STAFConstant;
 
@@ -19,7 +15,7 @@ public class CookieVerify {
 		driver.setDataFileLocation("\\src\\test\\resources\\data\\xmlDataFormat.xml");
 		driver.findElement(By.id("signInLink")).click();
 		Thread.sleep(1000L);
-		SO so = new SO();
+		SO2 so = new SO2();
 		driver.autopopulate("loginbn", so);
 		Thread.sleep(1000L);
 		SOinner.emailbn.submit();

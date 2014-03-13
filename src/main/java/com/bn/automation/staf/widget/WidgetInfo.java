@@ -23,7 +23,7 @@ public class WidgetInfo implements IWidgetInfo {
 	public void setWidgetInfo(Map<String, String> propertyMap) {
 
 		for (Map.Entry<String, String> entry : propertyMap.entrySet()) {
-			System.out.println(entry.getKey() + "/" + entry.getValue());
+            logger.trace(entry.getKey() + "=>" + entry.getValue());
 			propertyMapName = entry.getKey();
 			propertyMapValue = entry.getValue();
 			setPropertyName(entry.getKey());

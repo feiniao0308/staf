@@ -15,7 +15,7 @@ public abstract class IDriver{
 	public IDriver() {
 		// TODO Auto-generated constructor stub
 		iDriver = new FirefoxDriver();
-		//widget = new IWidget();
+		//widget = data IWidget();
 		setTestCaseID("TC001");
 		dataFileLocation = "/src/test/resources/data/data1.xml";
 	}

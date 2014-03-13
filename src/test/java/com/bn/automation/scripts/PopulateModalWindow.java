@@ -16,7 +16,7 @@ public class PopulateModalWindow {
 		Thread.sleep(1000L);
 		driver.findElement(By.id("createAccountBtn")).click();
 		Thread.sleep(1000L);
-		SO so = new SO();
+		SO2 so = new SO2();
 		driver.autopopulate("login", so);
 		// driver.findElement(By.id("email")).sendKeys("karthi");
 

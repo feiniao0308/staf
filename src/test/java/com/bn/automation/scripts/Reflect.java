@@ -1,8 +1,6 @@
 package com.bn.automation.scripts;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.annotations.Test;
 
 import com.bn.automation.staf.core.STAFDriver;
@@ -17,13 +15,13 @@ public class Reflect {
 	  @Test
 	  public void test() throws Throwable{
 		  STAFDriver driver = STAFDriver.getInstance(STAFConstant.FIREFOX);
-		  SO so = new SO();
+		  SO2 so = new SO2();
 		  driver.get("http://www.iupui.edu/~webtrain/tutorials/forms_sample.html");
 		  driver.setTestCaseID("124");
 		  driver.setDataFileLocation("\\src\\test\\resources\\data\\xmlDataFormat.xml");
 		  Thread.sleep(5000L);
-		  //SO.SOinner.name.populate("karth");
-		  SO.SOinner.name.sendKeys("karthj");
+		  //SO2.SOinner.name.populate("karth");
+		  SO2.SOinner.name.sendKeys("karthj");
 		  //driver.autopopulate("inputform", so);
 		  driver.findElement(By.name("name"));
 		  
@@ -33,7 +31,7 @@ public class Reflect {
 		  System.out.println("Hello world!!");
 		  
 		  
-		  //SO so = new SO();
+		  //SO2 so = data SO2();
 		  
 		  //so.fname.autoPopulate();
 		  
@@ -48,8 +46,8 @@ public class Reflect {
 		  
 		  
 		  
-	    //Class clazz = Class.forName("com.bn.automation.scripts.SO$SOinner");
-	    //Class[] cin = Class.forName("com.bn.automation.scripts.SO").getClasses();
+	    //Class clazz = Class.forName("com.bn.automation.scripts.SO2$SOinner");
+	    //Class[] cin = Class.forName("com.bn.automation.scripts.SO2").getClasses();
 	    //System.out.println(cin[0].getDeclaredField("lname").get(null));
 	    //System.out.println();
 	    //Object obf = cin[0].newInstance();

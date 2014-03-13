@@ -51,7 +51,9 @@ public abstract class IScript {
 	}
 
 	private static void createInfoMap() {
-		putInfoMap(STAFConstant.CONFIG_KEY,config);
+        String currentDirectory = System.getProperty("user.dir");
+        config = currentDirectory + config;
+        putInfoMap(STAFConstant.CONFIG_KEY, config);
 		putInfoMap(STAFConstant.BROWSER_NAME_KEY,browser_name);
 		putInfoMap(STAFConstant.URL_KEY,url);
 		putInfoMap(STAFConstant.XML_DATA_KEY,xmldata);
@@ -64,18 +66,7 @@ public abstract class IScript {
 		putInfoMap(STAFConstant.SCREENSHOT_KEY,screenshot);
 		
 		
-	/*	
-		info.put("config", config);
-		info.put("browser", browser_name);
-		info.put("url", url);
-		info.put("xmldata", xmldata);
-		info.put("logPath", log_path);
-		info.put("grid", grid);
-		info.put("hubUrl", hub_url);
-		info.put("browserVersion", browser_version);
-		info.put("platform", platform);
-		info.put("machineName", machine_name);
-		info.put("screenshot", screenshot);*/
+
 
 	}
 
@@ -103,36 +94,7 @@ public abstract class IScript {
 	
 	
 
-	/*
-	 * public static void main(String[] args) throws MalformedURLException,
-	 * InterruptedException {
-	 * 
-	 * logger.info("Script to be executed in : " + browser_name);
-	 * logger.info("URL passed is : " + url);
-	 * logger.info("Config xml path is : " + config);
-	 * logger.info("XML data path is : " + xmldata);
-	 * logger.info("HTML log will be generated at : " + log_path);
-	 * logger.info("Execution in grid has been set to : " + grid);
-	 * logger.info("Grid's HUB URL is  : " + hub_url);
-	 * logger.info("Browser version is : " + browser_version);
-	 * logger.info("Platform selected is : " + platform);
-	 * logger.info("Machine name is : " + machine_name);
-	 * logger.info("Take screen shot has set to : " + screenshot);
-	 * 
-	 * hub_url = hub_url+"/wd/hub";
-	 * 
-	 * if (grid) { if (browser_name.toLowerCase()
-	 * .equals(STAFConstant.FIREFOX.toLowerCase())) { DesiredCapabilities
-	 * capability = DesiredCapabilities.firefox(); driver = new
-	 * RemoteWebDriver(new URL( hub_url), capability);
-	 * 
-	 * }
-	 * 
-	 * } else { driver = new FirefoxDriver(); }
-	 * 
-	 * driver.get("http://google.com"); System.out.println(driver.getTitle());
-	 * Thread.sleep(5000L); driver.quit(); }
-	 */
+
 
 	public static WebDriver getDriver() {
 		return driver;

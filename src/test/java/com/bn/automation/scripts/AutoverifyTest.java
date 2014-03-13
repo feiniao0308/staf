@@ -11,7 +11,7 @@ public class AutoverifyTest {
 		driver.setTestCaseID("145");
 		driver.setDataFileLocation("\\src\\test\\resources\\data\\xmlDataFormat.xml");
 		Thread.sleep(1000L);
-		SO so = new SO();
+		SO2 so = new SO2();
 		driver.autoVerify("verifyform", so);
 		
 	}

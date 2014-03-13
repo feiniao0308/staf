@@ -17,16 +17,15 @@ public class SimpleTest3 {
 	@BeforeMethod
 	public void setup() {
 		driver = new STAFDriver();
-		driver.quit();
 		/*driver = STAFDriver.getInstance(STAFConstant.FIREFOX);
 		driver.get("http://www.w3schools.com/html/html_forms.asp");*/
 	}
 
-	/*@AfterMethod
+	@AfterMethod
 	public void tearDown() {
 		driver.quit();
 		//driver.quit();
-	}*/
+	}
 
 	@Test(enabled = false, id = { 12,13 } )
 	public void test() throws Throwable {
@@ -44,17 +43,18 @@ public class SimpleTest3 {
 		sd.quit();
 		Thread.sleep(2000);
 		sd2.quit();
+
 	//		System.out.println("hello");
 
 		/*//driver.autopopulate("hello", this.getClass());
 		driver.setDataFileLocation("\\src\\test\\resources\\data\\xmlDataFormat.xml");
-		driver.autopopulate("inputform", SO.class);
+		driver.autopopulate("inputform", SO2.class);
 		//System.out.println(Class.forName(""));
-		//System.out.println("SO"+getField("searchbar"));
-		SO so = new SO();
+		//System.out.println("SO2"+getField("searchbar"));
+		SO2 so = data SO2();
 		so.searchbar.autoPopulate();
-		SO.searchbar.autoPopulate();
-		new XMLReader().getContainer();
+		SO2.searchbar.autoPopulate();
+		data XMLReader().getContainer();
 		//Assert.assertTrue(driver.getTitle().equals("B&N | Homepage"));
 */	}
 	
@@ -72,10 +72,11 @@ public class SimpleTest3 {
 	public void test3() throws InterruptedException{
 		System.out.println("hello from test3");
 		System.out.println("----------------->" + STAFRunner.getTestID());
-		driver.get("http://gmail.com");
+        driver.setData("/src/test/resources/data/xmlDataFormat.xml");
+        System.out.println("driver.getData() = " + driver.getData());
+        driver.get("http://gmail.com");
 		Thread.sleep(3000);
-		driver.quit();
-		
+
 	}
 	
 	

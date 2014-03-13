@@ -2,7 +2,7 @@ package com.bn.automation.scripts;
 
 import org.openqa.selenium.By;
 
-import com.bn.automation.scripts.SO.SOinner;
+import com.bn.automation.scripts.SO2.SOinner;
 import com.bn.automation.staf.core.STAFDriver;
 import com.bn.automation.staf.helpers.STAFConstant;
 
@@ -11,8 +11,8 @@ public class TestBy {
 	public static void main(String[] args) throws Throwable {
 		
 		
-		/*STAFDriver d1 = new STAFDriver(STAFConstant.FIREFOX);
-		STAFDriver d2 = new STAFDriver(STAFConstant.FIREFOX);
+		/*STAFDriver d1 = data STAFDriver(STAFConstant.FIREFOX);
+		STAFDriver d2 = data STAFDriver(STAFConstant.FIREFOX);
 		
 		
 		
@@ -31,7 +31,7 @@ public class TestBy {
 		Thread.sleep(1000L);
 		driver.findElement(By.id("createAccountBtn")).click();
 		Thread.sleep(1000L);
-		SO so = new SO();
+		SO2 so = new SO2();
 		driver.autopopulate("login", so);
 		System.out.println(SOinner.fnameLabel.getText());
 		// driver.findElement(By.id("email")).sendKeys("karthi");

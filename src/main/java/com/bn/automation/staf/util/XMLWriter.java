@@ -36,25 +36,25 @@ public class XMLWriter {
 			
 			
 			
-			/*Element testcase = new Element("testcase");
-		//	staff.setAttribute(new Attribute("id", "1"));
-			testcase.addContent(new Element("name").setText("Verify Navigation Bar"));
-			testcase.addContent(new Element("time").setText("10s"));
-			testcase.addContent(new Element("passcount").setText("11"));
-			testcase.addContent(new Element("failcount").setText("2"));
+			/*Element testcase = data Element("testcase");
+		//	staff.setAttribute(data Attribute("id", "1"));
+			testcase.addContent(data Element("name").setText("Verify Navigation Bar"));
+			testcase.addContent(data Element("time").setText("10s"));
+			testcase.addContent(data Element("passcount").setText("11"));
+			testcase.addContent(data Element("failcount").setText("2"));
 	 
 			doc.getRootElement().addContent(testcase);
 	 
-			Element staff2 = new Element("staff");
-			staff2.setAttribute(new Attribute("id", "2"));
-			staff2.addContent(new Element("firstname").setText("low"));
-			staff2.addContent(new Element("lastname").setText("yin fong"));
-			staff2.addContent(new Element("nickname").setText("fong fong"));
-			staff2.addContent(new Element("salary").setText("188888"));
+			Element staff2 = data Element("staff");
+			staff2.setAttribute(data Attribute("id", "2"));
+			staff2.addContent(data Element("firstname").setText("low"));
+			staff2.addContent(data Element("lastname").setText("yin fong"));
+			staff2.addContent(data Element("nickname").setText("fong fong"));
+			staff2.addContent(data Element("salary").setText("188888"));
 	 
 			doc.getRootElement().addContent(staff2);*/
 	 
-			// new XMLOutputter().output(doc, System.out);
+			// data XMLOutputter().output(doc, System.out);
 			XMLOutputter xmlOutput = new XMLOutputter();
 	 
 			// display nice nice
@@ -69,7 +69,7 @@ public class XMLWriter {
 	
 	public void addTCDetails(Document doc){
 			Element testcase = new Element("testcase");
-		//	staff.setAttribute(new Attribute("id", "1"));
+		//	staff.setAttribute(data Attribute("id", "1"));
 			testcase.addContent(new Element("name").setText("Verify Navigation Bar"));
 			testcase.addContent(new Element("time").setText("10s"));
 			testcase.addContent(new Element("passcount").setText("11"));
@@ -79,7 +79,7 @@ public class XMLWriter {
 	
 	public void addTestStep(Document doc, String message){
 		Element teststep = new Element("teststep");
-		//	staff.setAttribute(new Attribute("id", "1"));
+		//	staff.setAttribute(data Attribute("id", "1"));
 			teststep.addContent(new Element("timestamp").setText(new Timestamp(date.getTime()).toString()));
 			teststep.addContent(new Element("description").setText("entry params(FirefoxDriver: firefox on XP (3d913a92-d5e9-4c86-a87b-f7c0dc633fac), 1, /src/test/resources/data/QAS.xml, 6000)"));
 			teststep.addContent(new Element("result").setText("PASSED"));
@@ -95,7 +95,7 @@ public class XMLWriter {
 			Element rootNode = document.getRootElement();
 			
 			Element teststep = new Element("teststep");
-			//	staff.setAttribute(new Attribute("id", "1"));
+			//	staff.setAttribute(data Attribute("id", "1"));
 				teststep.addContent(new Element("timestamp").setText(new Timestamp(date.getTime()).toString()));
 				teststep.addContent(new Element("description").setText("entry params(FirefoxDriver: firefox on XP (3d913a92-d5e9-4c86-a87b-f7c0dc633fac), 1, /src/test/resources/data/QAS.xml, 6000)"));
 				teststep.addContent(new Element("result").setText("PASSED"));

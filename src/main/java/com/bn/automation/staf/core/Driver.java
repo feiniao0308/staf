@@ -1,6 +1,7 @@
 package com.bn.automation.staf.core;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Set;
 
 import org.apache.logging.log4j.LogManager;
@@ -42,7 +43,7 @@ public class Driver implements STAFiDriver {
 	}
 
 	@Override
-	public WebElement findElement(By by) {
+	public WebElement findElement(By by){
 		logger.entry();
 		logger.debug("Find WebElement from this instance of driver using : " + by);
 		return logger.exit(getThisWDriver().findElement(by));
@@ -58,7 +59,7 @@ public class Driver implements STAFiDriver {
 	@Override
 	public void get(String url) {
 		logger.entry();
-		logger.debug("Open passed URL : " + url + " in new browser window");
+		logger.debug("Open passed URL : " + url + " in data browser window");
 		getThisWDriver().get(url);
 	}
 
@@ -183,7 +184,7 @@ public class Driver implements STAFiDriver {
 	@Override
 	public void autopopulate(Object containerName, Class<?> className)
 			throws Throwable {
-		// TODO remove this or re route by passing SO obj
+		// TODO remove this or re route by passing SO2 obj
 
 	}
 
