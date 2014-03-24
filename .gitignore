@@ -9,3 +9,8 @@ out
 /STAFLog
 /reports
 /Log
+
+/test-output
+/java
+/scriptrunner.xml
+/staf.eml
