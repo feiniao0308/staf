@@ -41,7 +41,7 @@
                                 <td>
                                     <xsl:value-of select="time"/>
                                 </td>
-                                <td>90%</td>
+
                             </tr>
                         </xsl:for-each>
 

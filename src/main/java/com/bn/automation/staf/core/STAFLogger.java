@@ -199,14 +199,16 @@ public class STAFLogger {
 
             //Source xslDoc=data StreamSource(path+"/src/test/resources/stylesheet/StafStylesheet.xsl");
             //Source xmlDoc=data StreamSource(path+"/target/STAFlog.xml");
-            Source xslDoc=new StreamSource(path+"/src/main/resources/log/DefaultStylesheet2.xsl");
+            //Source xslDoc=new StreamSource(path+"/src/main/resources/log/DefaultStylesheet2.xsl");
+            InputStream xslDoc = getClass().getClassLoader().getResourceAsStream("log/DefaultStylesheet2.xsl");
             //Source xmlDoc=new StreamSource(path+"/target/test.xml");
 
 
             //Source xmlDoc=new StreamSource(STAFRunner.getInfo().get("xml_log_path").toString());
             Source xmlDoc = new StreamSource(filePath);
             // Source xmlDoc=new StreamSource(path+"/testlog.xml");
-            File theDir = new File("STAFLog\\HTML");
+            //File theDir = new File("STAFLog\\HTML");
+            File theDir = new File("STAFLog/HTML");
 
             // if the directory does not exist, create it
             if (!theDir.exists()) {
@@ -225,7 +227,7 @@ public class STAFLogger {
 
 
             OutputStream htmlFile=new FileOutputStream(outputFileName);
-            Transformer trasform=tFactory.newTransformer(xslDoc);
+            Transformer trasform=tFactory.newTransformer(new StreamSource(xslDoc));
             trasform.transform(xmlDoc, new StreamResult(htmlFile));
         }
         catch (FileNotFoundException e)
@@ -254,14 +256,16 @@ public class STAFLogger {
 
             //Source xslDoc=data StreamSource(path+"/src/test/resources/stylesheet/StafStylesheet.xsl");
             //Source xmlDoc=data StreamSource(path+"/target/STAFlog.xml");
-            Source xslDoc=new StreamSource(path+"/src/main/resources/log/OverviewStylesheet.xsl");
+            InputStream xslDoc2 = getClass().getClassLoader().getResourceAsStream("log/OverviewStylesheet.xsl");
+            //Source xslDoc=new StreamSource(path+"/src/main/resources/log/OverviewStylesheet.xsl");
             //Source xmlDoc=new StreamSource(path+"/target/test.xml");
 
 
             //Source xmlDoc=new StreamSource(STAFRunner.getInfo().get("xml_log_path").toString());
             Source xmlDoc = new StreamSource(filePath);
             // Source xmlDoc=new StreamSource(path+"/testlog.xml");
-            File theDir = new File("STAFLog\\HTML");
+            //File theDir = new File("STAFLog\\HTML");
+            File theDir = new File("STAFLog/HTML");
 
             // if the directory does not exist, create it
             if (!theDir.exists()) {
@@ -280,7 +284,7 @@ public class STAFLogger {
 
 
             OutputStream htmlFile=new FileOutputStream(outputFileName);
-            Transformer trasform=tFactory.newTransformer(xslDoc);
+            Transformer trasform=tFactory.newTransformer(new StreamSource(xslDoc2));
             trasform.transform(xmlDoc, new StreamResult(htmlFile));
         }
         catch (FileNotFoundException e)

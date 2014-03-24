@@ -71,7 +71,7 @@ public class STAFRunner extends IScript {
 
         stafLogger.closeStafLog(getInfo().get(STAFConstant.XML_LOG_PATH).toString());
         stafLogger.convertXMLToHTML(STAFRunner.getInfo().get("xml_log_path").toString());
-        stafLogger.convertXMLToHTML2(getInfo().get("result_log").toString());
+        stafLogger.convertXMLToHTML2(STAFRunner.getInfo().get("result_log").toString());
         stafLogger.createHTMLReport();
         /*try {
             stafLogger.openFile(getInfo().get("html_log1").toString());
