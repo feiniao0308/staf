@@ -25,7 +25,7 @@ public class SimpleTest2 {
 		//driver.quit();
 	}
 
-	@Test(id = { 0 }, enabled = false)
+	@Test(id = { 0 }, enabled = true)
 	public void test() throws Throwable {
 		
 		System.out.println("hello from test method");

@@ -65,6 +65,19 @@ public class STAFConstant {
     public static final String COOKIE_NAME = "cookieName";
     public static final String COOKIE_DOMAIN = "cookieDomain";
 
+    public static final String DATE_FORMAT = "MM-dd-yyyy_HH-mm-ss.S";
+    public static final String LOG_PATH_PREFIX = "STAFLog/XML/STAFLog_";
+    public static final String LOG4J2_FILE_NAME = "xml_log";
+    public static final String START_TIME = "start_time";
+    public static final String XML_LOG = "xml_log_name";
+    public static final String LOG_PREFIX = "STAFLog_";
+    public static final String USER_DIR = "user.dir";
+    public static final String ALL_XML_LOCATION = "all_xml_location";
+    public static final String XML_LOG_PATH = "xml_log_path";
+    public static final String XML_LOG_REF = "\\STAFLog\\XML\\";
+    public static final String HTML_LOG_REF = "\\STAFLog\\HTML\\";
+
+
 	
 
 }

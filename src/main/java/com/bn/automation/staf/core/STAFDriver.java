@@ -2,6 +2,7 @@ package com.bn.automation.staf.core;
 
 import com.bn.automation.staf.helpers.STAFConstant;
 import com.bn.automation.staf.helpers.Verify;
+import com.bn.automation.staf.util.FileUtil;
 import com.bn.automation.staf.util.IDataContainer;
 import com.bn.automation.staf.util.XML;
 import com.bn.automation.staf.util.XMLReader;
@@ -357,7 +358,9 @@ public class STAFDriver extends Driver {
 
         logger.entry();
 
-        try {
+        new FileUtil().createData(dataPath);
+
+        /*try {
             SAXBuilder builder = new SAXBuilder();
             //	File xmlFile = data File(getInfo().get(STAFConstant.CONFIG_KEY).toString());
             String currentDirectory = System.getProperty("user.dir");
@@ -372,7 +375,7 @@ public class STAFDriver extends Driver {
             System.out.println(io.getMessage());
         } catch (JDOMException jdomex) {
             System.out.println(jdomex.getMessage());
-        }
+        }*/
 
 
     }

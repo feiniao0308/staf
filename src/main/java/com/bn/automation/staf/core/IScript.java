@@ -1,5 +1,7 @@
 package com.bn.automation.staf.core;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -40,7 +42,22 @@ public abstract class IScript {
 
 	
 
-	private static final Logger logger = LogManager.getLogger(IScript.class);
+	//private static final Logger logger = LogManager.getLogger(IScript.class);
+    private static Logger logger;
+    static {
+        String executionStartTime = new SimpleDateFormat(STAFConstant.DATE_FORMAT).format(Calendar.getInstance().getTime());
+        String logPath = STAFConstant.LOG_PATH_PREFIX+executionStartTime;
+        System.setProperty(STAFConstant.LOG4J2_FILE_NAME,logPath);
+        logger = LogManager.getLogger();
+        putInfoMap(STAFConstant.START_TIME,executionStartTime);
+        putInfoMap(STAFConstant.XML_LOG,STAFConstant.LOG_PREFIX + executionStartTime+".xml");
+        putInfoMap(STAFConstant.USER_DIR,System.getProperty(STAFConstant.USER_DIR));
+        putInfoMap(STAFConstant.ALL_XML_LOCATION,getInfo().get(STAFConstant.USER_DIR).toString()+STAFConstant.XML_LOG_REF);
+        putInfoMap(STAFConstant.XML_LOG_PATH,getInfo().get(STAFConstant.ALL_XML_LOCATION).toString()+getInfo().get(STAFConstant.XML_LOG).toString());
+        putInfoMap("result_log",getInfo().get(STAFConstant.ALL_XML_LOCATION)+"ResultLog_"+executionStartTime+".xml");
+        putInfoMap("html_log1",STAFRunner.getInfo().get(STAFConstant.USER_DIR)+STAFConstant.HTML_LOG_REF+STAFConstant.LOG_PREFIX+STAFRunner.getInfo().get(STAFConstant.START_TIME)+".html");
+        putInfoMap("html_log2",STAFRunner.getInfo().get(STAFConstant.USER_DIR)+STAFConstant.HTML_LOG_REF+"ResultLog_"+STAFRunner.getInfo().get(STAFConstant.START_TIME)+".html");
+    }
 
 	protected static void setEnv() {
 		createInfoMap();
@@ -51,8 +68,9 @@ public abstract class IScript {
 	}
 
 	private static void createInfoMap() {
-        String currentDirectory = System.getProperty("user.dir");
-        config = currentDirectory + config;
+       // String currentDirectory = System.getProperty("user.dir");
+        //config = currentDirectory + config;
+        //config = "config.Config.xml";
         putInfoMap(STAFConstant.CONFIG_KEY, config);
 		putInfoMap(STAFConstant.BROWSER_NAME_KEY,browser_name);
 		putInfoMap(STAFConstant.URL_KEY,url);

@@ -37,9 +37,12 @@
 			<XMLLayout complete="true" compact="false"
 				pattern="&lt;log level=&quot;%-5level&quot; timestamp=&quot;%d{HH:mm:ss.SSS}&quot;  class=&quot;%class{36}&quot; linenumber=&quot;%L&quot; message=&quot;%msg%xEx&quot; /&gt;%n" />
 		</File> -->
-		<File name="log" fileName="target/test.xml" append="false" >
+		<!--<File name="log" fileName="target/test.xml" append="false" >
 			<XMLLayout complete="true" compact="false" />
-		</File>
+		</File>-->
+        <File name="log" fileName="${sys:xml_log}.xml" append="false" >
+            <XMLLayout complete="true" compact="false" />
+        </File>
 	</Appenders>
 	<Loggers>
 		<Root level="trace">

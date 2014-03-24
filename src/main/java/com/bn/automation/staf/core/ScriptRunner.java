@@ -141,6 +141,8 @@ class ScriptRunner {
 								logger.info("TEST METHOD : " + method.getName());
 								logger.info(STAFConstant.DASH);
 								method.invoke(obz);
+                                new STAFLogger().logResult(STAFRunner.getInfo().get("result_log").toString(), "12", "class1", "methd1", "pass", "2.0s");
+                                //new STAFLogger().logEvent(STAFRunner.getInfo().get(STAFConstant.XML_LOG_PATH).toString(),"hello","world","pass","1.0s");
 								passed++;
 							}
 							if(isAfterPresent()){

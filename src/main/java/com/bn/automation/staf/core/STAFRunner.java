@@ -3,6 +3,8 @@ package com.bn.automation.staf.core;
 import com.bn.automation.staf.anno.STAFScript;
 import com.bn.automation.staf.anno.STAFSuite;
 import com.bn.automation.staf.helpers.STAFConstant;
+import com.bn.automation.staf.util.FileUtil;
+import com.bn.automation.staf.util.HTMLGenerator;
 import com.bn.automation.staf.util.STAFConfig;
 import com.bn.automation.staf.util.XML;
 import org.apache.logging.log4j.LogManager;
@@ -11,8 +13,12 @@ import org.jdom2.Document;
 import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
 
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -30,7 +36,9 @@ public class STAFRunner extends IScript {
     private static Document configDocument;
     private static Document dataDocument;
     private static Map<XML, Document> xmlMap = new HashMap<XML, Document>();
+    public static FileUtil fileUtil = new FileUtil();
     private static int testID;
+    private static STAFLogger stafLogger = new STAFLogger();
 
 
     public static void main(String[] runnerArgs) throws ClassNotFoundException, InstantiationException, IllegalAccessException {
@@ -60,6 +68,28 @@ public class STAFRunner extends IScript {
                 SCRIPT_RUNNER.initiateScript(stafSuite);
             }
         }
+
+        stafLogger.closeStafLog(getInfo().get(STAFConstant.XML_LOG_PATH).toString());
+        stafLogger.convertXMLToHTML(STAFRunner.getInfo().get("xml_log_path").toString());
+        stafLogger.convertXMLToHTML2(getInfo().get("result_log").toString());
+        stafLogger.createHTMLReport();
+        /*try {
+            stafLogger.openFile(getInfo().get("html_log1").toString());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }*/
+      /*
+       //new STAFLogger().closeStafLog(getInfo().get(STAFConstant.XML_LOG_PATH).toString());
+        //logger.removeAppender(appender);
+       //new HTMLGenerator().convertXML();
+        System.out.println("Created html report");
+        String path = System.getProperty("user.dir");
+        File htmlFile = new File(getInfo().get("html_log1").toString());
+        try {
+            Desktop.getDesktop().browse(htmlFile.toURI());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }*/
 
 
     }
@@ -111,10 +141,14 @@ public class STAFRunner extends IScript {
 
     private static void createConfigMap() {
         logger.entry();
+       // STAFConfig c = new STAFConfig();
+       // c.createDocument();
+        fileUtil.createConfig(getInfo().get(STAFConstant.CONFIG_KEY).toString());
 
-        try {
+        /*try {
             SAXBuilder builder = new SAXBuilder();
             File xmlFile = new File(getInfo().get(STAFConstant.CONFIG_KEY).toString());
+
             System.out.println("xmlFile = " + xmlFile);
             setConfigDocument((Document) builder.build(xmlFile));
             System.out.println("getConfigDocument() = " + getConfigDocument());
@@ -124,7 +158,7 @@ public class STAFRunner extends IScript {
             System.out.println(io.getMessage());
         } catch (JDOMException jdomex) {
             System.out.println(jdomex.getMessage());
-        }
+        }*/
     }
 
     private static void setConfigEnv() {

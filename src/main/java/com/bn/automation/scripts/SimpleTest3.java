@@ -17,14 +17,12 @@ public class SimpleTest3 {
 	@BeforeMethod
 	public void setup() {
 		driver = new STAFDriver();
-		/*driver = STAFDriver.getInstance(STAFConstant.FIREFOX);
-		driver.get("http://www.w3schools.com/html/html_forms.asp");*/
+
 	}
 
 	@AfterMethod
 	public void tearDown() {
 		driver.quit();
-		//driver.quit();
 	}
 
 	@Test(enabled = false, id = { 12,13 } )
@@ -35,35 +33,23 @@ public class SimpleTest3 {
 		
 		STAFDriver sd = new STAFDriver();
 		STAFDriver sd2 = new STAFDriver();
-		sd.get("http://google.com");
+		//sd.get("http://google.com");
 		
-		Thread.sleep(5000);
-		sd2.get("http://yahoo.com");
-		Thread.sleep(5000);
+		//Thread.sleep(5000);
+		//sd2.get("http://yahoo.com");
+		//Thread.sleep(5000);
 		sd.quit();
 		Thread.sleep(2000);
 		sd2.quit();
 
-	//		System.out.println("hello");
-
-		/*//driver.autopopulate("hello", this.getClass());
-		driver.setDataFileLocation("\\src\\test\\resources\\data\\xmlDataFormat.xml");
-		driver.autopopulate("inputform", SO2.class);
-		//System.out.println(Class.forName(""));
-		//System.out.println("SO2"+getField("searchbar"));
-		SO2 so = data SO2();
-		so.searchbar.autoPopulate();
-		SO2.searchbar.autoPopulate();
-		data XMLReader().getContainer();
-		//Assert.assertTrue(driver.getTitle().equals("B&N | Homepage"));
-*/	}
+	    }
 	
-	@Test(enabled = false, id = { 15 })
+	@Test(enabled = true, id = { 15 })
 	public void test2() throws InterruptedException{
 		System.out.println("hello from test2");
 		STAFDriver sd = new STAFDriver();
-		sd.get("http://gmail.com");
-		Thread.sleep(3000);
+		//sd.get("http://gmail.com");
+		//Thread.sleep(3000);
 		sd.quit();
 		
 	}
@@ -74,8 +60,8 @@ public class SimpleTest3 {
 		System.out.println("----------------->" + STAFRunner.getTestID());
         driver.setData("/src/test/resources/data/xmlDataFormat.xml");
         System.out.println("driver.getData() = " + driver.getData());
-        driver.get("http://gmail.com");
-		Thread.sleep(3000);
+        //driver.get("http://gmail.com");
+		//Thread.sleep(3000);
 
 	}
 	

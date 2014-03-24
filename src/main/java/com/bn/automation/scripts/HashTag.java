@@ -36,7 +36,8 @@ public class HashTag {
 
         SO2 so = new SO2();
         Thread.sleep(1000);
-        driver.setData("\\src\\main\\resources\\data\\xmlDataFormat.xml");
+        //driver.setData("\\src\\main\\resources\\data\\xmlDataFormat.xml");
+        driver.setData("data/xmlDataFormat.xml");
 
 
         System.out.println("\t4: " + STAFRunner.getConfigXml().getField("hello"));
