@@ -1,13 +1,7 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet version="1.0"
-	xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:staf="http://logging.apache.org/log4j/2.0/events">
-	<xsl:template match="/staf:Events">
-		<html>
-			<head>
-				<!--<title>STAF Log</title>-->
-				<!--<link type="text/css" href="../src/main/resources/log/screen.css"
-					rel="stylesheet" />-->
-                <style>
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style>
                     .datagrid table { border-collapse: collapse; text-align: left; width: 100%; }
                     .datagrid {font: normal 12px/150% Verdana, Arial, Helvetica, sans-serif; background: #fff; overflow: hidden;
                     border: 1px solid #006699; -webkit-border-radius: 3px; -moz-border-radius: 3px; border-radius: 3px; }
@@ -35,54 +29,27 @@
                     a:hover { text-decoration: none;border-color: #00557F; color: #FFFFFF; background: none;
                     background-color:#006699;}div.dhtmlx_window_active, div.dhx_modal_cover_dv { position: fixed !important; }
                 </style>
-			</head>
-			<body>
-				<div class="container">
-					<!--<h1>STAF Log - Execution Report</h1>
-					<p>Welcome to the Staflog. This page displays the test case
-						execution results.</p>-->
-
-					<!--<table border="0" cellspacing="0" cellpadding="0">
-						<thead>
-							<tr>
-								<th class="span-4">Test Case Name</th>
-								<th class="span-4">Execution Time</th>
-								<th class="span-2">Pass Count</th>
-								<th class="span-2">Fail Count</th>
-								<th class="span-2">Pass Percentage</th>
-							</tr>
-						</thead>
-
-						&lt;!&ndash; <xsl:for-each select="StafLogRoot/testcase"> <tr> <td> <xsl:value-of
-							select="name" /> </td> <td> <xsl:value-of select="time" /> </td> <td> <xsl:value-of 
-							select="passcount" /> </td> <td> <xsl:value-of select="failcount" /> </td> 
-							<td>90%</td> </tr> </xsl:for-each> &ndash;&gt;
-					</table>-->
-
-                    <div class="datagrid">
-					<table border="0" cellspacing="0" cellpadding="0">
-						<thead>
-							<tr>
-								<th class="span-2">Type</th>
-								<th class="span-10">Message</th>
-							</tr>
-						</thead>
-
-						<xsl:for-each select="staf:Event">
-							<tr>
-								<td>
-									<xsl:value-of select="@level" />
-								</td>
-								<td>
-									<xsl:value-of select="staf:Message" />
-								</td>
-								
-							</tr>
-						</xsl:for-each>
-					</table>
-                    </div>
-				</div>
-			</body>
-		</html>
-	</xsl:template>
-</xsl:stylesheet>
+</head>
+<body>
+<div class="container">
+<div class="datagrid">
+<table>
+<thead>
+<tr>
+<th class="span-4">Class Name</th><th class="span-4">Method Name / TestCase Name</th><th class="span-4">Result</th><th class="span-4">Execution Time</th>
+</tr>
+</thead>
+<tr class="alt">
+<td>class1</td><td>methd1</td><td>pass</td><td>2.0s</td>
+</tr>
+<tr class="alt">
+<td>class1</td><td>methd1</td><td>pass</td><td>2.0s</td>
+</tr>
+<tr class="alt">
+<td>class1</td><td>methd1</td><td>pass</td><td>2.0s</td>
+</tr>
+</table>
+</div>
+</div>
+</body>
+</html>

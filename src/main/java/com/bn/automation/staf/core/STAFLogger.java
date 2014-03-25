@@ -252,11 +252,13 @@ public class STAFLogger {
         try {
             String path = STAFRunner.getInfo().get(STAFConstant.USER_DIR).toString();
 
-            TransformerFactory tFactory=TransformerFactory.newInstance();
+            TransformerFactory transformerFactory=TransformerFactory.newInstance();
 
             //Source xslDoc=data StreamSource(path+"/src/test/resources/stylesheet/StafStylesheet.xsl");
             //Source xmlDoc=data StreamSource(path+"/target/STAFlog.xml");
-            InputStream xslDoc2 = getClass().getClassLoader().getResourceAsStream("log/OverviewStylesheet.xsl");
+            InputStream xslDoc = getClass().getClassLoader().getResourceAsStream("log/OverviewStyleSheet.xsl");
+            //InputStream xslDoc2 = getClass().getClassLoader().getResourceAsStream("log/OverviewStyleSheet.xsl");
+            System.out.println("xslDoc = " + xslDoc);
             //Source xslDoc=new StreamSource(path+"/src/main/resources/log/OverviewStylesheet.xsl");
             //Source xmlDoc=new StreamSource(path+"/target/test.xml");
 
@@ -281,10 +283,11 @@ public class STAFLogger {
             //String outputFileName=path+"/reports/Staflog.html";
             // String outputFileName=STAFRunner.getInfo().get(STAFConstant.USER_DIR)+"\\STAFLog\\HTML\\STAFLog_"+STAFRunner.getInfo().get(STAFConstant.START_TIME)+".html";
             String outputFileName=STAFRunner.getInfo().get("html_log2").toString();
+            System.out.println("outputFileName = " + outputFileName);
 
 
             OutputStream htmlFile=new FileOutputStream(outputFileName);
-            Transformer trasform=tFactory.newTransformer(new StreamSource(xslDoc2));
+            Transformer trasform=transformerFactory.newTransformer(new StreamSource(xslDoc));
             trasform.transform(xmlDoc, new StreamResult(htmlFile));
         }
         catch (FileNotFoundException e)
@@ -308,19 +311,64 @@ public class STAFLogger {
     public void createHTMLReport(){
         try{
 
-            String html1 = "STAFLog_"+STAFRunner.getInfo().get(STAFConstant.START_TIME)+".html";
-            String html2 = "ResultLog_"+STAFRunner.getInfo().get(STAFConstant.START_TIME)+".html";
+            String html2 = "STAFLog_"+STAFRunner.getInfo().get(STAFConstant.START_TIME)+".html";
+            String html1 = "ResultLog_"+STAFRunner.getInfo().get(STAFConstant.START_TIME)+".html";
+
 
 
             File f = new File("STAFLog\\HTML\\report.html");
             BufferedWriter bw = new BufferedWriter(new FileWriter(f));
+            bw.write("<!DOCTYPE html>\n");
             bw.write("<html>\n");
+            bw.write("<Title>STAFLog</Title>\n");
+            bw.write("<head>\n");
+            bw.write("<script type=\"text/javascript\">\n");
+
+            bw.write("var iframeids=[\"myframe1\", \"myframe2\"]\n" +
+                    "\n" +
+                    "//Should script hide iframe from browsers that don't support this script (non IE5+/NS6+ browsers. Recommended):\n" +
+                    "var iframehide=\"yes\"\n" +
+                    "\n" +
+                    "var getFFVersion=navigator.userAgent.substring(navigator.userAgent.indexOf(\"Firefox\")).split(\"/\")[1]\n" +
+                    "var FFextraHeight=parseFloat(getFFVersion)>=0.1? 16 : 0 //extra height in px to add to iframe in FireFox 1.0+ browsers\n" +
+                    "\n" +
+                    "function dyniframesize() {\n" +
+                    "var dyniframe=new Array()\n" +
+                    "for (i=0; i<iframeids.length; i++){\n" +
+                    "if (document.getElementById){ //begin resizing iframe procedure\n" +
+                    "dyniframe[dyniframe.length] = document.getElementById(iframeids[i]);\n" +
+                    "if (dyniframe[i] && !window.opera){\n" +
+                    "dyniframe[i].style.display=\"block\"\n" +
+                    "if (dyniframe[i].contentDocument && dyniframe[i].contentDocument.body.offsetHeight) //ns6 syntax\n" +
+                    "dyniframe[i].height = dyniframe[i].contentDocument.body.offsetHeight+FFextraHeight; \n" +
+                    "else if (dyniframe[i].Document && dyniframe[i].Document.body.scrollHeight) //ie5+ syntax\n" +
+                    "dyniframe[i].height = dyniframe[i].Document.body.scrollHeight;\n" +
+                    "}\n" +
+                    "}\n" +
+                    "//reveal iframe for lower end browsers? (see var above):\n" +
+                    "if ((document.all || document.getElementById) && iframehide==\"no\"){\n" +
+                    "var tempobj=document.all? document.all[iframeids[i]] : document.getElementById(iframeids[i])\n" +
+                    "tempobj.style.display=\"block\"\n" +
+                    "}\n" +
+                    "}\n" +
+                    "}\n" +
+                    "\n" +
+                    "if (window.addEventListener)\n" +
+                    "window.addEventListener(\"load\", dyniframesize, false)\n" +
+                    "else if (window.attachEvent)\n" +
+                    "window.attachEvent(\"onload\", dyniframesize)\n" +
+                    "else\n" +
+                    "window.onload=dyniframesize\n");
+            bw.write("</script>\n");
+            bw.write("</head>\n");
+
             bw.write("<body>\n");
-            bw.write("<h1>STAFLog</h1>\n");
-            bw.write("<frameset rows=\"25%,*,75%\">\n");
-            bw.write("<frame src=\""+html1+"\">\n");
-            bw.write("<frame src=\""+html2+"\">\n");
-            bw.write("</frameset>\n");
+
+            bw.write("<h1>STAF Log - Execution Report</h1>\n");
+            bw.write("<p>This page displays the test case\texecution results.</p>\n");
+            bw.write("<iframe id=\"myframe1\" src=\""+html1+"\" scrolling=\"no\" marginwidth=\"0\" marginheight=\"0\" frameborder=\"0\" vspace=\"0\" hspace=\"0\" style=\"overflow:visible; width:100%; display:none\"></iframe>\n");
+            bw.write("<iframe id=\"myframe2\" src=\""+html2+"\" scrolling=\"no\" marginwidth=\"0\" marginheight=\"0\" frameborder=\"0\" vspace=\"0\" hspace=\"0\" style=\"overflow:visible; width:100%; display:none\"></iframe>\n");
+
             /*bw.write("<frameset cols=\"25%,*,25%\">\n" +
                     "  <frame src=\""+html1+"\">\n" +
                     "  <frame src=\""+html2+"\">\n" +

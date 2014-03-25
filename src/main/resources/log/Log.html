@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<Title>STAFLog</Title>
+
+<head>
+<!-- <script type="text/javascript">
+
+/***********************************************
+* IFrame SSI script- © Dynamic Drive DHTML code library (http://www.dynamicdrive.com)
+* Visit DynamicDrive.com for hundreds of original DHTML scripts
+* This notice must stay intact for legal use
+***********************************************/
+
+//Input the IDs of the IFRAMES you wish to dynamically resize to match its content height:
+//Separate each ID with a comma. Examples: ["myframe1", "myframe2"] or ["myframe"] or [] for none:
+var iframeids=["myframe1", "myframe2"]
+
+//Should script hide iframe from browsers that don't support this script (non IE5+/NS6+ browsers. Recommended):
+var iframehide="yes"
+
+var getFFVersion=navigator.userAgent.substring(navigator.userAgent.indexOf("Firefox")).split("/")[1]
+var FFextraHeight=parseFloat(getFFVersion)>=0.1? 16 : 0 //extra height in px to add to iframe in FireFox 1.0+ browsers
+
+function dyniframesize() {
+var dyniframe=new Array()
+for (i=0; i<iframeids.length; i++){
+if (document.getElementById){ //begin resizing iframe procedure
+dyniframe[dyniframe.length] = document.getElementById(iframeids[i]);
+if (dyniframe[i] && !window.opera){
+dyniframe[i].style.display="block"
+if (dyniframe[i].contentDocument && dyniframe[i].contentDocument.body.offsetHeight) //ns6 syntax
+dyniframe[i].height = dyniframe[i].contentDocument.body.offsetHeight+FFextraHeight; 
+else if (dyniframe[i].Document && dyniframe[i].Document.body.scrollHeight) //ie5+ syntax
+dyniframe[i].height = dyniframe[i].Document.body.scrollHeight;
+}
+}
+//reveal iframe for lower end browsers? (see var above):
+if ((document.all || document.getElementById) && iframehide=="no"){
+var tempobj=document.all? document.all[iframeids[i]] : document.getElementById(iframeids[i])
+tempobj.style.display="block"
+}
+}
+}
+
+if (window.addEventListener)
+window.addEventListener("load", dyniframesize, false)
+else if (window.attachEvent)
+window.attachEvent("onload", dyniframesize)
+else
+window.onload=dyniframesize
+
+</script> -->
+
+<!-- <frameset rows="*,75%">
+
+<frame src="ResultLog.html" name="top" scrolling="no">
+<frame src="STAFLog.html" name="bottom">
+</frameset> -->
+<script src="iframe.js"></script>
+</head>
+<body>
+<h1>STAF Log - Execution Report</h1>
+<p>This page displays the test case	execution results.</p>
+<iframe id="myframe1" src="ResultLog.html" scrolling="no" marginwidth="0" marginheight="0" frameborder="0" vspace="0" hspace="0" style="overflow:visible; width:100%; display:none"></iframe>
+<iframe id="myframe2" src="STAFLog.html" scrolling="no" marginwidth="0" marginheight="0" frameborder="0" vspace="0" hspace="0" style="overflow:visible; width:100%; display:none"></iframe>
+</body>
+</html>

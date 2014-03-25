@@ -120,6 +120,8 @@ class ScriptRunner {
 		int skipped = 0;
 
 		for (Method method : getTestMethods(obz)) {
+            long startTime = System.currentTimeMillis();
+            long endTime;
 			if (method.getAnnotation(Test.class) != null) {
 				boolean enabled = method.getAnnotation(Test.class).enabled();
 				int[] id = method.getAnnotation(Test.class).id();
@@ -141,7 +143,8 @@ class ScriptRunner {
 								logger.info("TEST METHOD : " + method.getName());
 								logger.info(STAFConstant.DASH);
 								method.invoke(obz);
-                                new STAFLogger().logResult(STAFRunner.getInfo().get("result_log").toString(), "12", "class1", "methd1", "pass", "2.0s");
+                                endTime = System.currentTimeMillis();
+                                new STAFLogger().logResult(STAFRunner.getInfo().get("result_log").toString(), Integer.toString(currentID), method.getDeclaringClass().toString(), method.getName().toString(), "PASSED", Long.toString(endTime-startTime));
                                 //new STAFLogger().logEvent(STAFRunner.getInfo().get(STAFConstant.XML_LOG_PATH).toString(),"hello","world","pass","1.0s");
 								passed++;
 							}
@@ -155,6 +158,8 @@ class ScriptRunner {
 							
 						} catch (Exception e) {
 							logger.error("Failed Test Method: " + method.getName() + "\n" + e.getCause());
+                            endTime = System.nanoTime();
+                            new STAFLogger().logResult(STAFRunner.getInfo().get("result_log").toString(), Integer.toString(currentID), method.getDeclaringClass().toString(), method.getName().toString(), "FAILED", Long.toString(endTime-startTime));
 							e.printStackTrace();
 							failed++;
 						}
