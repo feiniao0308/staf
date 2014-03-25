@@ -211,7 +211,9 @@ public class STAFLogger {
             Source xmlDoc = new StreamSource(filePath);
             // Source xmlDoc=new StreamSource(path+"/testlog.xml");
             //File theDir = new File("STAFLog\\HTML");
-            File theDir = new File("STAFLog/HTML");
+            String dirs = "STAFLog"+File.separator+"HTML";
+            //File theDir = new File("STAFLog/HTML");
+            File theDir = new File(dirs);
 
             // if the directory does not exist, create it
             if (!theDir.exists()) {
@@ -271,7 +273,9 @@ public class STAFLogger {
             Source xmlDoc = new StreamSource(filePath);
             // Source xmlDoc=new StreamSource(path+"/testlog.xml");
             //File theDir = new File("STAFLog\\HTML");
-            File theDir = new File("STAFLog/HTML");
+            String dirs = "STAFLog"+File.separator+"HTML";
+            //File theDir = new File("STAFLog/HTML");
+            File theDir = new File(dirs);
 
             // if the directory does not exist, create it
             if (!theDir.exists()) {
@@ -319,6 +323,8 @@ public class STAFLogger {
             String html1 = "ResultLog_"+STAFRunner.getInfo().get(STAFConstant.START_TIME)+".html";
             html1 = html1.replace("\\","/");
             html2 = html2.replace("\\","/");
+            System.out.println("html1 = " + html1);
+            System.out.println("html2 = " + html2);
 
 
             File f = new File("STAFLog/HTML/report.html");
