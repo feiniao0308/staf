@@ -200,7 +200,7 @@ public class STAFDriver extends Driver {
         return infoMap;
     }
 
-    private static WebDriver getWd() {
+    public static WebDriver getWd() {
         return wd;
     }
 
