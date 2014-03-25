@@ -8,6 +8,7 @@
 				<!--<link type="text/css" href="../src/main/resources/log/screen.css"
 					rel="stylesheet" />-->
                 <style>
+                    .container {width: 90%; margin: 0 auto;}
                     .datagrid table { border-collapse: collapse; text-align: left; width: 100%; }
                     .datagrid {font: normal 12px/150% Verdana, Arial, Helvetica, sans-serif; background: #fff; overflow: hidden;
                     border: 1px solid #006699; -webkit-border-radius: 3px; -moz-border-radius: 3px; border-radius: 3px; }

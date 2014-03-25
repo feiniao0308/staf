@@ -371,12 +371,16 @@ public class STAFLogger {
                     "else\n" +
                     "window.onload=dyniframesize\n");
             bw.write("</script>\n");
+            bw.write("<style>\n");
+            bw.write(".container {width: 90%; margin: 0 auto;}\n");
+            bw.write("</style>\n");
             bw.write("</head>\n");
 
             bw.write("<body>\n");
-
+            bw.write("<div class=\"container\">\n");
             bw.write("<h1>STAF Log - Execution Report</h1>\n");
             bw.write("<p>This page displays the test case\texecution results.</p>\n");
+            bw.write("</div>\n");
             bw.write("<iframe id=\"myframe1\" src=\""+html1+"\" scrolling=\"no\" marginwidth=\"0\" marginheight=\"0\" frameborder=\"0\" vspace=\"0\" hspace=\"0\" style=\"overflow:visible; width:100%; display:none\"></iframe>\n");
             bw.write("<iframe id=\"myframe2\" src=\""+html2+"\" scrolling=\"no\" marginwidth=\"0\" marginheight=\"0\" frameborder=\"0\" vspace=\"0\" hspace=\"0\" style=\"overflow:visible; width:100%; display:none\"></iframe>\n");
 
