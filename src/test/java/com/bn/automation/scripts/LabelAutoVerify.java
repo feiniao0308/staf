@@ -17,7 +17,7 @@ public class LabelAutoVerify {
 		driver.findElement(By.id("createAccountBtn")).click();
 		Thread.sleep(1000L);
 		SO2 so = new SO2();
-		driver.autoVerify("verifyLabel", so);
+		driver.autoVerify(driver.getData().getDataContainer("verifyLabel"), so);
 		
 	}
 
