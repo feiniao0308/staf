@@ -35,7 +35,8 @@ public class STAFLogger {
             out.println("</Events>");
 			out.flush();
 			out.close();
-		} catch (IOException e) {
+            System.out.println("appended events close tag");
+        } catch (IOException e) {
 			System.err.println(e);
 		} finally {
 			if (out != null) {
@@ -141,6 +142,7 @@ public class STAFLogger {
         try{
             File xmlFile = new File(fileName);
             if(xmlFile.exists()) {
+                System.out.println("Result XML exists");
                 // try to load document from xml file if it exist
                 // create a file input stream
                 FileInputStream fis = new FileInputStream(xmlFile);
@@ -152,6 +154,7 @@ public class STAFLogger {
                 root = document.getRootElement();
                 fis.close();
             } else {
+                System.out.println("Creating result XML");
                 // if it does not exist create a new document and new root
                 document = new Document();
                 root = new Element("root");
@@ -208,12 +211,13 @@ public class STAFLogger {
             Source xmlDoc = new StreamSource(filePath);
             // Source xmlDoc=new StreamSource(path+"/testlog.xml");
             //File theDir = new File("STAFLog\\HTML");
-            File theDir = new File("STAFLog\\HTML");
+            File theDir = new File("STAFLog/HTML");
 
             // if the directory does not exist, create it
             if (!theDir.exists()) {
                 System.out.println("creating directory: " + theDir);
-                boolean result = theDir.mkdir();
+                //boolean result = theDir.mkdir();
+                boolean result = theDir.mkdirs();
 
                 if(result) {
                     System.out.println("DIR created");
@@ -267,12 +271,12 @@ public class STAFLogger {
             Source xmlDoc = new StreamSource(filePath);
             // Source xmlDoc=new StreamSource(path+"/testlog.xml");
             //File theDir = new File("STAFLog\\HTML");
-            File theDir = new File("STAFLog\\HTML");
+            File theDir = new File("STAFLog/HTML");
 
             // if the directory does not exist, create it
             if (!theDir.exists()) {
                 System.out.println("creating directory: " + theDir);
-                boolean result = theDir.mkdir();
+                boolean result = theDir.mkdirs();
 
                 if(result) {
                     System.out.println("DIR created");
@@ -313,10 +317,11 @@ public class STAFLogger {
 
             String html2 = "STAFLog_"+STAFRunner.getInfo().get(STAFConstant.START_TIME)+".html";
             String html1 = "ResultLog_"+STAFRunner.getInfo().get(STAFConstant.START_TIME)+".html";
+            html1 = html1.replace("\\","/");
+            html2 = html2.replace("\\","/");
 
 
-
-            File f = new File("STAFLog\\HTML\\report.html");
+            File f = new File("STAFLog/HTML/report.html");
             BufferedWriter bw = new BufferedWriter(new FileWriter(f));
             bw.write("<!DOCTYPE html>\n");
             bw.write("<html>\n");
