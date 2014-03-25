@@ -284,9 +284,10 @@ public class STAFDriver extends Driver {
 
     }
 
-    public void autoPopulate(Object containerName, Object SO) throws Throwable {
-        Map<String, String> populateData = new XMLReader()
-                .getContainer(containerName.toString());
+    public void autoPopulate(IDataContainer containerName, Object SO) throws Throwable {
+        Map<String,String> populateData = containerName.get();
+       /* Map<String, String> populateData = new XMLReader()
+                .getContainer(containerName.toString());*/
 
         Class<?> ScreenObject = SO.getClass();
         if (ScreenObject.getAnnotation(Widgets.class) != null) {
