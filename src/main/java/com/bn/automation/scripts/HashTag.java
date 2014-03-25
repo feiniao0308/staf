@@ -28,7 +28,7 @@ public class HashTag {
     }
 
     @Test(id = { 145 }, enabled = true)
-    public void test() throws Throwable {
+    public void keywordDrivenTest() throws Throwable {
 
         System.out.println("hello from test method");
 
@@ -40,15 +40,15 @@ public class HashTag {
         driver.setData("data/xmlDataFormat.xml");
 
 
-        System.out.println("\t4: " + STAFRunner.getConfigXml().getField("hello"));
+        /*System.out.println("\t4: " + STAFRunner.getConfigXml().getField("hello"));
         System.out.println("\t5: " + STAFRunner.getDataXml().getField("hello"));
 
 
         System.out.println("\t6: " + driver.getConfig().getField("hello"));
         System.out.println("\t7: " + driver.getData().getField("hello"));
         System.out.println("\t8: " + driver.getData().getDataContainer("hello"));
-        System.out.println("\t9: " + driver.getData().getDataContainer("hello").getField("element1"));
-        System.out.println("\t10: " + driver.getData().getDataContainer("hello").get());
+        System.out.println("\t9: " + driver.getData().getDataContainer("hello").getField("element1"));*/
+        //System.out.println("\t10: " + driver.getData().getDataContainer("hello").get());
         IDataContainer data = driver.getData().getDataContainer("verifyform");
         driver.autoVerifyMap(data,so);
 

@@ -78,11 +78,13 @@ public class STAFDriver extends Driver {
                     logger.info(STAFConstant.DASH);
                     logger.info("BROWSER : INTERNET EXPLORER");
                     logger.info(STAFConstant.DASH);
+                    DesiredCapabilities capabilities = DesiredCapabilities.internetExplorer();
+                    capabilities.setCapability(InternetExplorerDriver.INTRODUCE_FLAKINESS_BY_IGNORING_SECURITY_DOMAINS, true);
                     // TODO check whether driver exist in that location
                     System.setProperty(STAFConstant.WEBDRIVER_IE_DRIVER,
                             getInfoMap().get(STAFConstant.IE_DRIVER_PATH_KEY)
                                     .toString());
-                    setWd(new InternetExplorerDriver());
+                    setWd(new InternetExplorerDriver(capabilities));
                     STAFManager.getInstance(this, getWd());
                     logger.info("Internet Explorer browser is set and opened in data window");
                     break;
@@ -254,6 +256,7 @@ public class STAFDriver extends Driver {
 
     }
 
+    @Deprecated
     public void autopopulate(Object containerName, Object SO) throws Throwable {
         Map<String, String> populateData = new XMLReader()
                 .getContainer(containerName.toString());
@@ -281,8 +284,8 @@ public class STAFDriver extends Driver {
 
     }
 
-    public void autoVerify(Object containerName, Object SO) throws Throwable {
-        Map<String, String> verifyData = new XMLReader()
+    public void autoPopulate(Object containerName, Object SO) throws Throwable {
+        Map<String, String> populateData = new XMLReader()
                 .getContainer(containerName.toString());
 
         Class<?> ScreenObject = SO.getClass();
@@ -290,38 +293,30 @@ public class STAFDriver extends Driver {
             Class<?>[] ScreenObjectInners = ScreenObject.getDeclaredClasses();
             for (Class<?> ScreenObjectInner : ScreenObjectInners) {
                 if (ScreenObjectInner.getAnnotation(Widgets.class) != null) {
-                    for (Map.Entry<String, String> entry : verifyData
+                    for (Map.Entry<String, String> entry : populateData
                             .entrySet()) {
                         String s1 = entry.getKey();
                         String s2 = entry.getValue();
                         System.out.println(s1);
                         System.out.println(s2);
-                        Label l = (Label) ScreenObjectInner
+                        TextBox t = (TextBox) ScreenObjectInner
                                 .getDeclaredField(s1).get(null);
-                        System.out.println(l.getText());
-                        try {
-                            new Verify().verifyEquals(l.getText(), s2);
-                        } catch (Throwable e) {
-                            logger.error("Expected string does not match with element on page");
-                            logger.info("Verify equals failed for :" + s1
-                                    + "->" + s2);
-                            // logger.debug("Verify contains will be performed since verify equals failed");
-                            logger.error(e);
-                        }
-                        /*
-                         * try { data Verify().verifyContains(l.getText(), s2); }
-						 * catch (Throwable e) { logger.error(
-						 * "Element of the page does not contain expected string"
-						 * ); logger.error(e); }
-						 */
-
+                        t.populate(s2);
+                        // t.sendKeys(s2);
                     }
                 }
             }
 
         }
+
     }
 
+    public void autoVerify(IDataContainer dataContainer, Object so) throws Throwable {
+        Map<String,String> dataMap = dataContainer.get();
+        new Verify().verifyMap(dataMap,so);
+    }
+
+    @Deprecated
     public void autoVerifyMap(IDataContainer dataContainer,Object so){
         Map<String,String> dataMap = dataContainer.get();
         new Verify().verifyMap(dataMap,so);
