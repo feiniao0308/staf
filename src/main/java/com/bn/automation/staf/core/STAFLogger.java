@@ -208,7 +208,7 @@ public class STAFLogger {
             Source xmlDoc = new StreamSource(filePath);
             // Source xmlDoc=new StreamSource(path+"/testlog.xml");
             //File theDir = new File("STAFLog\\HTML");
-            File theDir = new File("STAFLog/HTML");
+            File theDir = new File("STAFLog\\HTML");
 
             // if the directory does not exist, create it
             if (!theDir.exists()) {
@@ -267,7 +267,7 @@ public class STAFLogger {
             Source xmlDoc = new StreamSource(filePath);
             // Source xmlDoc=new StreamSource(path+"/testlog.xml");
             //File theDir = new File("STAFLog\\HTML");
-            File theDir = new File("STAFLog/HTML");
+            File theDir = new File("STAFLog\\HTML");
 
             // if the directory does not exist, create it
             if (!theDir.exists()) {
