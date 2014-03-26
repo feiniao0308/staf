@@ -73,12 +73,12 @@ public class STAFRunner extends IScript {
         stafLogger.convertXMLToHTML(STAFRunner.getInfo().get("xml_log_path").toString());
         stafLogger.convertXMLToHTML2(STAFRunner.getInfo().get("result_log").toString());
         stafLogger.createHTMLReport();
-        File htmlFile = new File(getInfo().get(STAFConstant.USER_DIR)+STAFConstant.HTML_LOG_REF+"report.html");
+        /*File htmlFile = new File(getInfo().get(STAFConstant.USER_DIR)+STAFConstant.HTML_LOG_REF+"report.html");
         try {
             Desktop.getDesktop().browse(htmlFile.toURI());
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        }*/
         /*try {
             stafLogger.openFile(getInfo().get("html_log1").toString());
         } catch (IOException e) {
