@@ -235,6 +235,7 @@ public class STAFLogger {
             OutputStream htmlFile=new FileOutputStream(outputFileName);
             Transformer trasform=tFactory.newTransformer(new StreamSource(xslDoc));
             trasform.transform(xmlDoc, new StreamResult(htmlFile));
+            htmlFile.close();
         }
         catch (FileNotFoundException e)
         {
@@ -250,6 +251,8 @@ public class STAFLogger {
         }
         catch (TransformerException e)
         {
+            e.printStackTrace();
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -297,6 +300,7 @@ public class STAFLogger {
             OutputStream htmlFile=new FileOutputStream(outputFileName);
             Transformer trasform=transformerFactory.newTransformer(new StreamSource(xslDoc));
             trasform.transform(xmlDoc, new StreamResult(htmlFile));
+            htmlFile.close();
         }
         catch (FileNotFoundException e)
         {
@@ -312,6 +316,8 @@ public class STAFLogger {
         }
         catch (TransformerException e)
         {
+            e.printStackTrace();
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
