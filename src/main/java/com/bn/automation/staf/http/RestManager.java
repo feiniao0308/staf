@@ -102,26 +102,27 @@ public class RestManager {
         Map<String,String> paraMap = parameters.get();
         ArrayList<NameValuePair> nvp = new ArrayList<NameValuePair>(1);
         for(Map.Entry<String,String> para : paraMap.entrySet()){
-            logger.info("Set Parameter key->" + para.getKey());
+            //logger.info("Set Parameter key->" + para.getKey());
 
             switch(para.getValue()){
                 case RESTConstant.RANDOM_NUMBER:
                     //System.out.println("random number");
                     int randomNumber = new Random().nextInt(100000000);
                     nvp.add(new BasicNameValuePair(para.getKey(), String.valueOf(randomNumber)));
-                    logger.info("Set Parameter value->" + randomNumber);
+                    logger.info("Set Parameter: " + para.getKey() + "->" + randomNumber);
                     break;
 
                 case RESTConstant.RANDOM_EMAIL:
                     //System.out.println("random email");
                     String randomEmail = "test" + UUID.randomUUID().toString().substring(24)+ "@bn.com";
                     nvp.add(new BasicNameValuePair(para.getKey(), randomEmail));
-                    logger.info("Set Parameter value->" + randomEmail);
+                    logger.info("Set Parameter: " + para.getKey() + "->" + randomEmail);
                     break;
                 default:
                     //System.out.println("default");
-                    logger.info("Set Parameter value->" + para.getValue());
+                    logger.info("Set Parameter: " + para.getKey() + "->" + para.getValue());
                     nvp.add(new BasicNameValuePair(para.getKey(), para.getValue()));
+                    //manager.getHttpPost().setEntity(new UrlEncodedFormEntity(nvp, Consts.UTF_8));
             }
 
            // nvp.add(new BasicNameValuePair(para.getKey(), para.getValue()));
@@ -130,6 +131,14 @@ public class RestManager {
         manager.getHttpPost().setEntity(new UrlEncodedFormEntity(nvp, Consts.UTF_8));
         logger.info("All Parameters SET");
 
+
+    }
+
+    public void setParameter(String key, String value){
+        ArrayList<NameValuePair> nvp = new ArrayList<NameValuePair>(1);
+        nvp.add(new BasicNameValuePair(key, value));
+        logger.info("Set Parameter: " + key + "->" + value);
+        this.getHttpPost().setEntity(new UrlEncodedFormEntity(nvp, Consts.UTF_8));
 
     }
 
