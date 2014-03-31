@@ -16,7 +16,7 @@ public class Verify {
     public void verifyTrue(boolean condition, String message) {
         try {
             Assert.assertTrue(condition, message);
-            logger.info("Expected value: true" + " Actual value: " + condition + " - PASSED ", true);
+            logger.info("Expected value: true" + " Actual value: " + condition + " - PASSED " + message, true);
         } catch (Throwable e) {
             logger.info("Expected value: true" + " Actual value: " + condition + " - FAILED " + message, true);
             //addVerificationFailure(e);
@@ -28,7 +28,7 @@ public class Verify {
     public void verifyFalse(boolean condition, String message) {
         try {
             Assert.assertFalse(condition, message);
-            logger.info("Expected value: false" + " Actual value: " + condition + " - PASSED ", true);
+            logger.info("Expected value: false" + " Actual value: " + condition + " - PASSED " + message, true);
         } catch (Throwable e) {
             logger.info("Expected value: false" + " Actual value: " + condition + " - FAILED " + message, true);
             //addVerificationFailure(e);
@@ -39,7 +39,7 @@ public class Verify {
     public void verifyEquals(String actualValue, String expectedValue, String message) {
         try {
             Assert.assertEquals(actualValue, expectedValue, message);
-            logger.info("Expected value->" + expectedValue + " Actual value->" + actualValue + " - PASSED ", true);
+            logger.info("Expected value->" + expectedValue + " Actual value->" + actualValue + " - PASSED " + message, true);
         } catch (Throwable e) {
             logger.info("Expected value->" + expectedValue + " Actual value->" + actualValue + " - FAILED " + message, true);
             //addVerificationFailure(e);
@@ -56,6 +56,8 @@ public class Verify {
         }
     }
 
+
+
     public void verifyContains(String actualValue, String expectedValue) {
         try {
             Assert.assertTrue(actualValue.contains(expectedValue));
@@ -64,6 +66,18 @@ public class Verify {
             logger.info("Expected value->" + expectedValue + " present in Actual value->" + actualValue + " - FAILED ", true);
             //addVerificationFailure(e);
         }
+    }
+
+    public void assertEquals(String actualValue, String expectedValue){
+
+        Assert.assertEquals(actualValue,expectedValue,"Expected value->" + expectedValue + " present in Actual value->" + actualValue + " - FAILED ");
+        logger.info("Expected value->" + expectedValue + " present in Actual value->" + actualValue + " - PASSED ", true);
+    }
+
+    public void assertEquals(String actualValue, String expectedValue, String message){
+
+        Assert.assertEquals(actualValue,expectedValue,"Expected value->" + expectedValue + " present in Actual value->" + actualValue + " - FAILED " + message);
+        logger.info("Expected value->" + expectedValue + " present in Actual value->" + actualValue + " - PASSED " + message, true);
     }
 
     public void verifyMap(Map<String, String> dataMap, Object so) {
@@ -109,31 +123,31 @@ public class Verify {
                         switch (verifyType) {
                             case STAFConstant.GET_TEXT:
                                 logger.trace("Verification type->getText()");
-                                verifyEquals(l.getText(), expectedValue);
+                                verifyEquals(l.getText(), expectedValue, " | Verify: " + verifyType+"->"+verifyName);
                                 break;
                             case STAFConstant.IS_DISPLAYED:
                                 logger.trace("Verification type->isDisplayed()");
                                 if (Boolean.valueOf(expectedValue)) {
-                                    verifyTrue(l.isDisplayed(), "Element not displayed");
+                                    verifyTrue(l.isDisplayed(), " | Verify: " + verifyType+"->"+verifyName);
                                 } else {
-                                    verifyFalse(l.isDisplayed(), "Element displayed");
+                                    verifyFalse(l.isDisplayed(), " | Verify: " + verifyType+"->"+verifyName);
                                 }
                                 break;
                             case STAFConstant.IS_ENABLED:
                                 logger.trace("Verification type->isEnabled()");
                                 if (Boolean.valueOf(expectedValue)) {
-                                    verifyTrue(l.isEnabled(), "Element not enabled");
+                                    verifyTrue(l.isEnabled(), " | Verify: " + verifyType+"->"+verifyName);
                                 } else {
-                                    verifyFalse(l.isEnabled(), "Element enabled");
+                                    verifyFalse(l.isEnabled(), " | Verify: " + verifyType+"->"+verifyName);
                                 }
                                 //verifyTrue(l.isEnabled(),"Element not enabled");
                                 break;
                             case STAFConstant.IS_PRESENT:
                                 logger.trace("Verification type->isPresent()");
                                 if (Boolean.valueOf(expectedValue)) {
-                                    verifyTrue(l.isPresent(), "Element not present1");
+                                    verifyTrue(l.isPresent(), " | Verify: " + verifyType+"->"+verifyName);
                                 } else {
-                                    verifyFalse(l.isPresent(), "Element present");
+                                    verifyFalse(l.isPresent(), " | Verify: " + verifyType+"->"+verifyName);
                                 }
                                 //verifyTrue(l.isPresent(),"Element not present");
                                 //verifyTrue(l.findElement(l.getByElement()) != null, "Element not present");
@@ -141,9 +155,9 @@ public class Verify {
                             case STAFConstant.IS_SELECTED:
                                 logger.trace("Verification type->isSelected()");
                                 if (Boolean.valueOf(expectedValue)) {
-                                    verifyTrue(l.isSelected(), "Element not selected");
+                                    verifyTrue(l.isSelected(), " | Verify: " + verifyType+"->"+verifyName);
                                 } else {
-                                    verifyFalse(l.isSelected(), "Element selected");
+                                    verifyFalse(l.isSelected(), " | Verify: " + verifyType+"->"+verifyName);
                                 }
                                 //verifyTrue(l.isSelected(),"Element not selected");
                                 break;
@@ -159,7 +173,7 @@ public class Verify {
                                 break;
                             default:
                                 logger.trace("Verification type->getAttribute()");
-                                verifyEquals(l.getAttribute(verifyType), expectedValue);
+                                verifyEquals(l.getAttribute(verifyType), expectedValue, " | Verify getAttribute: " + verifyType+"->"+verifyName);
 
 
                         }

@@ -4,7 +4,6 @@ import com.bn.automation.staf.core.STAFRunner;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jdom2.Document;
-import org.jdom2.Element;
 import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
 import org.jdom2.output.Format;
@@ -22,17 +21,20 @@ public class FileUtil {
     private static final Logger logger = LogManager.getLogger(FileUtil.class);
 
     public void createConfig(String path){
+        logger.entry();
         try {
             SAXBuilder builder = new SAXBuilder();
             //File xmlFile = new File(getInfo().get(STAFConstant.CONFIG_KEY).toString());
             //InputStream is = getClass().getClassLoader().getResourceAsStream("config/Config.xml");
             InputStream inputStream = getClass().getClassLoader().getResourceAsStream(path);
+            logger.debug("congif inputstream: " + inputStream);
             //Reader reader = new InputStreamReader(inputStream);
             STAFRunner.setConfigDocument((Document) builder.build(inputStream));
-
+            logger.debug("getConfigDocument() = " + STAFRunner.getConfigDocument());
 
             System.out.println("getConfigDocument() = " + STAFRunner.getConfigDocument());
             STAFRunner.getXmlMap().put(STAFRunner.getConfigXml(), STAFRunner.getConfigDocument());
+            logger.debug(STAFRunner.getXmlMap());
 
 
         } catch (IOException io) {

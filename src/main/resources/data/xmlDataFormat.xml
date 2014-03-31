@@ -64,6 +64,38 @@
         <field name="lnameLabel" value="Last Name" />
     </datacontainer>
 
+    <datacontainer name="parameters" value="2">
+        <field name="lastModified" value="" />
+        <field name="mercuryUserId" value="" />
+        <field name="displayNumber" value="" />
+        <field name="creditCardType" value="" />
+        <field name="creditCardExpMo" value="" />
+        <field name="creditCardExpYr" value="" />
+        <field name="mercuryCardId" value="" />
+    </datacontainer>
+
+    <datacontainer name="assertResponse" value="2">
+        <field name="formExceptions[0].localizedMessage" value="Login is required field" />
+        <field name="formError" value="truee" />
+    </datacontainer>
+
+    <datacontainer name="parameters" value="3">
+        <field name="lastModified" value="" />
+        <field name="mercuryUserId" value="" />
+        <field name="displayNumber" value="" />
+        <field name="creditCardType" value="" />
+        <field name="creditCardExpMo" value="" />
+        <field name="creditCardExpYr" value="" />
+        <field name="mercuryCardId" value="" />
+    </datacontainer>
+
+    <datacontainer name="assertResponse" value="3">
+        <field name="formExceptions[0].localizedMessage" value="Login is required field" />
+        <field name="formError" value="true" />
+    </datacontainer>
+
+
+
     <field name="hello" value="world of data" />
 
 

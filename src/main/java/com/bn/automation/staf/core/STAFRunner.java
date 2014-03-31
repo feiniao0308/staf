@@ -4,21 +4,11 @@ import com.bn.automation.staf.anno.STAFScript;
 import com.bn.automation.staf.anno.STAFSuite;
 import com.bn.automation.staf.helpers.STAFConstant;
 import com.bn.automation.staf.util.FileUtil;
-import com.bn.automation.staf.util.HTMLGenerator;
-import com.bn.automation.staf.util.STAFConfig;
 import com.bn.automation.staf.util.XML;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jdom2.Document;
-import org.jdom2.JDOMException;
-import org.jdom2.input.SAXBuilder;
 
-import java.awt.*;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.net.URL;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -171,6 +161,7 @@ public class STAFRunner extends IScript {
         try {
 
             //STAFConfig stafConfig = data STAFConfig();
+            System.out.println("getConfigXml() = " + getConfigXml());
             if (getConfigXml().isFieldPresent(STAFConstant.DEFAULT_BROWSER_NAME))
                 //putInfoMap(STAFConstant.BROWSER_NAME_KEY, stafConfig.getField(STAFConstant.DEFAULT_BROWSER_NAME));
                 putInfoMap(STAFConstant.BROWSER_NAME_KEY, getConfigXml().getField(STAFConstant.DEFAULT_BROWSER_NAME));

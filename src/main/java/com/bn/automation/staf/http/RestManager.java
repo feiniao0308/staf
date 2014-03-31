@@ -1,0 +1,208 @@
+package com.bn.automation.staf.http;
+
+import com.bn.automation.staf.core.STAFRunner;
+import com.bn.automation.staf.helpers.Assert;
+import com.bn.automation.staf.util.FileUtil;
+import com.bn.automation.staf.util.IDataContainer;
+import com.bn.automation.staf.util.Json;
+import com.bn.automation.staf.util.XML;
+import org.apache.http.Consts;
+import org.apache.http.HttpResponse;
+import org.apache.http.HttpStatus;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.ResponseHandler;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.BasicResponseHandler;
+import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.impl.client.LaxRedirectStrategy;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.net.URI;
+import java.util.ArrayList;
+import java.util.Map;
+
+/**
+ * Created by fdkzv on 3/28/14.
+ */
+public class RestManager {
+
+    private HttpClient httpclient;
+    private HttpResponse httpResponse;
+    private HttpGet httpGet;
+    private HttpPost httpPost;
+    private String response;
+    private static final Logger logger = LogManager.getLogger(RestManager.class);
+
+
+
+
+    //URI uri = new URIBuilder()
+    public void connect(){
+        setHttpclient(HttpClientBuilder.create().setRedirectStrategy(new LaxRedirectStrategy()).build());
+
+    }
+
+    public void doPost(URI uri){
+        setHttpPost(new HttpPost(uri));
+        if(getHttpclient() != null && getHttpPost() != null){
+            try {
+                setHttpResponse(getHttpclient().execute(httpPost));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+    }
+
+    public void doPost(URI uri,IDataContainer parameters){
+        setHttpPost(new HttpPost(uri));
+
+        setParameters(this,parameters);
+
+        if(getHttpclient() != null && getHttpPost() != null){
+            try {
+                this.setHttpResponse(getHttpclient().execute(httpPost));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        int code = this.getHttpResponse().getStatusLine().getStatusCode();
+        if(code == HttpStatus.SC_OK){
+            logger.info("Response OK , code->" + code);
+            ResponseHandler<String> responseHandler = new BasicResponseHandler();
+            try {
+                this.setResponse(responseHandler.handleResponse(this.getHttpResponse()));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            logger.info("Reponse body : \n" + this.getResponse());
+        } else{
+            logger.info("Response ERROR, code->" + code);
+            logger.info("Reponse body : \n" + this.getResponse());
+        }
+
+
+    }
+
+    public void setParameters(RestManager manager,IDataContainer parameters){
+        Map<String,String> paraMap = parameters.get();
+        ArrayList<NameValuePair> nvp = new ArrayList<NameValuePair>(1);
+        for(Map.Entry<String,String> para : paraMap.entrySet()){
+            logger.info("Set Parameter key->" + para.getKey());
+            logger.info("Set Parameter value->" + para.getValue());
+            nvp.add(new BasicNameValuePair(para.getKey(),para.getValue()));
+
+        }
+        manager.getHttpPost().setEntity(new UrlEncodedFormEntity(nvp, Consts.UTF_8));
+
+
+    }
+
+    public void setData(String dataPath){
+        new FileUtil().createData(dataPath);
+    }
+
+    public XML getData(){
+        return STAFRunner.getDataXml();
+    }
+
+
+
+    public HttpResponse getResponse(HttpPost httpPost){
+
+        if(getHttpclient() != null && getHttpPost() != null){
+            try {
+                setHttpResponse(getHttpclient().execute(httpPost));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return getHttpResponse();
+
+    }
+
+    public HttpResponse getResponse(HttpGet httpGet){
+        if(getHttpclient() != null && getHttpGet() != null){
+            try {
+                setHttpResponse(getHttpclient().execute(httpGet));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return getHttpResponse();
+    }
+
+    public void close(){
+        this.getHttpPost().completed();
+    }
+
+    public void autoAssert(IDataContainer containerName){
+
+        Map<String,String> dataMap = containerName.get();
+        JSONObject jsonObject = null;
+        try {
+            jsonObject = new JSONObject(this.getResponse());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        Json json = new Json(jsonObject);
+        new Assert().assertMap(dataMap,json);
+    }
+
+
+
+
+
+
+
+
+
+    public HttpClient getHttpclient() {
+        return httpclient;
+    }
+
+    public void setHttpclient(HttpClient httpclient) {
+        this.httpclient = httpclient;
+    }
+
+    public HttpPost getHttpPost() {
+        return httpPost;
+    }
+
+    public void setHttpPost(HttpPost httpPost) {
+        this.httpPost = httpPost;
+    }
+
+    public HttpResponse getHttpResponse() {
+        return httpResponse;
+    }
+
+    public void setHttpResponse(HttpResponse httpResponse) {
+        this.httpResponse = httpResponse;
+    }
+
+    public HttpGet getHttpGet() {
+        return httpGet;
+    }
+
+    public void setHttpGet(HttpGet httpGet) {
+        this.httpGet = httpGet;
+    }
+
+
+    public String getResponse() {
+        return response;
+    }
+
+    public void setResponse(String response) {
+        this.response = response;
+    }
+}

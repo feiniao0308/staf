@@ -50,7 +50,9 @@
                     <table border="0" cellspacing="0" cellpadding="0">
                         <thead>
                             <tr>
+                                <th class="span-4">Index</th>
                                 <th class="span-4">Class Name</th>
+                                <th class="span-4">Test Case ID</th>
                                 <th class="span-4">Method Name / TestCase Name</th>
                                 <th class="span-4">Result</th>
                                 <th class="span-4">Execution Time (ms)</th>
@@ -61,7 +63,14 @@
                             <tr class="alt">
                                 <td>
                                     <xsl:value-of
+                                            select="position()"/>
+                                </td>
+                                <td>
+                                    <xsl:value-of
                                             select="class_name"/>
+                                </td>
+                                <td>
+                                    <xsl:value-of select="@id"/>
                                 </td>
                                 <td>
                                     <xsl:value-of select="method_name"/>

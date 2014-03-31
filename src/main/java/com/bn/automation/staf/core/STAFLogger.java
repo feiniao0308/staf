@@ -1,16 +1,7 @@
 package com.bn.automation.staf.core;
 
 
-
-import javax.xml.transform.*;
-import javax.xml.transform.stream.StreamResult;
-import javax.xml.transform.stream.StreamSource;
-import java.awt.*;
-import java.io.*;
-
 import com.bn.automation.staf.helpers.STAFConstant;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.jdom2.Attribute;
 import org.jdom2.Document;
 import org.jdom2.Element;
@@ -18,6 +9,12 @@ import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
 import org.jdom2.output.Format;
 import org.jdom2.output.XMLOutputter;
+
+import javax.xml.transform.*;
+import javax.xml.transform.stream.StreamResult;
+import javax.xml.transform.stream.StreamSource;
+import java.awt.*;
+import java.io.*;
 
 public class STAFLogger {
 	String path = System.getProperty("user.dir");
@@ -327,13 +324,14 @@ public class STAFLogger {
 
             String html2 = "STAFLog_"+STAFRunner.getInfo().get(STAFConstant.START_TIME)+".html";
             String html1 = "ResultLog_"+STAFRunner.getInfo().get(STAFConstant.START_TIME)+".html";
+            String report = "Report_"+STAFRunner.getInfo().get(STAFConstant.START_TIME)+".html";
             html1 = html1.replace("\\","/");
             html2 = html2.replace("\\","/");
             System.out.println("html1 = " + html1);
             System.out.println("html2 = " + html2);
 
 
-            File f = new File("STAFLog/HTML/report.html");
+            File f = new File("STAFLog"+File.separator+"HTML"+File.separator+report);
             BufferedWriter bw = new BufferedWriter(new FileWriter(f));
             bw.write("<!DOCTYPE html>\n");
             bw.write("<html>\n");
