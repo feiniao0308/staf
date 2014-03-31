@@ -81,8 +81,8 @@
 
     <datacontainer name="parameters" value="3">
         <field name="lastModified" value="" />
-        <field name="mercuryUserId" value="" />
-        <field name="displayNumber" value="" />
+        <field name="mercuryUserId" value="RANDOM_NUMBER" />
+        <field name="displayNumber" value="RANDOM_EMAIL" />
         <field name="creditCardType" value="" />
         <field name="creditCardExpMo" value="" />
         <field name="creditCardExpYr" value="" />

@@ -2,6 +2,7 @@ package com.bn.automation.staf.http;
 
 import com.bn.automation.staf.core.STAFRunner;
 import com.bn.automation.staf.helpers.Assert;
+import com.bn.automation.staf.helpers.RESTConstant;
 import com.bn.automation.staf.util.FileUtil;
 import com.bn.automation.staf.util.IDataContainer;
 import com.bn.automation.staf.util.Json;
@@ -28,6 +29,8 @@ import java.io.IOException;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.Random;
+import java.util.UUID;
 
 /**
  * Created by fdkzv on 3/28/14.
@@ -39,6 +42,7 @@ public class RestManager {
     private HttpGet httpGet;
     private HttpPost httpPost;
     private String response;
+    private int responseCode;
     private static final Logger logger = LogManager.getLogger(RestManager.class);
 
 
@@ -46,7 +50,9 @@ public class RestManager {
 
     //URI uri = new URIBuilder()
     public void connect(){
+        logger.debug("Connecting HTTP Client ...");
         setHttpclient(HttpClientBuilder.create().setRedirectStrategy(new LaxRedirectStrategy()).build());
+        logger.info("Connected with HTTP Client");
 
     }
 
@@ -74,9 +80,9 @@ public class RestManager {
                 e.printStackTrace();
             }
         }
-        int code = this.getHttpResponse().getStatusLine().getStatusCode();
-        if(code == HttpStatus.SC_OK){
-            logger.info("Response OK , code->" + code);
+        this.setResponseCode(this.getHttpResponse().getStatusLine().getStatusCode());
+        if(this.getResponseCode() == HttpStatus.SC_OK){
+            logger.info("Response OK , code->" + this.getResponseCode());
             ResponseHandler<String> responseHandler = new BasicResponseHandler();
             try {
                 this.setResponse(responseHandler.handleResponse(this.getHttpResponse()));
@@ -85,7 +91,7 @@ public class RestManager {
             }
             logger.info("Reponse body : \n" + this.getResponse());
         } else{
-            logger.info("Response ERROR, code->" + code);
+            logger.info("Response ERROR, code->" + this.getResponseCode());
             logger.info("Reponse body : \n" + this.getResponse());
         }
 
@@ -97,11 +103,32 @@ public class RestManager {
         ArrayList<NameValuePair> nvp = new ArrayList<NameValuePair>(1);
         for(Map.Entry<String,String> para : paraMap.entrySet()){
             logger.info("Set Parameter key->" + para.getKey());
-            logger.info("Set Parameter value->" + para.getValue());
-            nvp.add(new BasicNameValuePair(para.getKey(),para.getValue()));
+
+            switch(para.getValue()){
+                case RESTConstant.RANDOM_NUMBER:
+                    //System.out.println("random number");
+                    int randomNumber = new Random().nextInt(100000000);
+                    nvp.add(new BasicNameValuePair(para.getKey(), String.valueOf(randomNumber)));
+                    logger.info("Set Parameter value->" + randomNumber);
+                    break;
+
+                case RESTConstant.RANDOM_EMAIL:
+                    //System.out.println("random email");
+                    String randomEmail = "test" + UUID.randomUUID().toString().substring(24)+ "@bn.com";
+                    nvp.add(new BasicNameValuePair(para.getKey(), randomEmail));
+                    logger.info("Set Parameter value->" + randomEmail);
+                    break;
+                default:
+                    //System.out.println("default");
+                    logger.info("Set Parameter value->" + para.getValue());
+                    nvp.add(new BasicNameValuePair(para.getKey(), para.getValue()));
+            }
+
+           // nvp.add(new BasicNameValuePair(para.getKey(), para.getValue()));
 
         }
         manager.getHttpPost().setEntity(new UrlEncodedFormEntity(nvp, Consts.UTF_8));
+        logger.info("All Parameters SET");
 
 
     }
@@ -142,6 +169,7 @@ public class RestManager {
 
     public void close(){
         this.getHttpPost().completed();
+        logger.info("Connection Closed");
     }
 
     public void autoAssert(IDataContainer containerName){
@@ -204,5 +232,13 @@ public class RestManager {
 
     public void setResponse(String response) {
         this.response = response;
+    }
+
+    public int getResponseCode() {
+        return responseCode;
+    }
+
+    public void setResponseCode(int responseCode) {
+        this.responseCode = responseCode;
     }
 }
