@@ -42,6 +42,7 @@ public class RestManager {
     private HttpGet httpGet;
     private HttpPost httpPost;
     private String response;
+    private URI uri;
     private int responseCode;
     private static final Logger logger = LogManager.getLogger(RestManager.class);
 
@@ -56,8 +57,13 @@ public class RestManager {
 
     }
 
+
+
     public void doPost(URI uri){
-        setHttpPost(new HttpPost(uri));
+        if(this.getHttpPost() == null ){
+            this.setHttpPost(new HttpPost(this.getUri()));
+        }
+        //setHttpPost(new HttpPost(uri));
         if(getHttpclient() != null && getHttpPost() != null){
             try {
                 setHttpResponse(getHttpclient().execute(httpPost));
@@ -69,13 +75,49 @@ public class RestManager {
     }
 
     public void doPost(URI uri,IDataContainer parameters){
-        setHttpPost(new HttpPost(uri));
+        if(this.getHttpPost() == null ){
+            this.setHttpPost(new HttpPost(this.getUri()));
+        }
+        //setHttpPost(new HttpPost(uri));
 
         setParameters(this,parameters);
 
         if(getHttpclient() != null && getHttpPost() != null){
             try {
-                this.setHttpResponse(getHttpclient().execute(httpPost));
+                this.setHttpResponse(getHttpclient().execute(this.getHttpPost()));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        this.setResponseCode(this.getHttpResponse().getStatusLine().getStatusCode());
+        if(this.getResponseCode() == HttpStatus.SC_OK){
+            logger.info("Response OK , code->" + this.getResponseCode());
+            ResponseHandler<String> responseHandler = new BasicResponseHandler();
+            try {
+                this.setResponse(responseHandler.handleResponse(this.getHttpResponse()));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            logger.info("Reponse body : \n" + this.getResponse());
+        } else{
+            logger.info("Response ERROR, code->" + this.getResponseCode());
+            logger.info("Reponse body : \n" + this.getResponse());
+        }
+
+
+    }
+
+    public void doPost(IDataContainer parameters){
+        if(this.getHttpPost() == null ){
+            this.setHttpPost(new HttpPost(this.getUri()));
+        }
+        //setHttpPost(new HttpPost(this.getUri()));
+
+        setParameters(this,parameters);
+
+        if(getHttpclient() != null && getHttpPost() != null){
+            try {
+                this.setHttpResponse(getHttpclient().execute(this.getHttpPost()));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -134,7 +176,10 @@ public class RestManager {
 
     }
 
-    public void setParameter(String key, String value){
+    public void setParameterPost(String key, String value){
+        if(this.getHttpPost() == null ){
+            this.setHttpPost(new HttpPost(this.getUri()));
+        }
         ArrayList<NameValuePair> nvp = new ArrayList<NameValuePair>(1);
         nvp.add(new BasicNameValuePair(key, value));
         logger.info("Set Parameter: " + key + "->" + value);
@@ -249,5 +294,13 @@ public class RestManager {
 
     public void setResponseCode(int responseCode) {
         this.responseCode = responseCode;
+    }
+
+    public URI getUri() {
+        return uri;
+    }
+
+    public void setUri(URI uri) {
+        this.uri = uri;
     }
 }

@@ -28,6 +28,7 @@ public class http2 {
 
             try {
                 uri = new URIBuilder().setScheme("http").setHost("qwecweb01:80").setPath("/rest/model/atg/userprofiling/BNUserProfile/create/").build();
+                restManager.setUri(uri);
 
             } catch (URISyntaxException e) {
                 e.printStackTrace();
@@ -46,6 +47,8 @@ public class http2 {
         @Test(id = {2,3}, enabled = true)
         public void keywordDrivenTest() throws Throwable {
             restManager.setData("data/xmlDataFormat.xml");
+
+            restManager.setParameterPost("gender","female");
 
             restManager.doPost(uri, restManager.getData().getDataContainer("parameters"));
             restManager.autoAssert(restManager.getData().getDataContainer("assertResponse"));

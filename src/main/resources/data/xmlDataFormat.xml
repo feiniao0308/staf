@@ -76,7 +76,7 @@
 
     <datacontainer name="assertResponse" value="2">
         <field name="formExceptions[0].localizedMessage" value="Login is required field" />
-        <field name="formError" value="truee" />
+        <field name="formError" value="true" />
     </datacontainer>
 
     <datacontainer name="parameters" value="3">
