@@ -44,6 +44,7 @@ public class RestManager {
     private String response;
     private URI uri;
     private int responseCode;
+    private ArrayList<NameValuePair> parameterMap = new ArrayList<NameValuePair>(1);
     private static final Logger logger = LogManager.getLogger(RestManager.class);
 
 
@@ -81,6 +82,7 @@ public class RestManager {
         //setHttpPost(new HttpPost(uri));
 
         setParameters(this,parameters);
+        this.getHttpPost().setEntity(new UrlEncodedFormEntity(this.getParameterMap(), Consts.UTF_8));
 
         if(getHttpclient() != null && getHttpPost() != null){
             try {
@@ -114,6 +116,7 @@ public class RestManager {
         //setHttpPost(new HttpPost(this.getUri()));
 
         setParameters(this,parameters);
+        this.getHttpPost().setEntity(new UrlEncodedFormEntity(this.getParameterMap(), Consts.UTF_8));
 
         if(getHttpclient() != null && getHttpPost() != null){
             try {
@@ -142,7 +145,7 @@ public class RestManager {
 
     public void setParameters(RestManager manager,IDataContainer parameters){
         Map<String,String> paraMap = parameters.get();
-        ArrayList<NameValuePair> nvp = new ArrayList<NameValuePair>(1);
+        //ArrayList<NameValuePair> nvp = new ArrayList<NameValuePair>(1);
         for(Map.Entry<String,String> para : paraMap.entrySet()){
             //logger.info("Set Parameter key->" + para.getKey());
 
@@ -150,27 +153,30 @@ public class RestManager {
                 case RESTConstant.RANDOM_NUMBER:
                     //System.out.println("random number");
                     int randomNumber = new Random().nextInt(100000000);
-                    nvp.add(new BasicNameValuePair(para.getKey(), String.valueOf(randomNumber)));
+                    this.getParameterMap().add(new BasicNameValuePair(para.getKey(), String.valueOf(randomNumber)));
+                    //nvp.add(new BasicNameValuePair(para.getKey(), String.valueOf(randomNumber)));
                     logger.info("Set Parameter: " + para.getKey() + "->" + randomNumber);
                     break;
 
                 case RESTConstant.RANDOM_EMAIL:
                     //System.out.println("random email");
                     String randomEmail = "test" + UUID.randomUUID().toString().substring(24)+ "@bn.com";
-                    nvp.add(new BasicNameValuePair(para.getKey(), randomEmail));
+                    this.getParameterMap().add(new BasicNameValuePair(para.getKey(), randomEmail));
+                    //nvp.add(new BasicNameValuePair(para.getKey(), randomEmail));
                     logger.info("Set Parameter: " + para.getKey() + "->" + randomEmail);
                     break;
                 default:
                     //System.out.println("default");
                     logger.info("Set Parameter: " + para.getKey() + "->" + para.getValue());
-                    nvp.add(new BasicNameValuePair(para.getKey(), para.getValue()));
+                    this.getParameterMap().add(new BasicNameValuePair(para.getKey(), para.getValue()));
+                    //nvp.add(new BasicNameValuePair(para.getKey(), para.getValue()));
                     //manager.getHttpPost().setEntity(new UrlEncodedFormEntity(nvp, Consts.UTF_8));
             }
 
            // nvp.add(new BasicNameValuePair(para.getKey(), para.getValue()));
 
         }
-        manager.getHttpPost().setEntity(new UrlEncodedFormEntity(nvp, Consts.UTF_8));
+        //manager.getHttpPost().setEntity(new UrlEncodedFormEntity(this.getParameterMap(), Consts.UTF_8));
         logger.info("All Parameters SET");
 
 
@@ -180,10 +186,11 @@ public class RestManager {
         if(this.getHttpPost() == null ){
             this.setHttpPost(new HttpPost(this.getUri()));
         }
-        ArrayList<NameValuePair> nvp = new ArrayList<NameValuePair>(1);
-        nvp.add(new BasicNameValuePair(key, value));
+        //ArrayList<NameValuePair> nvp = new ArrayList<NameValuePair>(1);
+        this.getParameterMap().add(new BasicNameValuePair(key, value));
+        //nvp.add(new BasicNameValuePair(key, value));
         logger.info("Set Parameter: " + key + "->" + value);
-        this.getHttpPost().setEntity(new UrlEncodedFormEntity(nvp, Consts.UTF_8));
+        //this.getHttpPost().setEntity(new UrlEncodedFormEntity(this.getParameterMap(), Consts.UTF_8));
 
     }
 
@@ -302,5 +309,14 @@ public class RestManager {
 
     public void setUri(URI uri) {
         this.uri = uri;
+    }
+
+
+    public ArrayList<NameValuePair> getParameterMap() {
+        return parameterMap;
+    }
+
+    public void setParameterMap(ArrayList<NameValuePair> parameterMap) {
+        this.parameterMap = parameterMap;
     }
 }
