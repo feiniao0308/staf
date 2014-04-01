@@ -117,16 +117,18 @@ class ScriptRunner {
         int passed = 0;
         int failed = 0;
         int skipped = 0;
+        long startTime;
+        long endTime;
 
         for (Method method : getTestMethods(obz)) {
-            long startTime = System.currentTimeMillis();
-            long endTime;
+
             if (method.getAnnotation(Test.class) != null) {
                 boolean enabled = method.getAnnotation(Test.class).enabled();
                 int[] id = method.getAnnotation(Test.class).id();
                 if (enabled) {
 
                     for (int currentID : id) {
+                        startTime = System.currentTimeMillis();
                         System.out
                                 .println("======================" + currentID);
                         try {
@@ -139,7 +141,7 @@ class ScriptRunner {
                             }
                             if (isTestPresent()) {
                                 logger.info(STAFConstant.DASH);
-                                logger.info("TEST METHOD : " + method.getName());
+                                logger.info("TEST METHOD : " + method.getName() + " | ID: " + currentID);
                                 logger.info(STAFConstant.DASH);
                                 method.invoke(obz);
                                 endTime = System.currentTimeMillis();
