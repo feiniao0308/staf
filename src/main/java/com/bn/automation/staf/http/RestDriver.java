@@ -194,6 +194,19 @@ public class RestDriver implements WSDriver {
     }
 
     @Override
+    public void setParameterPost(String key, String value){
+        if(this.getHttpPost() == null ){
+            this.setHttpPost(new HttpPost(this.getUri()));
+        }
+        //ArrayList<NameValuePair> nvp = new ArrayList<NameValuePair>(1);
+        this.getParameterMap().add(new BasicNameValuePair(key, value));
+        //nvp.add(new BasicNameValuePair(key, value));
+        logger.info("Set Parameter: " + key + "->" + value);
+        //this.getHttpPost().setEntity(new UrlEncodedFormEntity(this.getParameterMap(), Consts.UTF_8));
+
+    }
+
+    @Override
     public void setData(String dataPath) {
         new FileUtil().createData(dataPath);
 
@@ -294,6 +307,7 @@ public class RestDriver implements WSDriver {
         return uri;
     }
 
+    @Override
     public void setUri(URI uri) {
         this.uri = uri;
     }

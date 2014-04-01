@@ -10,24 +10,27 @@ import java.net.URI;
  */
 public interface WSDriver{
 
-    public void connect();
+    void connect();
 
-    public void doPost(URI uri);
+    void doPost(URI uri);
 
-    public void doPost(URI uri,IDataContainer parameters);
+    void doPost(URI uri,IDataContainer parameters);
 
-    public void doPost(IDataContainer parameters);
+    void doPost(IDataContainer parameters);
 
-    public void setParameters(RestDriver driver, IDataContainer parameters);
+    void setParameters(RestDriver driver, IDataContainer parameters);
 
-    public void setParmameters(String key, String value);
+    void setParmameters(String key, String value);
 
-    public void setData(String dataPath);
+    void setParameterPost(String key, String value);
 
-    public XML getData();
+    void setData(String dataPath);
 
-    public void close();
+    XML getData();
 
-    public void autoAssert(IDataContainer containerName);
+    void close();
 
+    void autoAssert(IDataContainer containerName);
+
+    void setUri(URI uri);
 }
