@@ -47,7 +47,7 @@ public class RestDriver implements WSDriver {
     private URI uri;
     private int responseCode;
     private ArrayList<NameValuePair> parameterMap = new ArrayList<NameValuePair>(1);
-    private static final Logger logger = LogManager.getLogger(RestManager.class);
+    private static final Logger logger = LogManager.getLogger(RestDriver.class);
 
     @Override
     public void connect() {

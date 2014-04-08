@@ -6,14 +6,10 @@ import com.bn.automation.staf.util.FileUtil;
 import com.bn.automation.staf.util.IDataContainer;
 import com.bn.automation.staf.util.XML;
 import com.bn.automation.staf.util.XMLReader;
-import com.bn.automation.staf.widget.Label;
 import com.bn.automation.staf.widget.TextBox;
 import com.bn.automation.staf.widget.Widgets;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.jdom2.Document;
-import org.jdom2.JDOMException;
-import org.jdom2.input.SAXBuilder;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -23,14 +19,11 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.safari.SafariDriver;
 
-import java.io.File;
-import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 public class STAFDriver extends Driver {
 
@@ -204,7 +197,7 @@ public class STAFDriver extends Driver {
         return wd;
     }
 
-    private static void setWd(WebDriver wd) {
+    public static void setWd(WebDriver wd) {
         STAFDriver.wd = wd;
     }
 
