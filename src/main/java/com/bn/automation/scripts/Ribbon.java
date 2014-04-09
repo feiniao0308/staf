@@ -2,10 +2,10 @@ package com.bn.automation.scripts;
 
 import com.bn.automation.staf.anno.STAFScript;
 import com.bn.automation.staf.anno.Test;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.jdom2.Document;
 import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
@@ -48,10 +48,12 @@ public class Ribbon {
             FileInputStream file = new FileInputStream(new File("CO.xlsx"));
 
             //Create Workbook instance holding reference to .xlsx file
-            XSSFWorkbook workbook = new XSSFWorkbook(file);
+            HSSFWorkbook workbook = new HSSFWorkbook(file);
+            //XSSFWorkbook workbook = new XSSFWorkbook(file);
 
             //Get first/desired sheet from the workbook
-            XSSFSheet sheet = workbook.getSheetAt(0);
+            HSSFSheet sheet = workbook.getSheetAt(0);
+            //XSSFSheet sheet = workbook.getSheetAt(0);
 
             //Iterate through each rows one by one
             Iterator<Row> rowIterator = sheet.iterator();
