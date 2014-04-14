@@ -45,10 +45,12 @@ public class Ribbon {
 
         try
         {
-            FileInputStream file = new FileInputStream(new File("CO.xlsx"));
+            FileInputStream file = new FileInputStream(new File("CO.xls"));
+            System.out.println("file = " + file);
 
             //Create Workbook instance holding reference to .xlsx file
             HSSFWorkbook workbook = new HSSFWorkbook(file);
+
             //XSSFWorkbook workbook = new XSSFWorkbook(file);
 
             //Get first/desired sheet from the workbook
@@ -93,6 +95,7 @@ public class Ribbon {
         HttpPost post = new HttpPost("http://tqaevfng01.bnqa.bn-dev.com:8080/RibbonService/sendMessage/ATG/atg.customer_order");
         String xml = value;
         HttpEntity entity = null;
+
         try {
             entity = new ByteArrayEntity(xml.getBytes("UTF-8"));
         } catch (UnsupportedEncodingException e) {

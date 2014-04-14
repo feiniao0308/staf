@@ -21,5 +21,16 @@ public class Button extends STAFElement implements IButton {
 		
 		
 	}
+
+    public WebElement waitBeforeGetButton(){
+        return waitAndGetStafElement();
+    }
+
+    @Override
+    public void click(){
+        System.out.println("inside click of button class");
+
+        waitBeforeGetButton().click();
+    }
 	
 }

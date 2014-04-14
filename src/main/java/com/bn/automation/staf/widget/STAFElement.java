@@ -33,6 +33,12 @@ public class STAFElement extends WidgetInfo implements STAFiElement {
 
     }
 
+    public WebElement waitAndGetStafElement() {
+        logger.trace("by->" + getByElement());
+        return getStafManager().waitAndFindElement(getByElement());
+
+    }
+
     public By getByElement() {
         switch (getPropertyName()) {
             case STAFConstant.BY_ID:

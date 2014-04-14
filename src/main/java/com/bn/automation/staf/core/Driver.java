@@ -1,16 +1,16 @@
 package com.bn.automation.staf.core;
 
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Set;
-
+import com.bn.automation.staf.util.XML;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
-import com.bn.automation.staf.util.XML;
+import java.util.List;
+import java.util.Set;
 
 public class Driver implements STAFiDriver {
 
@@ -48,6 +48,14 @@ public class Driver implements STAFiDriver {
 		logger.debug("Find WebElement from this instance of driver using : " + by);
 		return logger.exit(getThisWDriver().findElement(by));
 	}
+
+    public WebElement waitAndFindElement(By by){
+        logger.entry();
+        logger.debug("Find WebElement from this instance of driver using : " + by);
+        WebDriverWait wait = new WebDriverWait(getThisWDriver(), 30);
+        wait.until(ExpectedConditions.presenceOfElementLocated(by));
+        return logger.exit(getThisWDriver().findElement(by));
+    }
 
 	@Override
 	public List<WebElement> findElements(By by) {

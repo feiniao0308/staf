@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<root>
+
+<datacontainer name="nameInfo" value="4">
+	<field name="fName" value="Rajani" />
+	<field name="lName" value="K" /> 
+</datacontainer>
+
+<datacontainer name="searchScreen" value="4">
+	<field name="searchField" value="Create Order" />
+</datacontainer>
+
+<datacontainer name="searchInput" value="4">
+	<field name="searchItemField" value="9781616856281" />
+</datacontainer>
+
+<datacontainer name="shipAddress" value="4">
+	<field name="firstName" value="Rajani" />
+	<field name="lastName" value="K" /> 
+	<field name="addrLine1" value="2300 Windy Ridge " /> 
+	<field name="city" value="Atlanta" /> 
+	<field name="zipCode" value="30339" /> 
+	<field name="phoneNum" value="2123523716" /> 
+</datacontainer>
+
+<datacontainer name="amexCard" value="4">
+	<field name="cardNum" value="341134113411347" />
+	<field name="secCode" value="1234" /> 
+</datacontainer>
+
+
+</root>
