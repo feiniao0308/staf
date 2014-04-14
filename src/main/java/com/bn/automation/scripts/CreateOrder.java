@@ -71,42 +71,17 @@ public class CreateOrder {
         
         EomScreen.EomScreenWidget.searchItemField.sendKeys(Keys.ENTER);
         Thread.sleep(3000);
+
         EomScreen.EomScreenWidget.searchBtn.click();
-        Thread.sleep(6000);
+        Thread.sleep(3000);
         EomScreen.EomScreenWidget.addToOrderProceed.click();
-
-       /* Wait wait = new WebDriverWait(driver.getWd(), 30);
-
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.id("dataForm:createCustomerOrderNextButton")));*/
-        /*wait.until(new ExpectedCondition<Boolean>() {
-
-
-            @Override
-            public Boolean apply(WebDriver webDriver) {
-                System.out.println("waiting...");
-                JavascriptExecutor executor = (JavascriptExecutor) driver.getWd();
-                boolean state = executor.executeScript("return document.readyState").equals("complete");
-                System.out.println("state = " + state);
-                return state;
-            }
-        });
-*/
-
-        /*wait.until(new ExpectedCondition<Boolean>() {
-
-
-            @Override
-            public Boolean apply(WebDriver webDriver) {
-                return (JavaScriptExecutor)driver.getWd()).executeS("return document.readyState").Equals("complete");
-            }
-        }driver.getWd()).ExecuteScript("return document.readyState").Equals("complete"));
-
-        wait.Until(driver1 => ((IJavaScriptExecutor)driver).ExecuteScript("return document.readyState").Equals("complete"));*/
-        //Thread.sleep(25000);
-
+        Thread.sleep(3000);
         EomScreen.EomScreenWidget.nextBtn.click();
-        Thread.sleep(25000);
+        Thread.sleep(3000);
         EomScreen.EomScreenWidget.nextBtnPromo.click();
+
+
+
         Thread.sleep(25000);
         EomScreen.EomScreenWidget.addShipAddrBtn.click();
         Thread.sleep(5000);

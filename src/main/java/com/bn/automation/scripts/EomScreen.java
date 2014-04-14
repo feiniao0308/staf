@@ -26,8 +26,8 @@ public class EomScreen {
 		
 		public static Label addItem = new Label("id=dataForm:addItemBtn2");
 		public static Button nextBtn = new Button("id=dataForm:createCustomerOrderNextButton");
-		public static Label addToOrderProceed = new Label("id=dataForm:SICCO_footer_btn_addItemProceedToOrderDetails");
-		public static Label nextBtnPromo = new Label("id=dataForm:coPromotionDetailsStepFooterNextButton");
+		public static Button addToOrderProceed = new Button("id=dataForm:SICCO_footer_btn_addItemProceedToOrderDetails");
+		public static Button nextBtnPromo = new Button("id=dataForm:coPromotionDetailsStepFooterNextButton");
 		public static Label nextBtnShipAddr = new Label("id=dataForm:coShippingInfoFooterNextButton");
 		
 		public static Label addShipAddrBtn = new Label("id=dataForm:coLineShipToAddressAddButton");
