@@ -18,6 +18,10 @@ public interface WSDriver{
 
     void doPost(IDataContainer parameters);
 
+    void doPostWithXml(URI uri, String xmlPath, IDataContainer parameters);
+
+    void doPostWithXml(URI uri, String xmlPath);
+
     void setParameters(RestDriver driver, IDataContainer parameters);
 
     void setParmameters(String key, String value);
