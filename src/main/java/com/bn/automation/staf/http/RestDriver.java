@@ -147,6 +147,7 @@ public class RestDriver implements WSDriver {
             SAXBuilder builder = new SAXBuilder();
             Document doc = (Document) builder.build(inputStream);
             Map<String,String> paraMap = parameters.get();
+
             xmlMani.updateXML(paraMap,doc);
             String xmlString = new XMLOutputter().outputString(doc);
             HttpPost post = new HttpPost(uri);
