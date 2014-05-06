@@ -167,6 +167,32 @@ public class RestDriver implements WSDriver {
     }
 
     @Override
+    public void doPostWithXml(URI uri, String xmlPath, Map<String,String> parameters) {
+        try {
+            InputStream inputStream = getClass().getClassLoader().getResourceAsStream(xmlPath);
+            SAXBuilder builder = new SAXBuilder();
+            Document doc = (Document) builder.build(inputStream);
+            Map<String,String> paraMap = parameters;
+
+            xmlMani.updateXML(paraMap,doc);
+            String xmlString = new XMLOutputter().outputString(doc);
+            HttpPost post = new HttpPost(uri);
+            HttpEntity entity = new ByteArrayEntity(xmlString.getBytes("UTF-8"));
+            post.setEntity(entity);
+            HttpResponse response = getHttpclient().execute(post);
+            String result = EntityUtils.toString(response.getEntity());
+            logger.info("Response:\n" + result);
+
+
+
+        } catch (JDOMException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
     public void doPostWithXml(URI uri, String xmlPath) {
         try {
             InputStream inputStream = getClass().getClassLoader().getResourceAsStream(xmlPath);

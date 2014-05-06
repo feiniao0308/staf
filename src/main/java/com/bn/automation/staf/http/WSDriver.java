@@ -4,6 +4,7 @@ import com.bn.automation.staf.util.IDataContainer;
 import com.bn.automation.staf.util.XML;
 
 import java.net.URI;
+import java.util.Map;
 
 /**
  * Created by fdkzv on 3/28/14.
@@ -19,6 +20,8 @@ public interface WSDriver{
     void doPost(IDataContainer parameters);
 
     void doPostWithXml(URI uri, String xmlPath, IDataContainer parameters);
+
+    void doPostWithXml(URI uri, String xmlPath, Map<String, String> parameters);
 
     void doPostWithXml(URI uri, String xmlPath);
 
