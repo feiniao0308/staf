@@ -26,12 +26,13 @@ public class OracleDriver implements DBDriver {
     private ResultSet resultSet;
 
     @Override
-    public void connect() {
+    public void connect(String hostname, String port, String serviceName, String username, String password) {
         try {
             Class.forName("oracle.jdbc.driver.OracleDriver");
-            setDbConnection("jdbc:oracle:thin:@qwecddb:1521:ECOMQ");
-            setDbUser("QAREVID");
-            setDbPassword("DiverQA");
+            String connection = hostname+":"+port+":"+serviceName;
+            setDbConnection("jdbc:oracle:thin:@"+connection);
+            setDbUser(username);
+            setDbPassword(password);
             setConnection(DriverManager.getConnection(getDbConnection(), getDbUser(), getDbPassword()));
             logger.info("Connected with DB");
         } catch (ClassNotFoundException e) {

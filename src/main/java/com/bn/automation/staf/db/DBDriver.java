@@ -8,7 +8,8 @@ import com.bn.automation.staf.util.XML;
  */
 public interface DBDriver {
 
-    void connect();
+
+    void connect(String hostname, String port, String serviceName, String username, String password);
 
     void doQuery(String sql);
 

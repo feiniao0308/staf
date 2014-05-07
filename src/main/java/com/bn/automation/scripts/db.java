@@ -18,7 +18,7 @@ public class db {
     @BeforeMethod
     public void setup() {
         dbDriver = new OracleDriver();
-        dbDriver.connect();
+        //dbDriver.connect();
 
 
 
