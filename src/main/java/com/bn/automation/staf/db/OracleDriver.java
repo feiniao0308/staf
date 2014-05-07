@@ -29,8 +29,8 @@ public class OracleDriver implements DBDriver {
     public void connect(String hostname, String port, String serviceName, String username, String password) {
         try {
             Class.forName("oracle.jdbc.driver.OracleDriver");
-            String connection = hostname+":"+port+":"+serviceName;
-            setDbConnection("jdbc:oracle:thin:@"+connection);
+            String connection = hostname + ":" + port + ":" + serviceName;
+            setDbConnection("jdbc:oracle:thin:@" + connection);
             setDbUser(username);
             setDbPassword(password);
             setConnection(DriverManager.getConnection(getDbConnection(), getDbUser(), getDbPassword()));
@@ -60,8 +60,8 @@ public class OracleDriver implements DBDriver {
 
     @Override
     public void autoAssert(IDataContainer containerName) {
-        Map<String,String> dataMap = containerName.get();
-        new Assert().assertMap(dataMap,getResultSet());
+        Map<String, String> dataMap = containerName.get();
+        new Assert().assertMap(dataMap, getResultSet());
 
     }
 
@@ -69,10 +69,11 @@ public class OracleDriver implements DBDriver {
     public void viewQueryResult(String sql) {
         doQuery(sql);
         try {
-            while(getResultSet().next()){
-            for (int col = 1; col<getResultSet().getMetaData().getColumnCount();col++){
-                System.out.println("getResultSet().getObject(col).toString() = " + getResultSet().getObject(col).toString());
-            }
+            while (getResultSet().next()) {
+                for (int col = 1; col < getResultSet().getMetaData().getColumnCount(); col++) {
+                    if (getResultSet().getObject(col).toString() != null)
+                        System.out.println("getResultSet().getObject(col).toString() = " + getResultSet().getObject(col).toString());
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();
