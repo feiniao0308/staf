@@ -62,12 +62,28 @@ public class RestDriver implements WSDriver {
             this.setHttpPost(new HttpPost(this.getUri()));
         }
         //setHttpPost(new HttpPost(uri));
+        this.getHttpPost().setEntity(new UrlEncodedFormEntity(this.getParameterMap(), Consts.UTF_8));
         if (getHttpclient() != null && getHttpPost() != null) {
             try {
                 setHttpResponse(getHttpclient().execute(httpPost));
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        }
+
+        this.setResponseCode(this.getHttpResponse().getStatusLine().getStatusCode());
+        if (this.getResponseCode() == HttpStatus.SC_OK) {
+            logger.info("Response OK , code->" + this.getResponseCode());
+            ResponseHandler<String> responseHandler = new BasicResponseHandler();
+            try {
+                this.setResponse(responseHandler.handleResponse(this.getHttpResponse()));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            logger.info("Reponse body : \n" + this.getResponse());
+        } else {
+            logger.info("Response ERROR, code->" + this.getResponseCode());
+            logger.info("Reponse body : \n" + this.getResponse());
         }
 
     }

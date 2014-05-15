@@ -71,8 +71,10 @@ public class OracleDriver implements DBDriver {
         try {
             while (getResultSet().next()) {
                 for (int col = 1; col < getResultSet().getMetaData().getColumnCount(); col++) {
-                    if (getResultSet().getObject(col).toString() != null)
+                    if (getResultSet().getObject(col) !=  null){
                         System.out.println("getResultSet().getObject(col).toString() = " + getResultSet().getObject(col).toString());
+                    }
+
                 }
             }
         } catch (SQLException e) {
