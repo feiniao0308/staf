@@ -14,6 +14,10 @@ public class STAFConstant {
 	public static final String BY_XPATH = "xpath";
 	public static final String BY_CLASS_NAME = "classname";
 	public static final String BY_TAG_NAME = "tagname";
+    public static final String BY_LINK = "link";
+    public static final String BY_PARTIAL_LINK = "partiallink";
+
+
 	
 	public static final String NULL = "null";
 	public static final String BROWSER_NAME_KEY = "browser_name";
