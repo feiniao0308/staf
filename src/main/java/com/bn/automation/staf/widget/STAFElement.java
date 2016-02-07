@@ -73,18 +73,21 @@ public class STAFElement extends WidgetInfo implements STAFiElement {
                 //		By.tagName(getPropertyValue()));
                 logger.debug("Element is identified with type :"
                         + getPropertyName() + " and value :" + getPropertyValue());
+                break;
             case STAFConstant.BY_LINK:
                 by = By.linkText(getPropertyValue());
                 //element = getStafManager().findElement(
                 //		By.tagName(getPropertyValue()));
                 logger.debug("Element is identified with type :"
                         + getPropertyName() + " and value :" + getPropertyValue());
+                break;
             case STAFConstant.BY_PARTIAL_LINK:
                 by = By.partialLinkText(getPropertyValue());
                 //element = getStafManager().findElement(
                 //		By.tagName(getPropertyValue()));
                 logger.debug("Element is identified with type :"
                         + getPropertyName() + " and value :" + getPropertyValue());
+                break;
             case "other2":
             default:
                 throw new IllegalArgumentException("Invalid by type : "

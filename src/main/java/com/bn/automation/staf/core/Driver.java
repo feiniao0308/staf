@@ -53,7 +53,8 @@ public class Driver implements STAFiDriver {
         logger.entry();
         logger.debug("Find WebElement from this instance of driver using : " + by);
         WebDriverWait wait = new WebDriverWait(getThisWDriver(), 30);
-        wait.until(ExpectedConditions.presenceOfElementLocated(by));
+        //wait.until(ExpectedConditions.elementToBeClickable(by));
+        wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(by));
         return logger.exit(getThisWDriver().findElement(by));
     }
 
